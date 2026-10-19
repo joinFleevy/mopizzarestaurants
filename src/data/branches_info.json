@@ -1,0 +1,47 @@
+[
+  {
+    "id": "oran",
+    "name": "Oran (Akid Lotfi)",
+    "mapsUrl": "https://maps.app.goo.gl/fCbcj1o4Yo66bfkb7",
+    "phone": "0540 03 88 10",
+    "city": "Oran",
+    "lat": 35.7257903,
+    "lng": -0.5886305
+  },
+  {
+    "id": "batna",
+    "name": "Batna (Center)",
+    "mapsUrl": "https://maps.app.goo.gl/3CQpeQ3qAHKJPJbf7",
+    "phone": "0551 24 34 97",
+    "city": "Batna",
+    "lat": 35.5443265,
+    "lng": 6.164932
+  },
+  {
+    "id": "kouba",
+    "name": "Algiers (Kouba)",
+    "mapsUrl": "https://maps.app.goo.gl/vhyQyZLHWXJByoR68",
+    "phone": "0552 55 41 40",
+    "city": "Algiers",
+    "lat": 36.7289282,
+    "lng": 3.0804309
+  },
+  {
+    "id": "sidiyahia",
+    "name": "Algiers (Sidi Yahia)",
+    "mapsUrl": "https://maps.app.goo.gl/nnY2vBL81Z1qrM8i6",
+    "phone": "0776 12 68 63",
+    "city": "Algiers",
+    "lat": 36.7388865,
+    "lng": 3.0337608
+  },
+  {
+    "id": "mostaganem",
+    "name": "Mostaganem (Salamandre)",
+    "mapsUrl": "https://maps.app.goo.gl/V1HB83UytA9qdd6WA",
+    "phone": "0542 26 81 41",
+    "city": "Mostaganem",
+    "lat": 35.9149316,
+    "lng": 0.0586338
+  }
+]

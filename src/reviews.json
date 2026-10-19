@@ -1,0 +1,137 @@
+{
+  "Kouba": [
+    {
+      "author": "rania chergui",
+      "rating": 5,
+      "text": "Punozzo exceptionnel et personnel très accueillant. Super expérience !\nCuisine : 5\nService : 5\nAmbiance : 5"
+    },
+    {
+      "author": "faycal faycal",
+      "rating": 5,
+      "text": "c'est bon coin pour déguster mais pour des grand mangeur comme moi :) il fallait compléter avec une autre commande"
+    },
+    {
+      "author": "fares berkan",
+      "rating": 5,
+      "text": "10/10 👌\nCuisine : 5\nService : 5\nAmbiance : 5"
+    },
+    {
+      "author": "Charef Raouf",
+      "rating": 5,
+      "text": "Merci beaucoup pour l’accueil tres professionnel\nCuisine : 5\nService : 5\nAmbiance : 5"
+    },
+    {
+      "author": "imed bendjemila",
+      "rating": 5,
+      "text": "Franchement, une des meilleures pizzas que j’ai goûtées à Alger.\nQualité au top, prix raisonnable, fromage original et généreux\nLa pâte est incroyable, légère et super bonne, incomparable avec beaucoup d’autres pizzas ici.\n\nTout était excellent du début à la fin, on sent la vraie qualité et le sérieux dans la préparation.\nPersonnellement j’ai vraiment adoré, je recommande fortement\nType de commande\nRepas sur place\nType de repas\nDéjeuner\nPrix par personne\n1 000–2 000 DZD\nCuisine : 5\nService : 5\nAmbiance : 5\nTemps d’attente\n10 min maximum\nPlace de parking\nIl est facile de se garer\nAdapté aux enfants\nOuii"
+    },
+    {
+      "author": "راحيم بوادي",
+      "rating": 5,
+      "text": "Cuisine : 5\nService : 5\nAmbiance : 5"
+    },
+    {
+      "author": "Ninou Nino",
+      "rating": 5,
+      "text": "je recomande  pizza trop bonne, service rapide , j'ai passé au hasard , et j'ai aimé\nCuisine : 5\nService : 5\nAmbiance : 5"
+    },
+    {
+      "author": "Berkani Djaffar",
+      "rating": 5,
+      "text": "Endroit très calme mais les prix sont un peu cher programme mega pizza qui dépasse les 3000 dinars c'est cher\nCuisine : 4\nService : 4\nAmbiance : 5"
+    },
+    {
+      "author": "Hania Goumidi",
+      "rating": 5,
+      "text": "J'ai adoré accueil , pizza oranaise délicieuses un panozzo parfait rien à dire.\nLes enfants étaient très contents.\nCuisine : 5\nService : 5\nAmbiance : 5"
+    },
+    {
+      "author": "Rym ASMR",
+      "rating": 5,
+      "text": "Je recommande vivement cette pizza, délicieuse avec une pâte légère et une garniture généreuse et crémeuse\nCuisine : 5\nService : 5"
+    },
+    {
+      "author": "Smail Lakrouz",
+      "rating": 5,
+      "text": "Bien\nType de commande\nÀ emporter\nType de repas\nDîner\nCuisine : 5"
+    }
+  ],
+  "SidiYahia": [
+    {
+      "author": "sidali hasnaoui",
+      "text": "Une fois, j'ai eu de la chance, une autre fois, ils ont oublié 😁 …",
+      "rating": 5
+    },
+    {
+      "author": "KABECHE Athmane",
+      "text": "Franchement déçu… La pizza était mal cuite, la pâte trop dure et les ingrédients n’étaient pas frais. Le goût n’était vraiment pas au rendez-vous. Pour le prix payé, je m’attendais à beaucoup mieux. Je ne recommande pas.",
+      "rating": null
+    },
+    {
+      "author": "Zahouani Mohamed Abderrahman",
+      "text": "Endroit propre avec un personnel très agréable. Nous avons seulement goûté la pizza et elle était excellente, comme il se doit.",
+      "rating": 4
+    },
+    {
+      "author": "ANIS DERICHE",
+      "text": "Excellent service 🤩\nExcellente qualité 🤩\n(Je recommande) …",
+      "rating": 5
+    }
+  ],
+  "Mostaganem": [
+    {
+      "author": "nesrine bouziane",
+      "text": "Catastrophe",
+      "rating": null
+    },
+    {
+      "author": "Naim Abdennour Safi",
+      "text": "Très propre et délicieux\nAccueil chaleureux\nVous allez vous régaler",
+      "rating": 5
+    },
+    {
+      "author": "Riyad OULD ABDALLAH",
+      "text": "Temps d’attente interminable…",
+      "rating": null
+    },
+    {
+      "author": "Morsli Abdelkader",
+      "text": "Le service client est déplorable, sans parler des prix, surtout vu la nourriture infecte qu'ils servent. J'ai eu de sérieux problèmes d'estomac. Je m'attendais à mieux. Le seul point positif, c'est le décor et l'ambiance.",
+      "rating": null
+    },
+    {
+      "author": "ناصر مهال",
+      "text": "La nourriture ne ressemblait pas aux photos TikTok ; ils nous ont trompés et arnaqués, mais le service était plutôt bon.",
+      "rating": null
+    }
+  ],
+  "Oran": [
+    {
+      "author": "Zahra Debiche",
+      "text": "Meilleure qualité Meilleure pizza a oran pour moi",
+      "rating": 5
+    },
+    {
+      "author": "ROMAN SOLDIER",
+      "text": "Les pizzas étaient excellentes, l'intérieur un peu moins, mais l'ambiance était agréable grâce à l'odeur de pizza. En résumé, n'achetez pas de pizzas si vous mangez sur place, mais seulement à emporter.",
+      "rating": 4
+    },
+    {
+      "author": "Abdallah Benmoussa",
+      "text": "Excellente cuisine, attente courte.\n\nExcellente expérience.",
+      "rating": 4
+    }
+  ],
+  "Batna": [
+    {
+      "author": "assala mihoubi",
+      "text": "La nourriture était délicieuse ! La pizza et le panozzo étaient un vrai régal ! La pâte était légère et croustillante. Le seul point négatif, c'est le service : il est très lent.",
+      "rating": 4
+    },
+    {
+      "author": "Salim Chouchane",
+      "text": "On a commandé un ponnozzo Tandouri mais il n’a aucun rapport avec Tandoori c’est catastrophique 🤮🤮🤮 …",
+      "rating": null
+    }
+  ]
+}

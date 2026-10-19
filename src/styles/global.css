@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+body {
+  @apply antialiased overflow-x-hidden;
+}
+
+/* Custom scrollbar for webkit to match the neo-brutalist vibe */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #FDFDFD;
+  border-left: 2px solid #090909;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF5A00;
+  border: 2px solid #090909;
+}

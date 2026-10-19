@@ -1,0 +1,37 @@
+[
+  {
+    "id": "oran",
+    "name": "Oran (Akid Lotfi)",
+    "mapsUrl": "https://maps.app.goo.gl/fCbcj1o4Yo66bfkb7",
+    "phone": "+213 552 55 41 40",
+    "city": "Oran"
+  },
+  {
+    "id": "batna",
+    "name": "Batna (Center)",
+    "mapsUrl": "https://maps.app.goo.gl/3CQpeQ3qAHKJPJbf7",
+    "phone": "+213 552 55 41 40",
+    "city": "Batna"
+  },
+  {
+    "id": "kouba",
+    "name": "Algiers (Kouba)",
+    "mapsUrl": "https://maps.app.goo.gl/vhyQyZLHWXJByoR68",
+    "phone": "+213 552 55 41 40",
+    "city": "Algiers"
+  },
+  {
+    "id": "sidiyahia",
+    "name": "Algiers (Sidi Yahia)",
+    "mapsUrl": "https://maps.app.goo.gl/nnY2vBL81Z1qrM8i6",
+    "phone": "+213 552 55 41 40",
+    "city": "Algiers"
+  },
+  {
+    "id": "mostaganem",
+    "name": "Mostaganem (Salamandre)",
+    "mapsUrl": "https://maps.app.goo.gl/V1HB83UytA9qdd6WA",
+    "phone": "+213 552 55 41 40",
+    "city": "Mostaganem"
+  }
+]

@@ -1,0 +1,22 @@
+---
+import '../components/index.css';
+import App from '../components/App.jsx';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="preload" href="/images/logo_hq.svg" as="image" type="image/svg+xml" fetchpriority="high" />
+    <meta name="description" content="MO PIZZA — The official pizza of Morad Oudia. Algeria's #1 Slice. 100% Fresh. 100% Hype." />
+    <meta name="generator" content={Astro.generator} />
+    <title>MO PIZZA | Algeria's #1 Slice</title>
+  </head>
+  <body>
+    <App client:load />
+  </body>
+</html>
