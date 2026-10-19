@@ -11,15 +11,6 @@ export const MenuSection = ({ onSelectItem }) => {
   const isRtl = lang === 'ar';
   const t = locales[lang].menu;
 
-  const chunkArray = (arr, size) => {
-    return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-      arr.slice(i * size, i * size + size)
-    );
-  };
-
-  const standardPages = chunkArray(menuData.standard, 4);
-  const vipPages = chunkArray(menuData.vip, 4);
-
   return (
     <section
       id="menu"
@@ -60,21 +51,18 @@ export const MenuSection = ({ onSelectItem }) => {
 
           {/* Mobile Swipe Container (<md) */}
           <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 hide-scrollbar -mx-4 px-4">
-            {standardPages.map((pageItems, pageIdx) => (
+            {menuData.standard.map((item) => (
               <div
-                key={pageIdx}
-                className="flex-shrink-0 snap-center w-[88vw] grid grid-cols-1 gap-4"
+                key={item.id}
+                className="flex-shrink-0 snap-center w-[82vw] max-w-[340px]"
               >
-                {pageItems.map((item) => (
-                  <MenuItem
-                    key={item.id}
-                    item={item}
-                    isVip={false}
-                    t={t}
-                    isRtl={isRtl}
-                    onSelect={onSelectItem}
-                  />
-                ))}
+                <MenuItem
+                  item={item}
+                  isVip={false}
+                  t={t}
+                  isRtl={isRtl}
+                  onSelect={onSelectItem}
+                />
               </div>
             ))}
           </div>
@@ -122,21 +110,18 @@ export const MenuSection = ({ onSelectItem }) => {
 
           {/* Mobile Swipe Container for VIP (<md) */}
           <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 hide-scrollbar -mx-4 px-4 relative z-10">
-            {vipPages.map((pageItems, pageIdx) => (
+            {menuData.vip.map((item) => (
               <div
-                key={pageIdx}
-                className="flex-shrink-0 snap-center w-[88vw] grid grid-cols-1 gap-4"
+                key={item.id}
+                className="flex-shrink-0 snap-center w-[82vw] max-w-[340px]"
               >
-                {pageItems.map((item) => (
-                  <MenuItem
-                    key={item.id}
-                    item={item}
-                    isVip={true}
-                    t={t}
-                    isRtl={isRtl}
-                    onSelect={onSelectItem}
-                  />
-                ))}
+                <MenuItem
+                  item={item}
+                  isVip={true}
+                  t={t}
+                  isRtl={isRtl}
+                  onSelect={onSelectItem}
+                />
               </div>
             ))}
           </div>

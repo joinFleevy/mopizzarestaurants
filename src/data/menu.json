@@ -1,25 +1,25 @@
 {
   "standard": [
-    { "id": "margarita", "name": "MARGARITA", "price": "450 DA", "desc": "Sauce Tomate, Mozzarella, Cheddar." },
-    { "id": "vegetariena", "name": "VEGETARIENA", "price": "600 DA", "desc": "Sauce tomate, Mozzarella, Cheddar, Onions, Poivrons, Aubergine, champignons." },
-    { "id": "napolitana", "name": "NAPOLITANA", "price": "600 DA", "desc": "Sauce Tomate, Mozzarella, Anchois, Capres." },
-    { "id": "thon", "name": "THON", "price": "700 DA", "desc": "Sauce Tomate, Thon, Mozzarella, Cheddar." },
-    { "id": "champignon_paris", "name": "CHAMPIGNON PARIS", "price": "700 DA", "desc": "Créme Fraiche, Mozzarella, Champignon Frais, Cheddar." },
-    { "id": "oranaise", "name": "ORANAISE", "price": "750 DA", "desc": "Sauce Tomate, Mozzarella, Cheddar, Merguez, Champignons, Poivrons." },
-    { "id": "chili", "name": "CHILI", "price": "800 DA", "desc": "Sauce Mexicaine, Mozzarella, Cheddar, Poulet, Poivrons, onion." },
-    { "id": "poulet_tandori", "name": "POULET TANDORI", "price": "800 DA", "desc": "Créme Fraiche, Poulet, Mozzarella, Epices Poulet, Tandoori, Cheddar." },
-    { "id": "forestiere", "name": "FORESTIERE", "price": "800 DA", "desc": "Créme Fraiche, Poulet, Champignons, Poivron, Mozzarella, Cheddar." },
-    { "id": "poulet_fume", "name": "POULET FUME", "price": "800 DA", "desc": "Créme Fraiche, Poulet Fumé a la Braise, Mozzarella, Cheddar." },
-    { "id": "viande_roquefort", "name": "Viande Roquefort Creme", "price": "850 DA", "desc": "Roquefort, Mozzarella, Cheddar, Viande Fraiche." },
-    { "id": "fumato", "name": "Fumato", "price": "900 DA", "desc": "Sauce Tomate, Mozzarella, Viande Fumée, Cheddar." },
-    { "id": "poulet_roquefort", "name": "POULET ROQUEFORT", "price": "900 DA", "desc": "Créme Roquefort, Poulet Mozzarella, Cheddar." },
-    { "id": "chicken_meat", "name": "CHICKEN-MEAT", "price": "900 DA", "desc": "Sauce Tomate, Poulet, Viande, Mozzarella, Poivron, Cheddar." },
-    { "id": "funghi_meat", "name": "FUNGHI-MEAT", "price": "900 DA", "desc": "Sauce Tomate, Viande, Champignons, Mozzarella, Poivron, Cheddar." }
+    { "id": "margarita", "name": "MARGARITA", "price": "450 DA", "desc": "Sauce Tomate, Mozzarella, Cheddar.", "image": "/images/menu/margarita.webp" },
+    { "id": "vegetariena", "name": "VEGETARIENA", "price": "600 DA", "desc": "Sauce tomate, Mozzarella, Cheddar, Onions, Poivrons, Aubergine, champignons.", "image": "/images/menu/vegetariena.webp" },
+    { "id": "napolitana", "name": "NAPOLITANA", "price": "600 DA", "desc": "Sauce Tomate, Mozzarella, Anchois, Capres.", "image": "/images/menu/mediterranean.webp" },
+    { "id": "thon", "name": "THON", "price": "700 DA", "desc": "Sauce Tomate, Thon, Mozzarella, Cheddar.", "image": "/images/menu/thon.webp" },
+    { "id": "champignon_paris", "name": "CHAMPIGNON PARIS", "price": "700 DA", "desc": "Créme Fraiche, Mozzarella, Champignon Frais, Cheddar.", "image": "/images/menu/champignon.webp" },
+    { "id": "oranaise", "name": "ORANAISE", "price": "750 DA", "desc": "Sauce Tomate, Mozzarella, Cheddar, Merguez, Champignons, Poivrons.", "image": "/images/menu/oranaise.webp" },
+    { "id": "chili", "name": "CHILI", "price": "800 DA", "desc": "Sauce Mexicaine, Mozzarella, Cheddar, Poulet, Poivrons, onion.", "image": "/images/menu/chili.webp" },
+    { "id": "poulet_tandori", "name": "POULET TANDORI", "price": "800 DA", "desc": "Créme Fraiche, Poulet, Mozzarella, Epices Poulet, Tandoori, Cheddar.", "image": "/images/menu/cheese_pull.webp" },
+    { "id": "forestiere", "name": "FORESTIERE", "price": "800 DA", "desc": "Créme Fraiche, Poulet, Champignons, Poivron, Mozzarella, Cheddar.", "image": "/images/menu/champignon.webp" },
+    { "id": "poulet_fume", "name": "POULET FUME", "price": "800 DA", "desc": "Créme Fraiche, Poulet Fumé a la Braise, Mozzarella, Cheddar.", "image": "/images/menu/cheese_pull.webp" },
+    { "id": "viande_roquefort", "name": "Viande Roquefort Creme", "price": "850 DA", "desc": "Roquefort, Mozzarella, Cheddar, Viande Fraiche.", "image": "/images/menu/meat_lovers.webp" },
+    { "id": "fumato", "name": "Fumato", "price": "900 DA", "desc": "Sauce Tomate, Mozzarella, Viande Fumée, Cheddar.", "image": "/images/menu/saumon_fume.webp" },
+    { "id": "poulet_roquefort", "name": "POULET ROQUEFORT", "price": "900 DA", "desc": "Créme Roquefort, Poulet Mozzarella, Cheddar.", "image": "/images/menu/cheese_pull.webp" },
+    { "id": "chicken_meat", "name": "CHICKEN-MEAT", "price": "900 DA", "desc": "Sauce Tomate, Poulet, Viande, Mozzarella, Poivron, Cheddar.", "image": "/images/menu/oranaise.webp" },
+    { "id": "funghi_meat", "name": "FUNGHI-MEAT", "price": "900 DA", "desc": "Sauce Tomate, Viande, Champignons, Mozzarella, Poivron, Cheddar.", "image": "/images/menu/chili.webp" }
   ],
   "vip": [
-    { "id": "quattro_fromagi", "name": "QUATTRO FROMAGI", "price": "1200 DA", "desc": "Créme roquefort, Mozzarella, Cheddar, Gruyére, Parmesan." },
-    { "id": "saumon_fume", "name": "SAUMON FUME", "price": "1400 DA", "desc": "Créme Fraiche, Saumon Fumé, Mozzarella, Cheddar." },
-    { "id": "fruits_di_mare", "name": "FRUITS DI MARE", "price": "1500 DA", "desc": "Sauce Tomate, Mozzarella, Crevettes, Fruits Saisonnières, Cheddar." },
-    { "id": "mo_pizza", "name": "MO PIZZA", "price": "1600 DA", "desc": "Sauce Tomate, Créme Roquefort, Viande, Poulet Fumé, Crevettes, Thon, Mozzarella, Cheddar." }
+    { "id": "quattro_fromagi", "name": "QUATTRO FROMAGI", "price": "1200 DA", "desc": "Créme roquefort, Mozzarella, Cheddar, Gruyére, Parmesan.", "image": "/images/menu/quattro_fromagi.webp" },
+    { "id": "saumon_fume", "name": "SAUMON FUME", "price": "1400 DA", "desc": "Créme Fraiche, Saumon Fumé, Mozzarella, Cheddar.", "image": "/images/menu/mediterranean.webp" },
+    { "id": "fruits_di_mare", "name": "FRUITS DI MARE", "price": "1500 DA", "desc": "Sauce Tomate, Mozzarella, Crevettes, Fruits Saisonnières, Cheddar.", "image": "/images/menu/mo_pizza.webp" },
+    { "id": "mo_pizza", "name": "MO PIZZA", "price": "1600 DA", "desc": "Sauce Tomate, Créme Roquefort, Viande, Poulet Fumé, Crevettes, Thon, Mozzarella, Cheddar.", "image": "/images/menu/mo_pizza.webp" }
   ]
 }

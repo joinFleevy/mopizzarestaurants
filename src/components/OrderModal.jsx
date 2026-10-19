@@ -53,18 +53,13 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, t, isRtl }) => {
           >
             {/* Header bar */}
             <div className="flex items-start justify-between gap-4 mb-6 pb-4 border-b border-white/10">
-              <div>
+              <div className="flex-1">
                 <span className="text-[11px] font-mono uppercase tracking-widest text-mo-orange block mb-1">
                   [ DIRECT BRANCH ORDERING ]
                 </span>
                 <h2 id="modal-title" className="text-3xl sm:text-4xl font-display uppercase tracking-wider text-white">
                   {selectedItem ? selectedItem.name : (t.menu?.title || 'MO PIZZA')}
                 </h2>
-                {selectedItem && (
-                  <p className="text-sm font-mono text-mo-yellow mt-1">
-                    {selectedItem.price} — {selectedItem.desc}
-                  </p>
-                )}
               </div>
 
               <button
@@ -75,6 +70,34 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, t, isRtl }) => {
                 <X className="w-5 h-5" aria-hidden="true" />
               </button>
             </div>
+
+            {/* Selected Pizza Preview Card */}
+            {selectedItem && (
+              <div className="flex items-center gap-3.5 mb-5 p-3 bg-white/5 border border-white/10 rounded-2xl">
+                <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-[#181820]">
+                  <img
+                    src={selectedItem.image || '/images/menu/margarita.webp'}
+                    alt={selectedItem.name}
+                    className="w-full h-full object-cover"
+                    width="64"
+                    height="64"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-display uppercase text-lg text-white truncate">
+                      {selectedItem.name}
+                    </h3>
+                    <span className="font-mono text-xs font-bold text-mo-yellow px-2.5 py-0.5 rounded-full bg-mo-yellow/15 border border-mo-yellow/30 shrink-0">
+                      {selectedItem.price}
+                    </span>
+                  </div>
+                  <p className="text-xs text-white/60 line-clamp-1 mt-0.5">
+                    {selectedItem.desc}
+                  </p>
+                </div>
+              </div>
+            )}
 
             <p className="text-xs font-mono uppercase tracking-widest text-white/50 mb-4">
               {t.menu?.selectBranch || 'Select your nearest branch to call:'}

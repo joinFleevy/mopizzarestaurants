@@ -40,10 +40,10 @@ export const FoodShowcase = () => {
   const items = [
     { type: 'image', src: '/images/Best/gallery-1.webp', col: 'col-span-2 md:col-span-8', height: 'h-[220px] md:h-[500px]' },
     { type: 'video', src: '/vids/gallery_vid_1.mp4', col: 'col-span-1 md:col-span-4', height: 'h-[160px] md:h-[500px]' },
-    { type: 'image', src: '/images/Best/gallery-4.webp', col: 'col-span-1 md:col-span-4', height: 'h-[160px] md:h-[380px]' },
+    { type: 'image', src: '/images/menu/mo_pizza.webp', col: 'col-span-1 md:col-span-4', height: 'h-[160px] md:h-[380px]' },
     { type: 'image', src: '/images/Best/gallery-7.webp', col: 'col-span-2 md:col-span-4', height: 'h-[220px] md:h-[380px]' },
     { type: 'video', src: '/vids/gallery_vid_2.mp4', col: 'col-span-1 md:col-span-4', height: 'h-[160px] md:h-[380px]' },
-    { type: 'image', src: '/images/Best/gallery-9.webp', col: 'col-span-1 md:col-span-5', height: 'h-[160px] md:h-[500px]' },
+    { type: 'image', src: '/images/menu/vegetariena.webp', col: 'col-span-1 md:col-span-5', height: 'h-[160px] md:h-[500px]' },
     { type: 'video', src: '/vids/gallery_vid_4.mp4', col: 'col-span-2 md:col-span-7', height: 'h-[220px] md:h-[500px]' }
   ];
 
