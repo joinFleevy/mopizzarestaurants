@@ -1,12 +1,14 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { PhoneCall } from 'lucide-react';
+import { PhoneCall, ShoppingBag } from 'lucide-react';
 import { locales } from './locales.js';
+import { useCart } from './CartContext.jsx';
 
 export const Header = ({ lang, setLang, onOpenOrder }) => {
   const shouldReduceMotion = useReducedMotion();
   const t = locales[lang];
   const isRtl = lang === 'ar';
+  const { totalItems, totalPrice } = useCart();
 
   return (
     <motion.header
@@ -35,8 +37,19 @@ export const Header = ({ lang, setLang, onOpenOrder }) => {
           onClick={onOpenOrder}
           className="hidden sm:inline-flex items-center gap-2 bg-mo-orange text-white font-sans font-bold text-xs uppercase px-4 py-2 rounded-full hover:bg-white hover:text-black transition-all shadow-[0_0_20px_rgba(255,69,0,0.3)] active:scale-95"
         >
-          <PhoneCall className="w-3.5 h-3.5" aria-hidden="true" />
-          <span>{t.menu?.callToOrder || 'Call to Order'}</span>
+          {totalItems > 0 ? (
+            <>
+              <ShoppingBag className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>{totalItems} ({totalPrice.toLocaleString()} DA)</span>
+              <span className="opacity-40">•</span>
+              <span>{t.menu?.callToOrder || 'Call to Order'}</span>
+            </>
+          ) : (
+            <>
+              <PhoneCall className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>{t.menu?.callToOrder || 'Call to Order'}</span>
+            </>
+          )}
         </button>
 
         {/* Minimal capsule language switcher */}

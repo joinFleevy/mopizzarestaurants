@@ -1,11 +1,14 @@
 import React from 'react';
-import { PhoneCall, MapPin, Utensils } from 'lucide-react';
+import { PhoneCall, MapPin, Utensils, ShoppingBag } from 'lucide-react';
+import { useCart } from './CartContext.jsx';
 
 export const MobileActionBar = ({ onOpenOrder, t, isRtl }) => {
+  const { totalItems } = useCart();
+
   return (
     <nav
       aria-label="Mobile quick actions"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0E0E12]/90 backdrop-blur-lg border-t border-white/15 px-4 py-2.5 flex items-center justify-around gap-2.5 shadow-2xl"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0E0E12]/95 backdrop-blur-lg border-t border-white/15 px-4 py-2.5 flex items-center justify-around gap-2.5 shadow-2xl"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       {/* Scroll to Menu */}
@@ -24,10 +27,22 @@ export const MobileActionBar = ({ onOpenOrder, t, isRtl }) => {
       {/* Main Call to Order CTA */}
       <button
         onClick={onOpenOrder}
-        className="flex-[1.6] py-2.5 px-3 flex items-center justify-center gap-2 bg-mo-orange text-white rounded-xl font-sans font-black uppercase text-xs tracking-wider shadow-[0_2px_15px_rgba(255,69,0,0.4)] active:scale-95 transition-all"
+        className="relative flex-[1.6] py-2.5 px-3 flex items-center justify-center gap-2 bg-mo-orange text-white rounded-xl font-sans font-black uppercase text-xs tracking-wider shadow-[0_2px_15px_rgba(255,69,0,0.4)] active:scale-95 transition-all"
       >
-        <PhoneCall className="w-4 h-4 shrink-0 animate-pulse" aria-hidden="true" />
-        <span className="leading-tight">{t.mobileBar?.order || 'Call to Order'}</span>
+        {totalItems > 0 ? (
+          <>
+            <ShoppingBag className="w-4 h-4 shrink-0" aria-hidden="true" />
+            <span className="leading-tight">{t.mobileBar?.order || 'Call to Order'}</span>
+            <span className="bg-mo-yellow text-black text-[10px] font-mono font-black px-1.5 py-0.2 rounded-full ml-1">
+              {totalItems}
+            </span>
+          </>
+        ) : (
+          <>
+            <PhoneCall className="w-4 h-4 shrink-0 animate-pulse" aria-hidden="true" />
+            <span className="leading-tight">{t.mobileBar?.order || 'Call to Order'}</span>
+          </>
+        )}
       </button>
 
       {/* Scroll to Branches */}
