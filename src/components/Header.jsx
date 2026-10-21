@@ -23,13 +23,13 @@ export const Header = ({ lang, setLang, onOpenOrder }) => {
         href="#"
         className="flex items-center gap-2.5 sm:gap-3 group focus-visible:outline-hidden"
       >
-        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-mo-yellow border-2 border-black p-1 shadow-[2px_2px_0px_#000] group-hover:scale-105 group-hover:rotate-3 transition-transform flex items-center justify-center">
+        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-mo-orange border-2 border-black overflow-hidden shadow-[2px_2px_0px_#000] group-hover:scale-105 group-hover:rotate-3 transition-transform flex items-center justify-center shrink-0">
           <img
             src="/logo.svg"
             alt="MO PIZZA Mascot"
-            width="42"
-            height="42"
-            className="w-full h-full object-contain"
+            width="48"
+            height="48"
+            className="w-full h-full object-cover"
           />
         </div>
 

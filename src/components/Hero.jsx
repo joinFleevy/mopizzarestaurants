@@ -123,15 +123,15 @@ export const Hero = ({ onOpenOrder }) => {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             whileHover={shouldReduceMotion ? {} : { scale: 1.05, rotate: 2 }}
-            className="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-2xl p-2.5 bg-mo-yellow border-3 border-black shadow-[4px_4px_0px_#000] flex items-center justify-center overflow-hidden rotate-2"
+            className="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-2xl bg-mo-orange border-3 border-black shadow-[4px_4px_0px_#000] flex items-center justify-center overflow-hidden rotate-2"
           >
             <img
               src="/logo.svg"
               alt="Morad Oudia Official Logo"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
               loading="eager"
-              width="140"
-              height="140"
+              width="144"
+              height="144"
             />
           </motion.div>
         </div>

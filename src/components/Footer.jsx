@@ -31,13 +31,13 @@ export const Footer = () => {
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       {/* Mascot Emblem in Footer */}
-      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-mo-yellow border-3 border-black p-2 shadow-[4px_4px_0px_#ED732D] mb-6 flex items-center justify-center rotate-2">
+      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl overflow-hidden bg-mo-orange border-3 border-black shadow-[4px_4px_0px_#ED732D] mb-6 flex items-center justify-center rotate-2">
         <img
           src="/logo.svg"
           alt="MO PIZZA Mascot"
-          className="w-full h-full object-contain"
-          width="80"
-          height="80"
+          className="w-full h-full object-cover"
+          width="96"
+          height="96"
         />
       </div>
 
