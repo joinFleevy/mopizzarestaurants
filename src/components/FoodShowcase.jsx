@@ -6,7 +6,7 @@ import { locales } from './locales.js';
 const LazyVideo = ({ src, videoClassName, ...props }) => {
   const ref = useRef(null);
   const videoRef = useRef(null);
-  const isInView = framerMotionUseInView(ref, { once: true, margin: '600px' });
+  const isInView = framerMotionUseInView(ref, { once: true, margin: '150px' });
 
   useEffect(() => {
     if (videoRef.current) {
@@ -19,7 +19,7 @@ const LazyVideo = ({ src, videoClassName, ...props }) => {
   }, [isInView, props.autoPlay]);
 
   return (
-    <div ref={ref} className="absolute inset-0 w-full h-full bg-[#150702]">
+    <div ref={ref} className="absolute inset-0 w-full h-full bg-black">
       {isInView && (
         <video
           ref={videoRef}
@@ -50,15 +50,15 @@ export const FoodShowcase = () => {
   return (
     <section
       id="showcase"
-      className="py-24 md:py-36 px-4 sm:px-6 md:px-12 bg-[#150702] border-b border-mo-yellow/15 relative overflow-hidden"
+      className="py-20 md:py-32 px-4 sm:px-6 md:px-12 bg-[#FFF8E7] border-b-3 border-black relative overflow-hidden"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-[#FDFCF7] mb-4">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-[#111111] mb-4">
             {t.title}
           </h2>
-          <p className="text-white/70 text-sm sm:text-base font-normal max-w-lg mx-auto">
+          <p className="text-[#333333] text-sm sm:text-base font-medium max-w-lg mx-auto">
             {lang === 'ar'
               ? 'عجين فريش يتخمر 48 ساعة، صلصات سرية خاصة بموراد، وأجبان غنية تذوب عند كل قضمة.'
               : 'Pâte fraîche fermentée 48h, sauces secrètes et fromages fondants de Méditerranée.'}
@@ -69,11 +69,11 @@ export const FoodShowcase = () => {
           {items.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: idx * 0.05 }}
-              className={`relative rounded-3xl overflow-hidden border-2 border-mo-yellow/20 shadow-xl group bg-[#251209] ${item.col} ${item.height}`}
+              transition={{ duration: 0.5, delay: idx * 0.04 }}
+              className={`relative rounded-3xl overflow-hidden border-3 border-black shadow-[4px_4px_0px_#000] bg-white ${item.col} ${item.height}`}
             >
               {item.type === 'video' ? (
                 <LazyVideo
@@ -82,8 +82,8 @@ export const FoodShowcase = () => {
                   loop
                   muted
                   playsInline
-                  preload="metadata"
-                  videoClassName="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  preload="none"
+                  videoClassName="object-cover"
                 />
               ) : (
                 <img
@@ -92,12 +92,9 @@ export const FoodShowcase = () => {
                   loading="lazy"
                   width="800"
                   height="600"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-full object-cover"
                 />
               )}
-
-              {/* Warm gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#150702]/80 via-transparent to-transparent pointer-events-none opacity-40 group-hover:opacity-20 transition-opacity" />
             </motion.div>
           ))}
         </div>

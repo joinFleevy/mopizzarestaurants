@@ -24,12 +24,17 @@ export const Reviews = () => {
   useEffect(() => {
     let animationFrameId;
     let cachedScrollWidth = 0;
+    let lastTime = performance.now();
 
-    const scroll = () => {
+    const scroll = (currentTime) => {
+      const delta = (currentTime - lastTime) / 1000;
+      lastTime = currentTime;
+
       if (scrollRef.current && !isHovered && !isDragging && !shouldReduceMotion) {
         if (!cachedScrollWidth) cachedScrollWidth = scrollRef.current.scrollWidth;
 
-        scrollRef.current.scrollLeft += 1;
+        // Smooth speed: 45 pixels per second regardless of monitor refresh rate
+        scrollRef.current.scrollLeft += delta * 45;
         if (scrollRef.current.scrollLeft >= cachedScrollWidth / 3) {
           scrollRef.current.scrollLeft = 0;
         }
@@ -62,25 +67,35 @@ export const Reviews = () => {
     if (!isDragging) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
+    const walk = (x - startX) * 1.5;
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  const onTouchStart = () => setIsDragging(true);
+  const onTouchStart = (e) => {
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+  const onTouchMove = (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
   const onTouchEnd = () => setIsDragging(false);
 
   return (
     <section
       id="reviews"
       ref={sectionRef}
-      className="py-24 md:py-36 bg-[#150702] border-b border-mo-yellow/15 overflow-hidden flex flex-col relative"
+      className="py-20 md:py-32 bg-[#FFFDF5] border-b-3 border-black overflow-hidden flex flex-col relative"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
-      <div className="text-center mb-16 md:mb-20 px-4">
-        <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-[#FDFCF7] mb-3">
+      <div className="text-center mb-12 md:mb-16 px-4">
+        <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-[#111111] mb-3">
           {t.reviews?.title || (lang === 'ar' ? 'آراء زبائننا' : 'Ce Que Dit La Rue')}
         </h2>
-        <p className="text-white/70 text-sm sm:text-base font-normal max-w-md mx-auto">
+        <p className="text-[#333333] text-sm sm:text-base font-medium max-w-md mx-auto">
           {lang === 'ar' ? 'أصدق الآراء من عشاق مو بيتزا في كل الولايات.' : 'Des avis 100% réels de nos clients à Alger, Oran, Batna et Mostaganem.'}
         </p>
       </div>
@@ -94,6 +109,7 @@ export const Reviews = () => {
           onMouseUp={onMouseUp}
           onMouseMove={onMouseMove}
           onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
           className={`flex gap-6 sm:gap-8 px-4 w-full overflow-x-auto hide-scrollbar select-none ${
             isDragging ? 'cursor-grabbing' : 'cursor-grab'
@@ -104,37 +120,37 @@ export const Reviews = () => {
             {marqueeReviews.map((r, i) => (
               <div
                 key={i}
-                className="w-72 sm:w-88 md:w-96 p-7 sm:p-8 rounded-[2rem] flex flex-col justify-between shrink-0 h-[21rem] sm:h-[23rem] relative overflow-hidden bg-[#251209] border-2 border-mo-yellow/20 hover:border-mo-yellow/50 transition-all shadow-xl"
+                className="w-72 sm:w-88 md:w-96 p-7 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 h-[21rem] sm:h-[22rem] relative overflow-hidden bg-white border-3 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="flex text-mo-yellow gap-1">
+                    <div className="flex text-mo-orange gap-1">
                       {[...Array(5)].map((_, idx) => (
                         <Star
                           key={idx}
                           size={18}
                           fill={idx < r.rating ? 'currentColor' : 'transparent'}
-                          className={idx < r.rating ? '' : 'text-white/20'}
+                          className={idx < r.rating ? '' : 'text-black/15'}
                         />
                       ))}
                     </div>
-                    <Quote className="w-8 h-8 text-mo-yellow/20" aria-hidden="true" />
+                    <Quote className="w-8 h-8 text-black/10" aria-hidden="true" />
                   </div>
-                  <p className="text-white/80 text-sm sm:text-base leading-relaxed line-clamp-5 font-normal">
+                  <p className="text-[#222222] text-sm sm:text-base leading-relaxed line-clamp-5 font-normal">
                     "{r.text}"
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-mo-yellow/15 flex items-center justify-between">
+                <div className="pt-4 border-t-2 border-black/10 flex items-center justify-between">
                   <div>
-                    <h4 className="font-display uppercase text-lg text-[#FDFCF7] tracking-wider">
+                    <h4 className="font-display uppercase text-lg text-[#111111] tracking-wider">
                       {r.author}
                     </h4>
-                    <span className="text-[10px] font-mono text-mo-yellow uppercase">
+                    <span className="text-[11px] font-mono text-mo-orange font-black uppercase">
                       CLIENT VÉRIFIÉ • DZ
                     </span>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-mo-orange/20 border border-mo-orange/40 flex items-center justify-center font-display text-sm text-mo-yellow">
+                  <div className="w-8 h-8 rounded-lg bg-mo-yellow border-2 border-black shadow-[1px_1px_0px_#000] flex items-center justify-center font-display text-sm text-black">
                     MO
                   </div>
                 </div>

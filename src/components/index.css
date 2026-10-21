@@ -1,37 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  --color-mo-white: #FDFCF7;
-  --color-mo-cream: #F5EBE1;
-  --color-mo-tan: #DAB27B;
+  --color-mo-bg: #FFFDF5;
+  --color-mo-paper: #FFFFFF;
+  --color-mo-cream: #FFF8E7;
   --color-mo-yellow: #F4BC2E;
   --color-mo-cheese: #F1E428;
   --color-mo-orange: #ED732D;
-  --color-mo-orange-hover: #D85F1A;
-  --color-mo-black: #150702;
-  --color-mo-dark: #1C0C05;
-  --color-mo-card: #251209;
-  --color-mo-card-hover: #32180D;
-  --color-mo-border: rgba(244, 188, 46, 0.2);
+  --color-mo-orange-hover: #DB621D;
+  --color-mo-ink: #111111;
+  --color-mo-card: #FFFFFF;
+  --color-mo-card-hover: #FFFDF5;
+  --color-mo-border: #111111;
   
   --font-sans: "Outfit", "Cairo", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: "Bebas Neue", "Cairo", sans-serif;
 }
 
 body {
-  @apply antialiased overflow-x-hidden bg-[#150702] text-[#FDFCF7];
+  @apply antialiased overflow-x-hidden bg-[#FFFDF5] text-[#111111];
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Warm comic scrollbar */
+/* Comic ink scrollbar */
 ::-webkit-scrollbar {
-  width: 9px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #150702;
+  background: #FFFDF5;
+  border-left: 2px solid #111111;
 }
 ::-webkit-scrollbar-thumb {
   background: #ED732D;
+  border: 2px solid #111111;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {

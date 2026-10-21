@@ -41,7 +41,7 @@ function MainApp() {
   return (
     <LangContext.Provider value={lang}>
       <div
-        className="min-h-screen bg-[#150702] font-sans text-[#FDFCF7] selection:bg-mo-orange selection:text-white overflow-x-hidden pb-16 md:pb-0 relative"
+        className="min-h-screen bg-[#FFFDF5] font-sans text-[#111111] selection:bg-mo-orange selection:text-black overflow-x-hidden pb-16 md:pb-0 relative"
         dir={isRtl ? 'rtl' : 'ltr'}
       >
         <Header lang={lang} setLang={setLang} onOpenOrder={() => handleOpenOrder(null)} />
@@ -53,7 +53,7 @@ function MainApp() {
         <Reviews />
         <Footer />
 
-        {/* Floating Order Tray (Pops up whenever items > 0) */}
+        {/* Floating Order Tray (Desktop only; Mobile uses MobileActionBar to avoid screen blocking) */}
         <FloatingOrderTray t={t} isRtl={isRtl} />
 
         {/* Mobile Sticky Quick Action Bar */}

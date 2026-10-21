@@ -23,17 +23,17 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
 
   return (
     <article
-      className={`relative group flex flex-col justify-between p-4 sm:p-5 rounded-[2rem] transition-all duration-300 ${
+      className={`relative group flex flex-col justify-between p-4 sm:p-5 rounded-3xl border-3 border-black transition-all duration-200 ${
         isVip
-          ? 'bg-gradient-to-b from-[#2E160B] to-[#1E0D06] border-2 border-mo-yellow/40 shadow-[0_6px_30px_rgba(244,188,46,0.15)] hover:border-mo-yellow'
-          : 'bg-[#251209] border border-mo-yellow/20 hover:border-mo-orange/60 shadow-xl hover:shadow-2xl'
-      } hover:-translate-y-1`}
+          ? 'bg-[#FFF9E6] shadow-[4px_4px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000]'
+          : 'bg-white shadow-[4px_4px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000]'
+      }`}
     >
       <div>
         {/* Visual Media Frame */}
         <div
           onClick={() => onSelect(item)}
-          className="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl mb-4 bg-[#150702] border border-mo-yellow/20 group-hover:border-mo-yellow/40 transition-all shadow-inner cursor-pointer"
+          className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-4 bg-black border-2 border-black cursor-pointer shadow-inner"
         >
           <img
             src={item.image || '/images/menu/margarita.webp'}
@@ -41,37 +41,28 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
             loading="lazy"
             width="800"
             height="600"
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+            className="w-full h-full object-cover object-center"
           />
 
           {/* Floating Price Pill */}
-          <span
-            className={`absolute top-3 end-3 z-10 font-mono text-xs sm:text-sm font-black tracking-wider px-3 py-1 rounded-full shadow-lg backdrop-blur-md ${
-              isVip
-                ? 'bg-[#150702]/90 text-mo-yellow border border-mo-yellow/60'
-                : 'bg-[#150702]/85 text-white border border-mo-yellow/30'
-            }`}
-          >
+          <span className="absolute top-3 end-3 z-10 font-mono text-xs sm:text-sm font-black tracking-wider px-3 py-1 rounded-full border-2 border-black bg-mo-yellow text-black shadow-[2px_2px_0px_#000]">
             {item.price}
           </span>
 
           {/* Signature Badge */}
           {isVip && (
-            <span className="absolute top-3 start-3 z-10 inline-flex items-center gap-1 text-[11px] font-mono font-black uppercase bg-mo-yellow text-black px-2.5 py-0.5 rounded-full shadow-[0_2px_12px_rgba(244,188,46,0.5)]">
-              <Sparkles className="w-3 h-3 fill-current" aria-hidden="true" />
+            <span className="absolute top-3 start-3 z-10 inline-flex items-center gap-1 text-[11px] font-mono font-black uppercase bg-mo-orange text-black px-2.5 py-0.5 rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
+              <Sparkles className="w-3 h-3 fill-current text-black" aria-hidden="true" />
               <span>SIGNATURE</span>
             </span>
           )}
-
-          {/* Subtle Bottom Gradient Scrim */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#251209] via-transparent to-transparent opacity-60 pointer-events-none" />
         </div>
 
         {/* Header: Name */}
         <div className="mb-2">
           <h4
             onClick={() => onSelect(item)}
-            className="text-2xl sm:text-3xl font-display uppercase tracking-wider text-[#FDFCF7] group-hover:text-mo-yellow transition-colors cursor-pointer"
+            className="text-2xl sm:text-3xl font-display uppercase tracking-wider text-[#111111] group-hover:text-mo-orange transition-colors cursor-pointer"
           >
             {item.name}
           </h4>
@@ -79,29 +70,29 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
 
         {/* Ingredients description */}
         <div className="mb-5">
-          <p className="text-sm font-normal text-white/70 leading-relaxed line-clamp-3">
+          <p className="text-sm font-normal text-[#333333] leading-relaxed line-clamp-3">
             {item.desc}
           </p>
         </div>
       </div>
 
       {/* Action Controls */}
-      <div className="flex items-center gap-2 pt-3 border-t border-mo-yellow/15">
+      <div className="flex items-center gap-2 pt-3 border-t-2 border-black/10">
         {quantity > 0 ? (
           /* Active Quantity Stepper */
-          <div className="flex items-center justify-between w-full bg-[#1A0A04] border border-mo-orange/60 rounded-xl p-1 shadow-inner">
+          <div className="flex items-center justify-between w-full bg-white border-2 border-black rounded-xl p-1 shadow-[2px_2px_0px_#000]">
             <button
               type="button"
               onClick={handleDecrement}
-              className="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors active:scale-90"
+              className="w-10 h-10 rounded-lg bg-[#FFFDF5] hover:bg-black hover:text-white text-black border-2 border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer"
               aria-label="Decrease quantity"
             >
               <Minus className="w-4 h-4" />
             </button>
 
             <div className="flex items-center gap-1.5 px-3">
-              <span className="font-mono font-black text-base text-mo-yellow">{quantity}</span>
-              <span className="text-[11px] font-mono uppercase text-white/60">
+              <span className="font-mono font-black text-base text-black">{quantity}</span>
+              <span className="text-[11px] font-mono font-bold uppercase text-black/60">
                 {t.items || 'in tray'}
               </span>
             </div>
@@ -109,7 +100,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
             <button
               type="button"
               onClick={handleIncrement}
-              className="w-10 h-10 rounded-lg bg-mo-orange hover:bg-mo-yellow hover:text-black text-white flex items-center justify-center transition-colors active:scale-90"
+              className="w-10 h-10 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border-2 border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer shadow-[1px_1px_0px_#000]"
               aria-label="Increase quantity"
             >
               <Plus className="w-4 h-4" />
@@ -121,13 +112,9 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
             <button
               type="button"
               onClick={handleAdd}
-              className={`flex-1 py-3 px-3.5 font-sans font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 rounded-xl transition-all active:scale-98 cursor-pointer ${
-                isVip
-                  ? 'bg-mo-yellow text-black hover:bg-white shadow-[0_2px_15px_rgba(244,188,46,0.35)]'
-                  : 'bg-mo-orange hover:bg-mo-yellow hover:text-black text-white shadow-[0_2px_15px_rgba(237,115,45,0.3)]'
-              }`}
+              className="flex-1 py-3 px-3.5 font-sans font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer bg-mo-orange text-black hover:bg-mo-yellow"
             >
-              <Plus className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <Plus className="w-4 h-4 shrink-0 text-black" aria-hidden="true" />
               <span>{t.addToOrder || 'Ajouter'}</span>
             </button>
 
@@ -136,9 +123,9 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
               onClick={() => onSelect(item)}
               title={t.callToOrder || 'Commander'}
               aria-label={`${t.callToOrder || 'Commander'} ${item.name}`}
-              className="p-3 bg-[#34180C] hover:bg-mo-yellow text-mo-yellow hover:text-black border border-mo-yellow/25 rounded-xl transition-all active:scale-95 shrink-0 cursor-pointer shadow-sm"
+              className="p-3 bg-white hover:bg-mo-yellow text-black border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-all active:scale-95 shrink-0 cursor-pointer"
             >
-              <PhoneCall className="w-4 h-4" aria-hidden="true" />
+              <PhoneCall className="w-4 h-4 text-black" aria-hidden="true" />
             </button>
           </>
         )}
