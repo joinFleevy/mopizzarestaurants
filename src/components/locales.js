@@ -39,7 +39,9 @@ export const locales = {
       callBranchPrompt: "Call your nearest branch directly to dictate & confirm your order:",
       copyReceipt: "Copy Order Summary",
       copiedReceipt: "Order Copied to Clipboard!",
-      orDirectCall: "Or call branch without ordering items:"
+      orDirectCall: "Or call branch without ordering items:",
+      gridView: "Cards",
+      listView: "Compact List"
     },
     mobileBar: {
       menu: "Menu",
@@ -129,7 +131,9 @@ export const locales = {
       callBranchPrompt: "اتصل مباشرة بالفرع لتلاوة طلبك وتأكيده فوراً:",
       copyReceipt: "نسخ تفاصيل الطلب",
       copiedReceipt: "تم نسخ الطلب في الحافظة!",
-      orDirectCall: "أو اتصل بالفرع مباشرة دون تحديد عناصر:"
+      orDirectCall: "أو اتصل بالفرع مباشرة دون تحديد عناصر:",
+      gridView: "بطاقات",
+      listView: "قائمة سريعة"
     },
     mobileBar: {
       menu: "القائمة",
@@ -219,7 +223,9 @@ export const locales = {
       callBranchPrompt: "Appelez directement votre agence pour dicter et confirmer votre commande :",
       copyReceipt: "Copier la commande",
       copiedReceipt: "Commande copiée !",
-      orDirectCall: "Ou appeler sans sélection préalable :"
+      orDirectCall: "Ou appeler sans sélection préalable :",
+      gridView: "Cartes",
+      listView: "Liste Rapide"
     },
     mobileBar: {
       menu: "Menu",

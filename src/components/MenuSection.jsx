@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Pizza, Utensils, Coffee, LayoutGrid } from 'lucide-react';
+import { Sparkles, Pizza, Utensils, Coffee, LayoutGrid, List } from 'lucide-react';
 import { LangContext } from './App.jsx';
 import { locales } from './locales.js';
 import menuData from '../data/menu.json';
@@ -8,6 +8,7 @@ import { MenuItem } from './MenuItem.jsx';
 
 export const MenuSection = ({ onSelectItem }) => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [viewMode, setViewMode] = useState('grid');
   const lang = useContext(LangContext);
   const isRtl = lang === 'ar';
   const t = locales[lang].menu;
@@ -25,15 +26,24 @@ export const MenuSection = ({ onSelectItem }) => {
   const showDrinks = activeCategory === 'all' || activeCategory === 'drinks';
   const showDesserts = activeCategory === 'all' || activeCategory === 'desserts';
 
+  // Responsive grid vs compact list layout classes
+  const standardGridClasses = viewMode === 'list'
+    ? 'grid grid-cols-1 lg:grid-cols-2 gap-2.5 sm:gap-3.5'
+    : 'grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6';
+
+  const otherGridClasses = viewMode === 'list'
+    ? 'grid grid-cols-1 lg:grid-cols-2 gap-2.5 sm:gap-3.5'
+    : 'grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6';
+
   return (
     <section
       id="menu"
-      className="py-20 md:py-32 px-4 sm:px-6 md:px-12 bg-[#FFFDF5] border-b-3 border-black relative overflow-hidden"
+      className="py-16 md:py-28 px-4 sm:px-6 md:px-12 bg-[#FFFDF5] border-b-3 border-black relative"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Title */}
-        <div className="text-center mb-10 md:mb-14">
+        <div className="text-center mb-8 md:mb-10">
           <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-[#111111] mb-3">
             {t.title}
           </h2>
@@ -44,27 +54,64 @@ export const MenuSection = ({ onSelectItem }) => {
           </p>
         </div>
 
-        {/* Category Filter Tabs */}
-        <div className="flex items-center justify-start md:justify-center gap-2.5 sm:gap-3 overflow-x-auto pb-4 mb-14 hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
-          {categories.map((cat) => {
-            const Icon = cat.icon;
-            const isActive = activeCategory === cat.id;
-            return (
+        {/* --- STICKY CATEGORY SUB-NAV & VIEW TOGGLE --- */}
+        <div className="sticky top-[68px] sm:top-[74px] z-30 bg-[#FFFDF5]/95 backdrop-blur-md py-3 -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 border-y-2 border-black mb-10 md:mb-14 shadow-sm">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+            {/* Category Filter Tabs */}
+            <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto hide-scrollbar py-1">
+              {categories.map((cat) => {
+                const Icon = cat.icon;
+                const isActive = activeCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`flex-shrink-0 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-mono text-xs sm:text-sm uppercase tracking-wider font-black transition-all duration-200 active:scale-95 cursor-pointer border-2 border-black ${
+                      isActive
+                        ? 'bg-mo-orange text-black shadow-[3px_3px_0px_#000]'
+                        : 'bg-white text-black hover:bg-mo-yellow shadow-[2px_2px_0px_#000]'
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black shrink-0" aria-hidden="true" />
+                    <span className="whitespace-nowrap">{cat.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* View Mode Toggle: Grid Cards vs Compact List */}
+            <div className="flex items-center p-1 bg-white border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] shrink-0">
               <button
-                key={cat.id}
                 type="button"
-                onClick={() => setActiveCategory(cat.id)}
-                className={`flex-shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-2xl font-mono text-xs sm:text-sm uppercase tracking-wider font-black transition-all duration-200 active:scale-95 cursor-pointer border-2 border-black ${
-                  isActive
-                    ? 'bg-mo-orange text-black shadow-[3px_3px_0px_#000]'
-                    : 'bg-white text-black hover:bg-mo-yellow shadow-[2px_2px_0px_#000]'
+                onClick={() => setViewMode('grid')}
+                title={t.gridView || 'Cards'}
+                aria-label={t.gridView || 'Cards'}
+                className={`p-1.5 sm:p-2 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 font-mono text-xs font-black uppercase ${
+                  viewMode === 'grid'
+                    ? 'bg-mo-orange text-black border-2 border-black shadow-[1px_1px_0px_#000]'
+                    : 'text-black/60 hover:text-black border-2 border-transparent'
                 }`}
               >
-                <Icon className="w-4 h-4 text-black" aria-hidden="true" />
-                <span>{cat.label}</span>
+                <LayoutGrid className="w-4 h-4 shrink-0" />
+                <span className="hidden md:inline">{t.gridView || 'Cards'}</span>
               </button>
-            );
-          })}
+              <button
+                type="button"
+                onClick={() => setViewMode('list')}
+                title={t.listView || 'List'}
+                aria-label={t.listView || 'List'}
+                className={`p-1.5 sm:p-2 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 font-mono text-xs font-black uppercase ${
+                  viewMode === 'list'
+                    ? 'bg-mo-orange text-black border-2 border-black shadow-[1px_1px_0px_#000]'
+                    : 'text-black/60 hover:text-black border-2 border-transparent'
+                }`}
+              >
+                <List className="w-4 h-4 shrink-0" />
+                <span className="hidden md:inline">{t.listView || 'List'}</span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* --- CLASSIC PIZZAS SECTION --- */}
@@ -80,8 +127,8 @@ export const MenuSection = ({ onSelectItem }) => {
               </span>
             </div>
 
-            {/* Responsive Grid: No duplicate DOM, No mobile swipe trap */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {/* Responsive Grid / List container */}
+            <div className={standardGridClasses}>
               {menuData.standard.map((item) => (
                 <MenuItem
                   key={item.id}
@@ -90,6 +137,7 @@ export const MenuSection = ({ onSelectItem }) => {
                   t={t}
                   isRtl={isRtl}
                   onSelect={onSelectItem}
+                  viewMode={viewMode}
                 />
               ))}
             </div>
@@ -119,8 +167,8 @@ export const MenuSection = ({ onSelectItem }) => {
               </div>
             </div>
 
-            {/* VIP Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* VIP Grid / List */}
+            <div className={otherGridClasses}>
               {menuData.vip.map((item) => (
                 <MenuItem
                   key={item.id}
@@ -129,6 +177,7 @@ export const MenuSection = ({ onSelectItem }) => {
                   t={t}
                   isRtl={isRtl}
                   onSelect={onSelectItem}
+                  viewMode={viewMode}
                 />
               ))}
             </div>
@@ -148,7 +197,7 @@ export const MenuSection = ({ onSelectItem }) => {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className={otherGridClasses}>
               {menuData.sides.map((item) => (
                 <MenuItem
                   key={item.id}
@@ -157,6 +206,7 @@ export const MenuSection = ({ onSelectItem }) => {
                   t={t}
                   isRtl={isRtl}
                   onSelect={onSelectItem}
+                  viewMode={viewMode}
                 />
               ))}
             </div>
@@ -176,7 +226,7 @@ export const MenuSection = ({ onSelectItem }) => {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className={otherGridClasses}>
               {menuData.drinks.map((item) => (
                 <MenuItem
                   key={item.id}
@@ -185,6 +235,7 @@ export const MenuSection = ({ onSelectItem }) => {
                   t={t}
                   isRtl={isRtl}
                   onSelect={onSelectItem}
+                  viewMode={viewMode}
                 />
               ))}
             </div>
@@ -204,7 +255,7 @@ export const MenuSection = ({ onSelectItem }) => {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className={otherGridClasses}>
               {menuData.desserts.map((item) => (
                 <MenuItem
                   key={item.id}
@@ -213,6 +264,7 @@ export const MenuSection = ({ onSelectItem }) => {
                   t={t}
                   isRtl={isRtl}
                   onSelect={onSelectItem}
+                  viewMode={viewMode}
                 />
               ))}
             </div>

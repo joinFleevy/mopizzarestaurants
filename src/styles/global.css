@@ -4,6 +4,15 @@ body {
   @apply antialiased overflow-x-hidden;
 }
 
+/* Hide scrollbar for category tabs while maintaining scrollability */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Custom scrollbar for webkit to match the neo-brutalist vibe */
 ::-webkit-scrollbar {
   width: 12px;
