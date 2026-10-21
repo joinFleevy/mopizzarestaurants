@@ -13,10 +13,10 @@ export const MenuSection = ({ onSelectItem }) => {
   const t = locales[lang].menu;
 
   const categories = [
-    { id: 'all', label: t.categories?.all || 'All Menu', icon: LayoutGrid },
+    { id: 'all', label: t.categories?.all || 'Tout le Menu', icon: LayoutGrid },
     { id: 'pizzas', label: t.categories?.pizzas || 'Pizzas', icon: Pizza },
-    { id: 'sides', label: t.categories?.sides || 'Sides & Starters', icon: Utensils },
-    { id: 'drinks', label: t.categories?.drinks || 'Drinks & Mojitos', icon: Coffee },
+    { id: 'sides', label: t.categories?.sides || 'Accompagnements', icon: Utensils },
+    { id: 'drinks', label: t.categories?.drinks || 'Boissons & Mojitos', icon: Coffee },
     { id: 'desserts', label: t.categories?.desserts || 'Desserts', icon: Sparkles }
   ];
 
@@ -28,23 +28,22 @@ export const MenuSection = ({ onSelectItem }) => {
   return (
     <section
       id="menu"
-      className="py-24 md:py-36 px-4 sm:px-6 md:px-12 bg-[#0A0A0C] border-b border-white/10 relative overflow-hidden"
+      className="py-24 md:py-36 px-4 sm:px-6 md:px-12 bg-[#1C0C05] border-b border-mo-yellow/15 relative overflow-hidden"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-mo-orange/5 rounded-full blur-[160px] pointer-events-none" />
+      {/* Background ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-mo-orange/10 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Title */}
         <div className="text-center mb-10 md:mb-16">
-          <span className="text-xs font-mono uppercase tracking-[0.3em] text-mo-orange block mb-3">
-            [ SELECTION & PRICING ]
-          </span>
-          <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-white mb-4">
+          <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-[#FDFCF7] mb-4">
             {t.title}
           </h2>
-          <p className="text-white/60 text-sm sm:text-base font-normal max-w-md mx-auto">
-            100% Fresh daily dough, signature house sauces, crispy sides, and artisan drinks.
+          <p className="text-white/70 text-sm sm:text-base font-normal max-w-md mx-auto">
+            {lang === 'ar'
+              ? 'عجين فريش يومياً، أجبان فاخرة، مقرمشات، ومشروبات باردة منعشة.'
+              : 'Pâte fraîche artisanale, sauces maison, accompagnements croustillants et boissons fraîches.'}
           </p>
         </div>
 
@@ -58,13 +57,13 @@ export const MenuSection = ({ onSelectItem }) => {
                 key={cat.id}
                 type="button"
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex-shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-2xl font-mono text-xs sm:text-sm uppercase tracking-wider font-bold transition-all duration-200 active:scale-95 ${
+                className={`flex-shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-2xl font-mono text-xs sm:text-sm uppercase tracking-wider font-bold transition-all duration-200 active:scale-95 cursor-pointer ${
                   isActive
-                    ? 'bg-mo-orange text-white shadow-[0_4px_20px_rgba(255,69,0,0.4)] border border-mo-orange'
-                    : 'bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10'
+                    ? 'bg-mo-orange text-white shadow-[0_4px_20px_rgba(237,115,45,0.45)] border border-mo-orange'
+                    : 'bg-[#251209] hover:bg-[#34180C] text-white/80 hover:text-white border border-mo-yellow/20'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-mo-orange'}`} aria-hidden="true" />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-mo-yellow'}`} aria-hidden="true" />
                 <span>{cat.label}</span>
               </button>
             );
@@ -74,14 +73,14 @@ export const MenuSection = ({ onSelectItem }) => {
         {/* --- CLASSIC PIZZAS SECTION --- */}
         {showPizzas && (
           <div className="mb-24 md:mb-32">
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider text-white flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-mo-orange" />
+            <div className="flex items-center justify-between mb-8 pb-4 border-b border-mo-yellow/20">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider text-[#FDFCF7] flex items-center gap-3">
+                <span className="w-3 h-3 rounded-full bg-mo-orange" />
                 {t.standard}
               </h3>
 
               {/* Mobile swipe helper */}
-              <div className="md:hidden flex items-center text-white/60 font-mono text-xs uppercase gap-1 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+              <div className="md:hidden flex items-center text-mo-yellow font-mono text-xs uppercase gap-1 bg-[#251209] px-3 py-1.5 rounded-full border border-mo-yellow/25">
                 {isRtl ? 'اسحب' : 'SWIPE'}
                 {isRtl ? <ChevronsLeft className="w-3.5 h-3.5" /> : <ChevronsRight className="w-3.5 h-3.5" />}
               </div>
@@ -121,28 +120,28 @@ export const MenuSection = ({ onSelectItem }) => {
           </div>
         )}
 
-        {/* --- VIP EXCLUSIVE VAULT --- */}
+        {/* --- MORAD'S SIGNATURE RECIPES (VIP) --- */}
         {showPizzas && (
-          <div className="mb-24 md:mb-32 rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 md:p-14 bg-gradient-to-b from-[#14141A] to-[#0D0D11] border border-mo-yellow/25 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-mo-yellow/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="mb-24 md:mb-32 rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 md:p-14 bg-gradient-to-b from-[#2E160B] to-[#1C0C05] border-2 border-mo-yellow/35 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-mo-yellow/15 rounded-full blur-[100px] pointer-events-none" />
 
-            <div className="flex items-center justify-between mb-10 pb-4 border-b border-mo-yellow/20 relative z-10">
+            <div className="flex items-center justify-between mb-10 pb-4 border-b border-mo-yellow/25 relative z-10">
               <div className="flex items-center gap-3">
-                <span className="p-2 rounded-xl bg-mo-yellow/10 text-mo-yellow border border-mo-yellow/20">
-                  <Sparkles className="w-5 h-5" aria-hidden="true" />
+                <span className="p-2.5 rounded-2xl bg-mo-yellow text-black shadow-md">
+                  <Sparkles className="w-6 h-6 fill-current" aria-hidden="true" />
                 </span>
                 <div>
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider text-mo-yellow">
-                    {t.vip}
+                    {lang === 'ar' ? 'وصفات مراد أودية الخاصة' : 'Les Recettes Signature de Morad'}
                   </h3>
-                  <span className="text-xs font-mono uppercase tracking-widest text-white/50">
-                    EXCLUSIVE SPECIALTY TIERS
+                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-white/60">
+                    {lang === 'ar' ? 'قمة البنة • إبداعات استثنائية' : 'CRÉATIONS LÉGENDAIRES CHARGÉES EN SAVEURS'}
                   </span>
                 </div>
               </div>
 
               {/* Mobile swipe helper */}
-              <div className="md:hidden flex items-center text-mo-yellow font-mono text-xs uppercase gap-1 bg-mo-yellow/10 px-3 py-1.5 rounded-full border border-mo-yellow/20">
+              <div className="md:hidden flex items-center text-mo-yellow font-mono text-xs uppercase gap-1 bg-mo-yellow/15 px-3 py-1.5 rounded-full border border-mo-yellow/30">
                 {isRtl ? 'اسحب' : 'SWIPE'}
                 {isRtl ? <ChevronsLeft className="w-3.5 h-3.5" /> : <ChevronsRight className="w-3.5 h-3.5" />}
               </div>
@@ -185,13 +184,13 @@ export const MenuSection = ({ onSelectItem }) => {
         {/* --- CRISPY SIDES & STARTERS SECTION --- */}
         {showSides && menuData.sides && (
           <div className="mb-24 md:mb-32">
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider text-white flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-mo-yellow" />
-                {t.categories?.sides || 'Sides & Starters'}
+            <div className="flex items-center justify-between mb-8 pb-4 border-b border-mo-yellow/20">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider text-[#FDFCF7] flex items-center gap-3">
+                <span className="w-3 h-3 rounded-full bg-mo-yellow" />
+                {t.categories?.sides || 'Accompagnements'}
               </h3>
 
-              <div className="md:hidden flex items-center text-white/60 font-mono text-xs uppercase gap-1 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+              <div className="md:hidden flex items-center text-mo-yellow font-mono text-xs uppercase gap-1 bg-[#251209] px-3 py-1.5 rounded-full border border-mo-yellow/25">
                 {isRtl ? 'اسحب' : 'SWIPE'}
                 {isRtl ? <ChevronsLeft className="w-3.5 h-3.5" /> : <ChevronsRight className="w-3.5 h-3.5" />}
               </div>
@@ -234,13 +233,13 @@ export const MenuSection = ({ onSelectItem }) => {
         {/* --- DRINKS & REFRESHMENTS SECTION --- */}
         {showDrinks && menuData.drinks && (
           <div className="mb-24 md:mb-32">
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider text-white flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
-                {t.categories?.drinks || 'Drinks & Mojitos'}
+            <div className="flex items-center justify-between mb-8 pb-4 border-b border-mo-yellow/20">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider text-[#FDFCF7] flex items-center gap-3">
+                <span className="w-3 h-3 rounded-full bg-mo-cheese" />
+                {t.categories?.drinks || 'Boissons & Mojitos'}
               </h3>
 
-              <div className="md:hidden flex items-center text-white/60 font-mono text-xs uppercase gap-1 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+              <div className="md:hidden flex items-center text-mo-yellow font-mono text-xs uppercase gap-1 bg-[#251209] px-3 py-1.5 rounded-full border border-mo-yellow/25">
                 {isRtl ? 'اسحب' : 'SWIPE'}
                 {isRtl ? <ChevronsLeft className="w-3.5 h-3.5" /> : <ChevronsRight className="w-3.5 h-3.5" />}
               </div>
@@ -283,13 +282,13 @@ export const MenuSection = ({ onSelectItem }) => {
         {/* --- DESSERTS SECTION --- */}
         {showDesserts && menuData.desserts && (
           <div>
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider text-white flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-pink-500" />
+            <div className="flex items-center justify-between mb-8 pb-4 border-b border-mo-yellow/20">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider text-[#FDFCF7] flex items-center gap-3">
+                <span className="w-3 h-3 rounded-full bg-mo-orange" />
                 {t.categories?.desserts || 'Desserts'}
               </h3>
 
-              <div className="md:hidden flex items-center text-white/60 font-mono text-xs uppercase gap-1 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+              <div className="md:hidden flex items-center text-mo-yellow font-mono text-xs uppercase gap-1 bg-[#251209] px-3 py-1.5 rounded-full border border-mo-yellow/25">
                 {isRtl ? 'اسحب' : 'SWIPE'}
                 {isRtl ? <ChevronsLeft className="w-3.5 h-3.5" /> : <ChevronsRight className="w-3.5 h-3.5" />}
               </div>

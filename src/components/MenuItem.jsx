@@ -1,5 +1,5 @@
 import React from 'react';
-import { PhoneCall, Sparkles, Plus, Minus, Check } from 'lucide-react';
+import { PhoneCall, Sparkles, Plus, Minus } from 'lucide-react';
 import { useCart } from './CartContext.jsx';
 
 export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
@@ -23,17 +23,17 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
 
   return (
     <article
-      className={`relative group flex flex-col justify-between p-4 sm:p-5 rounded-[1.75rem] transition-all duration-300 ${
+      className={`relative group flex flex-col justify-between p-4 sm:p-5 rounded-[2rem] transition-all duration-300 ${
         isVip
-          ? 'bg-gradient-to-b from-[#18181F] to-[#0E0E12] border border-mo-yellow/30 shadow-[0_4px_30px_rgba(255,184,0,0.08)] hover:border-mo-yellow/60'
-          : 'bg-[#121216] border border-white/10 hover:border-white/25 shadow-lg hover:shadow-2xl'
+          ? 'bg-gradient-to-b from-[#2E160B] to-[#1E0D06] border-2 border-mo-yellow/40 shadow-[0_6px_30px_rgba(244,188,46,0.15)] hover:border-mo-yellow'
+          : 'bg-[#251209] border border-mo-yellow/20 hover:border-mo-orange/60 shadow-xl hover:shadow-2xl'
       } hover:-translate-y-1`}
     >
       <div>
         {/* Visual Media Frame */}
         <div
           onClick={() => onSelect(item)}
-          className="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl mb-4 bg-[#181820] border border-white/10 group-hover:border-white/20 transition-all shadow-inner cursor-pointer"
+          className="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl mb-4 bg-[#150702] border border-mo-yellow/20 group-hover:border-mo-yellow/40 transition-all shadow-inner cursor-pointer"
         >
           <img
             src={item.image || '/images/menu/margarita.webp'}
@@ -46,32 +46,32 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
 
           {/* Floating Price Pill */}
           <span
-            className={`absolute top-3 end-3 z-10 font-mono text-xs sm:text-sm font-bold tracking-wider px-3 py-1 rounded-full shadow-lg backdrop-blur-md ${
+            className={`absolute top-3 end-3 z-10 font-mono text-xs sm:text-sm font-black tracking-wider px-3 py-1 rounded-full shadow-lg backdrop-blur-md ${
               isVip
-                ? 'bg-black/80 text-mo-yellow border border-mo-yellow/50'
-                : 'bg-black/75 text-white border border-white/20'
+                ? 'bg-[#150702]/90 text-mo-yellow border border-mo-yellow/60'
+                : 'bg-[#150702]/85 text-white border border-mo-yellow/30'
             }`}
           >
             {item.price}
           </span>
 
-          {/* VIP Badge */}
+          {/* Signature Badge */}
           {isVip && (
-            <span className="absolute top-3 start-3 z-10 inline-flex items-center gap-1 text-[11px] font-mono font-black uppercase bg-mo-yellow text-black px-2.5 py-0.5 rounded-full shadow-[0_2px_12px_rgba(255,184,0,0.4)]">
+            <span className="absolute top-3 start-3 z-10 inline-flex items-center gap-1 text-[11px] font-mono font-black uppercase bg-mo-yellow text-black px-2.5 py-0.5 rounded-full shadow-[0_2px_12px_rgba(244,188,46,0.5)]">
               <Sparkles className="w-3 h-3 fill-current" aria-hidden="true" />
-              <span>VIP VAULT</span>
+              <span>SIGNATURE</span>
             </span>
           )}
 
           {/* Subtle Bottom Gradient Scrim */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#121216] via-transparent to-transparent opacity-60 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#251209] via-transparent to-transparent opacity-60 pointer-events-none" />
         </div>
 
         {/* Header: Name */}
-        <div className="mb-2.5">
+        <div className="mb-2">
           <h4
             onClick={() => onSelect(item)}
-            className="text-2xl sm:text-3xl font-display uppercase tracking-wider text-white group-hover:text-mo-orange transition-colors cursor-pointer"
+            className="text-2xl sm:text-3xl font-display uppercase tracking-wider text-[#FDFCF7] group-hover:text-mo-yellow transition-colors cursor-pointer"
           >
             {item.name}
           </h4>
@@ -79,20 +79,17 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
 
         {/* Ingredients description */}
         <div className="mb-5">
-          <span className="text-white/40 uppercase text-[11px] tracking-wider font-mono block mb-1">
-            {t.ingredients}
-          </span>
           <p className="text-sm font-normal text-white/70 leading-relaxed line-clamp-3">
             {item.desc}
           </p>
         </div>
       </div>
 
-      {/* Streetwear Action Controls */}
-      <div className="flex items-center gap-2 pt-2 border-t border-white/5">
+      {/* Action Controls */}
+      <div className="flex items-center gap-2 pt-3 border-t border-mo-yellow/15">
         {quantity > 0 ? (
           /* Active Quantity Stepper */
-          <div className="flex items-center justify-between w-full bg-[#1A1A24] border border-mo-orange/40 rounded-xl p-1">
+          <div className="flex items-center justify-between w-full bg-[#1A0A04] border border-mo-orange/60 rounded-xl p-1 shadow-inner">
             <button
               type="button"
               onClick={handleDecrement}
@@ -112,7 +109,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
             <button
               type="button"
               onClick={handleIncrement}
-              className="w-10 h-10 rounded-lg bg-mo-orange hover:bg-white hover:text-black text-white flex items-center justify-center transition-colors active:scale-90"
+              className="w-10 h-10 rounded-lg bg-mo-orange hover:bg-mo-yellow hover:text-black text-white flex items-center justify-center transition-colors active:scale-90"
               aria-label="Increase quantity"
             >
               <Plus className="w-4 h-4" />
@@ -124,22 +121,22 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect }) => {
             <button
               type="button"
               onClick={handleAdd}
-              className={`flex-1 py-3 px-3.5 font-sans font-bold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 rounded-xl transition-all active:scale-98 ${
+              className={`flex-1 py-3 px-3.5 font-sans font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 rounded-xl transition-all active:scale-98 cursor-pointer ${
                 isVip
-                  ? 'bg-mo-yellow text-black hover:bg-white shadow-[0_2px_15px_rgba(255,184,0,0.25)]'
-                  : 'bg-white/10 hover:bg-mo-orange text-white border border-white/15 hover:border-transparent'
+                  ? 'bg-mo-yellow text-black hover:bg-white shadow-[0_2px_15px_rgba(244,188,46,0.35)]'
+                  : 'bg-mo-orange hover:bg-mo-yellow hover:text-black text-white shadow-[0_2px_15px_rgba(237,115,45,0.3)]'
               }`}
             >
               <Plus className="w-4 h-4 shrink-0" aria-hidden="true" />
-              <span>{t.addToOrder || 'Add to Order'}</span>
+              <span>{t.addToOrder || 'Ajouter'}</span>
             </button>
 
             <button
               type="button"
               onClick={() => onSelect(item)}
-              title={t.callToOrder || 'Call to Order'}
-              aria-label={`${t.callToOrder || 'Call to Order'} ${item.name}`}
-              className="p-3 bg-white/5 hover:bg-mo-orange text-white/80 hover:text-white border border-white/10 hover:border-transparent rounded-xl transition-all active:scale-95 shrink-0"
+              title={t.callToOrder || 'Commander'}
+              aria-label={`${t.callToOrder || 'Commander'} ${item.name}`}
+              className="p-3 bg-[#34180C] hover:bg-mo-yellow text-mo-yellow hover:text-black border border-mo-yellow/25 rounded-xl transition-all active:scale-95 shrink-0 cursor-pointer shadow-sm"
             >
               <PhoneCall className="w-4 h-4" aria-hidden="true" />
             </button>

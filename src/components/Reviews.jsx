@@ -71,17 +71,18 @@ export const Reviews = () => {
 
   return (
     <section
+      id="reviews"
       ref={sectionRef}
-      className="py-24 md:py-36 bg-[#0E0E12] border-b border-white/10 overflow-hidden flex flex-col relative"
+      className="py-24 md:py-36 bg-[#150702] border-b border-mo-yellow/15 overflow-hidden flex flex-col relative"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       <div className="text-center mb-16 md:mb-20 px-4">
-        <span className="text-xs font-mono uppercase tracking-[0.3em] text-mo-yellow block mb-3">
-          [ COMMUNITY VOICES ]
-        </span>
-        <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-white">
-          {lang === 'ar' ? 'ماذا يقولون عنا' : lang === 'fr' ? "Ce qu'ils disent de nous" : 'What they say about us'}
+        <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-[#FDFCF7] mb-3">
+          {t.reviews?.title || (lang === 'ar' ? 'آراء زبائننا' : 'Ce Que Dit La Rue')}
         </h2>
+        <p className="text-white/70 text-sm sm:text-base font-normal max-w-md mx-auto">
+          {lang === 'ar' ? 'أصدق الآراء من عشاق مو بيتزا في كل الولايات.' : 'Des avis 100% réels de nos clients à Alger, Oran, Batna et Mostaganem.'}
+        </p>
       </div>
 
       <div className="relative w-full z-10 overflow-hidden" dir="ltr">
@@ -103,7 +104,7 @@ export const Reviews = () => {
             {marqueeReviews.map((r, i) => (
               <div
                 key={i}
-                className="w-72 sm:w-88 md:w-96 p-7 sm:p-8 rounded-[2rem] flex flex-col justify-between shrink-0 h-[21rem] sm:h-[23rem] relative overflow-hidden bg-[#14141A] border border-white/10 shadow-xl"
+                className="w-72 sm:w-88 md:w-96 p-7 sm:p-8 rounded-[2rem] flex flex-col justify-between shrink-0 h-[21rem] sm:h-[23rem] relative overflow-hidden bg-[#251209] border-2 border-mo-yellow/20 hover:border-mo-yellow/50 transition-all shadow-xl"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -117,21 +118,25 @@ export const Reviews = () => {
                         />
                       ))}
                     </div>
-                    <Quote className="w-8 h-8 text-white/10" aria-hidden="true" />
+                    <Quote className="w-8 h-8 text-mo-yellow/20" aria-hidden="true" />
                   </div>
-
-                  <p className="text-base sm:text-lg font-normal text-white/80 leading-relaxed line-clamp-5">
+                  <p className="text-white/80 text-sm sm:text-base leading-relaxed line-clamp-5 font-normal">
                     "{r.text}"
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                  <span className="font-mono text-xs uppercase tracking-wider text-mo-orange font-bold">
-                    {r.author}
-                  </span>
-                  <span className="text-[11px] font-mono text-white/40 uppercase">
-                    VERIFIED GUEST
-                  </span>
+                <div className="pt-4 border-t border-mo-yellow/15 flex items-center justify-between">
+                  <div>
+                    <h4 className="font-display uppercase text-lg text-[#FDFCF7] tracking-wider">
+                      {r.author}
+                    </h4>
+                    <span className="text-[10px] font-mono text-mo-yellow uppercase">
+                      CLIENT VÉRIFIÉ • DZ
+                    </span>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-mo-orange/20 border border-mo-orange/40 flex items-center justify-center font-display text-sm text-mo-yellow">
+                    MO
+                  </div>
                 </div>
               </div>
             ))}

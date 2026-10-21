@@ -24,13 +24,13 @@ export const FloatingOrderTray = ({ t, isRtl }) => {
         <button
           type="button"
           onClick={openCart}
-          className="pointer-events-auto group max-w-lg w-full bg-[#14141A]/95 hover:bg-[#1A1A22] backdrop-blur-xl border-2 border-mo-orange/80 hover:border-mo-orange shadow-[0_12px_40px_rgba(255,69,0,0.35)] rounded-2xl p-2.5 sm:p-3 flex items-center justify-between gap-2 sm:gap-4 transition-all duration-300 hover:scale-[1.01] active:scale-98 cursor-pointer overflow-hidden box-border"
+          className="pointer-events-auto group max-w-lg w-full bg-[#150702]/95 hover:bg-[#1F0E07] backdrop-blur-xl border-2 border-mo-orange shadow-[0_12px_40px_rgba(237,115,45,0.4)] rounded-2xl p-2.5 sm:p-3 flex items-center justify-between gap-2 sm:gap-4 transition-all duration-300 hover:scale-[1.01] active:scale-98 cursor-pointer overflow-hidden box-border"
         >
           {/* Items badge & summary */}
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 shrink">
             <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-mo-orange flex items-center justify-center text-white shrink-0 shadow-md">
               <ShoppingBag className="w-5 h-5" aria-hidden="true" />
-              <span className="absolute -top-1.5 -end-1.5 bg-mo-yellow text-black font-mono font-black text-[11px] w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#14141A]">
+              <span className="absolute -top-1.5 -end-1.5 bg-mo-yellow text-black font-mono font-black text-[11px] w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#150702]">
                 {totalItems}
               </span>
             </div>

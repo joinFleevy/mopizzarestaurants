@@ -19,7 +19,7 @@ const LazyVideo = ({ src, videoClassName, ...props }) => {
   }, [isInView, props.autoPlay]);
 
   return (
-    <div ref={ref} className="absolute inset-0 w-full h-full bg-black">
+    <div ref={ref} className="absolute inset-0 w-full h-full bg-[#150702]">
       {isInView && (
         <video
           ref={videoRef}
@@ -49,47 +49,56 @@ export const FoodShowcase = () => {
 
   return (
     <section
-      className="py-24 md:py-36 px-4 sm:px-6 md:px-12 bg-[#0A0A0C] border-b border-white/10 relative overflow-hidden"
+      id="showcase"
+      className="py-24 md:py-36 px-4 sm:px-6 md:px-12 bg-[#150702] border-b border-mo-yellow/15 relative overflow-hidden"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 md:mb-20">
-          <span className="text-xs font-mono uppercase tracking-[0.3em] text-mo-orange block mb-3">
-            [ VISUAL EXPERIENCE ]
-          </span>
-          <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-white">
+          <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-[#FDFCF7] mb-4">
             {t.title}
           </h2>
+          <p className="text-white/70 text-sm sm:text-base font-normal max-w-lg mx-auto">
+            {lang === 'ar'
+              ? 'عجين فريش يتخمر 48 ساعة، صلصات سرية خاصة بموراد، وأجبان غنية تذوب عند كل قضمة.'
+              : 'Pâte fraîche fermentée 48h, sauces secrètes et fromages fondants de Méditerranée.'}
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-12 gap-3.5 sm:gap-4 md:gap-6">
-          {items.map((item, i) => (
-            <div
-              key={i}
-              className={`rounded-2xl sm:rounded-3xl overflow-hidden relative border border-white/10 group shadow-lg bg-[#14141A] ${item.col} ${item.height}`}
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-3.5 sm:gap-6">
+          {items.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.6, delay: idx * 0.05 }}
+              className={`relative rounded-3xl overflow-hidden border-2 border-mo-yellow/20 shadow-xl group bg-[#251209] ${item.col} ${item.height}`}
             >
-              {item.type === 'video' && (
+              {item.type === 'video' ? (
                 <LazyVideo
                   src={item.src}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  videoClassName="absolute inset-0 object-cover object-[center_60%] group-hover:scale-105 transition-transform duration-700"
+                  preload="metadata"
+                  videoClassName="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
-              )}
-              {item.type === 'image' && (
+              ) : (
                 <img
                   src={item.src}
-                  alt={`MO PIZZA craft ${i + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  alt={`Mo Pizza ${idx + 1}`}
                   loading="lazy"
-                  width="600"
-                  height="480"
+                  width="800"
+                  height="600"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
+
+              {/* Warm gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#150702]/80 via-transparent to-transparent pointer-events-none opacity-40 group-hover:opacity-20 transition-opacity" />
+            </motion.div>
           ))}
         </div>
       </div>
