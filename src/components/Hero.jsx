@@ -107,6 +107,7 @@ export const Hero = ({ onOpenOrder }) => {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             src="/vids/very_good_too.mp4"
+            poster="/images/hero_poster.webp"
             autoPlay
             loop
             muted

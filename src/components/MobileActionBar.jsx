@@ -18,7 +18,7 @@ export const MobileActionBar = ({ onOpenOrder, t, isRtl }) => {
           e.preventDefault();
           document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' });
         }}
-        className="flex-1 py-2 px-2 flex flex-col items-center justify-center bg-[#FFFDF5] hover:bg-mo-yellow border-2 border-black rounded-xl text-black font-sans font-black text-[11px] uppercase tracking-wider shadow-[2px_2px_0px_#000] active:scale-95 transition-all"
+        className="flex-1 min-h-[48px] py-2 px-2 flex flex-col items-center justify-center bg-[#FFFDF5] hover:bg-mo-yellow border-2 border-black rounded-xl text-black font-sans font-black text-[11px] uppercase tracking-wider shadow-[2px_2px_0px_#000] active:scale-95 transition-all"
       >
         <Utensils className="w-4 h-4 mb-0.5 text-mo-orange" aria-hidden="true" />
         <span>{t.mobileBar?.menu || 'Menu'}</span>
@@ -27,7 +27,7 @@ export const MobileActionBar = ({ onOpenOrder, t, isRtl }) => {
       {/* Main Call to Order CTA */}
       <button
         onClick={onOpenOrder}
-        className={`relative flex-[1.7] py-2.5 px-3 flex items-center justify-center gap-1.5 rounded-xl border-2 border-black font-sans font-black uppercase text-xs tracking-wider shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer ${
+        className={`relative flex-[1.7] min-h-[48px] py-2.5 px-3 flex items-center justify-center gap-1.5 rounded-xl border-2 border-black font-sans font-black uppercase text-xs tracking-wider shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer ${
           totalItems > 0
             ? 'bg-mo-yellow text-black'
             : 'bg-mo-orange text-black'
@@ -53,7 +53,7 @@ export const MobileActionBar = ({ onOpenOrder, t, isRtl }) => {
           e.preventDefault();
           document.getElementById('locations')?.scrollIntoView({ behavior: 'smooth' });
         }}
-        className="flex-1 py-2 px-2 flex flex-col items-center justify-center bg-[#FFFDF5] hover:bg-mo-yellow border-2 border-black rounded-xl text-black font-sans font-black text-[11px] uppercase tracking-wider shadow-[2px_2px_0px_#000] active:scale-95 transition-all"
+        className="flex-1 min-h-[48px] py-2 px-2 flex flex-col items-center justify-center bg-[#FFFDF5] hover:bg-mo-yellow border-2 border-black rounded-xl text-black font-sans font-black text-[11px] uppercase tracking-wider shadow-[2px_2px_0px_#000] active:scale-95 transition-all"
       >
         <MapPin className="w-4 h-4 mb-0.5 text-mo-orange" aria-hidden="true" />
         <span>{t.mobileBar?.locations || 'Branches'}</span>
