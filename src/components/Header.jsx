@@ -3,12 +3,14 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { PhoneCall, ShoppingBag } from 'lucide-react';
 import { locales } from './locales.js';
 import { useCart } from './CartContext.jsx';
+import { getBranchStatus } from '../utils/businessHours.js';
 
 export const Header = ({ lang, setLang, onOpenOrder }) => {
   const shouldReduceMotion = useReducedMotion();
   const t = locales[lang];
   const isRtl = lang === 'ar';
   const { totalItems, totalPrice } = useCart();
+  const { isOpen } = getBranchStatus();
 
   return (
     <motion.header
@@ -38,8 +40,9 @@ export const Header = ({ lang, setLang, onOpenOrder }) => {
             <span className="text-2xl sm:text-3xl font-display uppercase tracking-wider text-[#111111] group-hover:text-mo-orange transition-colors leading-none">
               {t.nav.brand}
             </span>
-            <span className="hidden sm:inline-block text-[11px] font-mono font-black tracking-wider uppercase bg-mo-yellow text-black px-2 py-0.5 rounded-md border-2 border-black shadow-[1px_1px_0px_#000]">
-              5 RESTOS • DZ
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono font-black tracking-wider uppercase bg-mo-yellow text-black px-2 py-0.5 rounded-md border-2 border-black shadow-[1px_1px_0px_#000]">
+              <span className={`w-1.5 h-1.5 rounded-full ${isOpen ? 'bg-emerald-600 animate-pulse' : 'bg-rose-500'}`} aria-hidden="true" />
+              <span>5 RESTOS • DZ</span>
             </span>
           </div>
           <span className="text-[10px] font-mono font-bold tracking-wider text-mo-orange uppercase hidden md:block">

@@ -4,11 +4,14 @@ import { MapPin, Phone, ChevronsRight, ChevronsLeft, ArrowUpRight } from 'lucide
 import { LangContext } from './App.jsx';
 import { locales } from './locales.js';
 import branchesInfo from '../data/branches_info.json';
+import { getBranchStatus } from '../utils/businessHours.js';
 
 export const Locations = () => {
   const lang = useContext(LangContext);
   const t = locales[lang].locations;
+  const statusLabels = locales[lang].menu?.status || {};
   const isRtl = lang === 'ar';
+  const { isOpen } = getBranchStatus();
 
   const branches = branchesInfo.map((b) => ({
     city: t.cities[b.id] || b.city,
@@ -38,8 +41,22 @@ export const Locations = () => {
               ? 'تفضل بزيارة أقرب فرع لمطعم مو بيتزا في وهران، باتنة، العاصمة، ومستغانم!'
               : 'Dégustez sur place, emportez ou appelez directement votre agence la plus proche.'}
           </p>
-          <div className="mt-3 inline-flex items-center gap-2 bg-mo-yellow text-black font-mono font-bold text-xs uppercase px-3 py-1 rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
-            <span>Ouvert 7j/7 • 11h30 – 01h00</span>
+          <div className="mt-3.5 inline-flex flex-wrap items-center justify-center gap-2">
+            <span
+              className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono font-black text-xs uppercase border-2 border-black shadow-[2px_2px_0px_#000] ${
+                isOpen ? 'bg-emerald-300 text-black' : 'bg-rose-200 text-black'
+              }`}
+            >
+              <span
+                className={`w-2 h-2 rounded-full ${isOpen ? 'bg-emerald-700 animate-pulse' : 'bg-rose-600'}`}
+                aria-hidden="true"
+              />
+              <span>{isOpen ? (statusLabels.open || 'Ouvert Maintenant') : (statusLabels.closed || 'Fermé Actuellement')}</span>
+            </span>
+
+            <span className="bg-mo-yellow text-black font-mono font-bold text-xs uppercase px-3.5 py-1 rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
+              {statusLabels.hours || 'Ouvert 7j/7 • 11h30 – 01h00'}
+            </span>
           </div>
         </div>
 

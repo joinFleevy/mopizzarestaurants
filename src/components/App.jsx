@@ -1,5 +1,5 @@
 // Designed with love by Webos Mebos team
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { locales } from './locales.js';
 import { CartProvider, useCart } from './CartContext.jsx';
 import { Header } from './Header.jsx';
@@ -14,13 +14,39 @@ import { MobileActionBar } from './MobileActionBar.jsx';
 import { FloatingOrderTray } from './FloatingOrderTray.jsx';
 import { OrderModal } from './OrderModal.jsx';
 
-export const LangContext = createContext('en');
+export const LangContext = createContext('fr');
+
+const getInitialLang = () => {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('mopizza_lang');
+    if (saved && ['fr', 'ar', 'en'].includes(saved)) return saved;
+    if (navigator.language && navigator.language.startsWith('ar')) return 'ar';
+    return 'fr';
+  }
+  return 'fr';
+};
 
 function MainApp() {
-  const [lang, setLang] = useState('en');
+  const [lang, setLangState] = useState(getInitialLang);
   const [selectedOrderItem, setSelectedOrderItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isCartModalOpen, closeCart } = useCart();
+
+  const setLang = (newL) => {
+    setLangState(newL);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('mopizza_lang', newL);
+      document.documentElement.lang = newL;
+      document.documentElement.dir = newL === 'ar' ? 'rtl' : 'ltr';
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    }
+  }, [lang]);
 
   const isRtl = lang === 'ar';
   const t = locales[lang];

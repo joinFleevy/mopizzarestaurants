@@ -41,7 +41,17 @@ export const locales = {
       copiedReceipt: "Order Copied to Clipboard!",
       orDirectCall: "Or call branch without ordering items:",
       gridView: "Cards",
-      listView: "Compact List"
+      listView: "Compact List",
+      status: {
+        open: "Open Now",
+        closed: "Closed Currently",
+        hours: "Open 7/7 • 11:30 AM – 01:00 AM",
+        opensAt: "Opens at 11:30 AM"
+      },
+      upsell: {
+        title: "Add a Drink or Crispy Side?",
+        quickAdd: "Quick Add"
+      }
     },
     mobileBar: {
       menu: "Menu",
@@ -133,7 +143,17 @@ export const locales = {
       copiedReceipt: "تم نسخ الطلب في الحافظة!",
       orDirectCall: "أو اتصل بالفرع مباشرة دون تحديد عناصر:",
       gridView: "بطاقات",
-      listView: "قائمة سريعة"
+      listView: "قائمة سريعة",
+      status: {
+        open: "مفتوح الآن",
+        closed: "مغلق حالياً",
+        hours: "مفتوح 7/7 • 11:30 صباحاً – 01:00 ليلاً",
+        opensAt: "يفتح على 11:30 صباحاً"
+      },
+      upsell: {
+        title: "أضف مشروباً منعشاً أو مقبلات مقرمشة؟",
+        quickAdd: "إضافة سريعة"
+      }
     },
     mobileBar: {
       menu: "القائمة",
@@ -225,7 +245,17 @@ export const locales = {
       copiedReceipt: "Commande copiée !",
       orDirectCall: "Ou appeler sans sélection préalable :",
       gridView: "Cartes",
-      listView: "Liste Rapide"
+      listView: "Liste Rapide",
+      status: {
+        open: "Ouvert Maintenant",
+        closed: "Fermé Actuellement",
+        hours: "Ouvert 7j/7 • 11h30 – 01h00",
+        opensAt: "Ouvre à 11h30"
+      },
+      upsell: {
+        title: "Ajouter une boisson ou un accompagnement ?",
+        quickAdd: "Ajout rapide"
+      }
     },
     mobileBar: {
       menu: "Menu",

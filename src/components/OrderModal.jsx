@@ -4,12 +4,22 @@ import { Phone, MapPin, X, Copy, Check, Trash2, Plus, Minus, ArrowUpRight, Shopp
 import { locales } from './locales.js';
 import { useCart } from './CartContext.jsx';
 import branchesInfo from '../data/branches_info.json';
+import menuData from '../data/menu.json';
+import { getBranchStatus } from '../utils/businessHours.js';
 
 export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
   const [copied, setCopied] = useState(false);
-  const { cart, totalPrice, updateQuantity, clearCart } = useCart();
+  const { cart, totalPrice, updateQuantity, clearCart, addToCart } = useCart();
   const t = locales[lang];
   const isRtl = lang === 'ar';
+  const { isOpen: isBranchOpen } = getBranchStatus();
+  const statusLabels = t.menu?.status || {};
+
+  const upsellItems = [
+    ...(menuData.drinks || []).slice(0, 2),
+    ...(menuData.sides || []).slice(0, 2),
+    ...(menuData.desserts || []).slice(0, 1)
+  ];
 
   const isCartMode = !selectedItem && cart.length > 0;
 
@@ -91,8 +101,21 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                     ? (t.menu?.orderTray || 'Panier de Commande')
                     : (t.menu?.title || 'MO PIZZA')}
                 </h2>
-                <div className="text-xs font-mono font-bold text-mo-orange uppercase tracking-wider mt-0.5">
-                  Ouvert 7j/7 • 11h30 – 01h00
+                <div className="flex items-center gap-2 mt-1">
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black uppercase border border-black ${
+                      isBranchOpen ? 'bg-emerald-300 text-black' : 'bg-rose-200 text-black'
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${isBranchOpen ? 'bg-emerald-700 animate-pulse' : 'bg-rose-600'}`}
+                      aria-hidden="true"
+                    />
+                    {isBranchOpen ? (statusLabels.open || 'Ouvert') : (statusLabels.closed || 'Fermé')}
+                  </span>
+                  <span className="text-[11px] font-mono font-bold text-black/70">
+                    {statusLabels.hours || 'Ouvert 7j/7 • 11h30 – 01h00'}
+                  </span>
                 </div>
               </div>
 
@@ -172,6 +195,50 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                       </div>
                     );
                   })}
+                </div>
+
+                {/* 1-Tap Quick Upsell Strip */}
+                <div className="mb-4">
+                  <div className="text-[11px] font-mono font-black uppercase tracking-wider text-black/70 mb-2 flex items-center justify-between">
+                    <span>{t.menu?.upsell?.title || 'Ajouter une boisson ou un accompagnement ?'}</span>
+                    <span className="text-[10px] font-mono font-black text-black bg-mo-yellow px-2 py-0.5 rounded border border-black shadow-[1px_1px_0px_#000]">
+                      + 1-TAP
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-1">
+                    {upsellItems.map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex-shrink-0 bg-white border-2 border-black rounded-xl p-2 flex items-center gap-2.5 shadow-[2px_2px_0px_#000] min-w-[210px] max-w-[240px]"
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-10 h-10 rounded-lg object-cover border border-black bg-black shrink-0"
+                          width="40"
+                          height="40"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <h5 className="font-display uppercase text-xs text-black truncate leading-tight">
+                            {item.name}
+                          </h5>
+                          <div className="font-mono text-[11px] font-bold text-mo-orange">
+                            {item.price}
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => addToCart(item, 1)}
+                          className="w-7 h-7 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border border-black flex items-center justify-center font-black transition-all active:scale-90 shadow-[1px_1px_0px_#000] cursor-pointer shrink-0"
+                          title={`Add ${item.name}`}
+                          aria-label={`Add ${item.name}`}
+                        >
+                          <Plus className="w-3.5 h-3.5 text-black" aria-hidden="true" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Grand Total Row */}
