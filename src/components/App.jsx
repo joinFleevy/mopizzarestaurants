@@ -73,9 +73,9 @@ function MainApp() {
         <Header lang={lang} setLang={setLang} onOpenOrder={() => handleOpenOrder(null)} />
         <Hero onOpenOrder={() => handleOpenOrder(null)} />
         <Marquee />
-        <Locations />
-        <FoodShowcase />
         <MenuSection onSelectItem={(item) => handleOpenOrder(item)} />
+        <FoodShowcase />
+        <Locations />
         <Reviews />
         <Footer />
 
