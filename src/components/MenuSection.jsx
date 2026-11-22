@@ -55,7 +55,7 @@ export const MenuSection = ({ onSelectItem }) => {
         </div>
 
         {/* --- STICKY CATEGORY SUB-NAV & VIEW TOGGLE --- */}
-        <div className="sticky top-[68px] sm:top-[74px] z-30 bg-[#FFFDF5]/95 backdrop-blur-md py-3 -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 border-y-2 border-black mb-10 md:mb-14 shadow-sm">
+        <div className="sticky top-[74px] sm:top-[82px] md:top-[78px] z-30 bg-[#FFFDF5]/95 backdrop-blur-md py-2.5 sm:py-3 -mx-4 sm:-mx-6 md:-mx-12 px-4 sm:px-6 md:px-12 border-y-2 border-black mb-10 md:mb-14 shadow-sm">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
             {/* Category Filter Tabs */}
             <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto hide-scrollbar py-1">
@@ -67,7 +67,7 @@ export const MenuSection = ({ onSelectItem }) => {
                     key={cat.id}
                     type="button"
                     onClick={() => setActiveCategory(cat.id)}
-                    className={`flex-shrink-0 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-mono text-xs sm:text-sm uppercase tracking-wider font-black transition-all duration-200 active:scale-95 cursor-pointer border-2 border-black ${
+                    className={`flex-shrink-0 inline-flex items-center gap-1.5 sm:gap-2 min-h-[44px] px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-mono text-xs sm:text-sm uppercase tracking-wider font-black transition-all duration-200 active:scale-95 cursor-pointer border-2 border-black ${
                       isActive
                         ? 'bg-mo-orange text-black shadow-[3px_3px_0px_#000]'
                         : 'bg-white text-black hover:bg-mo-yellow shadow-[2px_2px_0px_#000]'
@@ -87,7 +87,7 @@ export const MenuSection = ({ onSelectItem }) => {
                 onClick={() => setViewMode('grid')}
                 title={t.gridView || 'Cards'}
                 aria-label={t.gridView || 'Cards'}
-                className={`p-1.5 sm:p-2 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 font-mono text-xs font-black uppercase ${
+                className={`min-w-[44px] min-h-[44px] justify-center p-2 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 font-mono text-xs font-black uppercase ${
                   viewMode === 'grid'
                     ? 'bg-mo-orange text-black border-2 border-black shadow-[1px_1px_0px_#000]'
                     : 'text-black/60 hover:text-black border-2 border-transparent'
@@ -101,7 +101,7 @@ export const MenuSection = ({ onSelectItem }) => {
                 onClick={() => setViewMode('list')}
                 title={t.listView || 'List'}
                 aria-label={t.listView || 'List'}
-                className={`p-1.5 sm:p-2 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 font-mono text-xs font-black uppercase ${
+                className={`min-w-[44px] min-h-[44px] justify-center p-2 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 font-mono text-xs font-black uppercase ${
                   viewMode === 'list'
                     ? 'bg-mo-orange text-black border-2 border-black shadow-[1px_1px_0px_#000]'
                     : 'text-black/60 hover:text-black border-2 border-transparent'

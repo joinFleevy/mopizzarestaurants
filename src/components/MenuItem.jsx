@@ -46,7 +46,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
               className="w-full h-full object-cover"
             />
             {isVip && (
-              <span className="absolute bottom-0 inset-x-0 bg-mo-orange text-black text-[9px] font-mono font-black text-center uppercase tracking-tighter">
+              <span className="absolute bottom-0 inset-x-0 bg-mo-orange text-black text-[11px] leading-tight py-1 font-mono font-black text-center uppercase tracking-tighter">
                 VIP
               </span>
             )}
@@ -75,7 +75,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
               <button
                 type="button"
                 onClick={handleDecrement}
-                className="w-8 h-8 rounded-lg bg-[#FFFDF5] hover:bg-black hover:text-white text-black border border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer"
+                className="w-11 h-11 rounded-lg bg-[#FFFDF5] hover:bg-black hover:text-white text-black border border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer"
                 aria-label="Decrease quantity"
               >
                 <Minus className="w-3.5 h-3.5" />
@@ -84,7 +84,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
               <button
                 type="button"
                 onClick={handleIncrement}
-                className="w-8 h-8 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer shadow-[1px_1px_0px_#000]"
+                className="w-11 h-11 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer shadow-[1px_1px_0px_#000]"
                 aria-label="Increase quantity"
               >
                 <Plus className="w-3.5 h-3.5" />
@@ -94,7 +94,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
             <button
               type="button"
               onClick={handleAdd}
-              className="h-9 sm:h-10 px-3 sm:px-4 font-sans font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer bg-mo-orange text-black hover:bg-mo-yellow"
+              className="min-w-[44px] min-h-[44px] px-3 sm:px-4 font-sans font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer bg-mo-orange text-black hover:bg-mo-yellow"
             >
               <Plus className="w-4 h-4 shrink-0 text-black" aria-hidden="true" />
               <span className="hidden sm:inline">{t.addToOrder || 'Ajouter'}</span>
@@ -106,7 +106,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
             onClick={() => onSelect(item)}
             title={t.callToOrder || 'Commander'}
             aria-label={`${t.callToOrder || 'Commander'} ${item.name}`}
-            className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-white hover:bg-mo-yellow text-black border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-all active:scale-95 shrink-0 cursor-pointer"
+            className="w-11 h-11 flex items-center justify-center bg-white hover:bg-mo-yellow text-black border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-all active:scale-95 shrink-0 cursor-pointer"
           >
             <PhoneCall className="w-3.5 h-3.5 text-black" aria-hidden="true" />
           </button>
@@ -140,13 +140,13 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
           />
 
           {/* Floating Price Pill */}
-          <span className="absolute top-2 end-2 sm:top-3 sm:end-3 z-10 font-mono text-[11px] sm:text-sm font-black tracking-wider px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border-2 border-black bg-mo-yellow text-black shadow-[2px_2px_0px_#000]">
+          <span className="absolute top-2 end-2 sm:top-3 sm:end-3 z-10 font-mono text-[11px] sm:text-sm font-black tracking-wider px-2 sm:px-3 py-1 rounded-full border-2 border-black bg-mo-yellow text-black shadow-[2px_2px_0px_#000]">
             {item.price}
           </span>
 
           {/* Signature Badge */}
           {isVip && (
-            <span className="absolute top-2 start-2 sm:top-3 sm:start-3 z-10 inline-flex items-center gap-1 text-[9px] sm:text-[11px] font-mono font-black uppercase bg-mo-orange text-black px-2 sm:px-2.5 py-0.5 rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
+            <span className="absolute top-2 start-2 sm:top-3 sm:start-3 z-10 inline-flex items-center gap-1 text-[11px] font-mono font-black uppercase bg-mo-orange text-black px-2 sm:px-2.5 py-1 rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
               <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current text-black" aria-hidden="true" />
               <span>VIP</span>
             </span>
@@ -179,7 +179,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
             <button
               type="button"
               onClick={handleDecrement}
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-[#FFFDF5] hover:bg-black hover:text-white text-black border-2 border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer"
+              className="w-10 min-[360px]:w-11 h-11 rounded-lg bg-[#FFFDF5] hover:bg-black hover:text-white text-black border-2 border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer"
               aria-label="Decrease quantity"
             >
               <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -192,7 +192,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
             <button
               type="button"
               onClick={handleIncrement}
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border-2 border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer shadow-[1px_1px_0px_#000]"
+              className="w-10 min-[360px]:w-11 h-11 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border-2 border-black flex items-center justify-center transition-colors active:scale-90 font-black cursor-pointer shadow-[1px_1px_0px_#000]"
               aria-label="Increase quantity"
             >
               <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -204,7 +204,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
             <button
               type="button"
               onClick={handleAdd}
-              className="flex-1 py-2 sm:py-3 px-2 sm:px-3.5 font-sans font-black text-[11px] sm:text-sm uppercase tracking-wider flex items-center justify-center gap-1 sm:gap-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer bg-mo-orange text-black hover:bg-mo-yellow"
+              className="flex-1 min-h-[44px] min-w-0 leading-tight py-2 sm:py-3 px-2 sm:px-3.5 font-sans font-black text-[11px] sm:text-sm uppercase tracking-wider flex items-center justify-center gap-1 sm:gap-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer bg-mo-orange text-black hover:bg-mo-yellow"
             >
               <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-black" aria-hidden="true" />
               <span>{t.addToOrder || 'Ajouter'}</span>
@@ -215,7 +215,7 @@ export const MenuItem = ({ item, isVip, t, isRtl, onSelect, viewMode = 'grid' })
               onClick={() => onSelect(item)}
               title={t.callToOrder || 'Commander'}
               aria-label={`${t.callToOrder || 'Commander'} ${item.name}`}
-              className="p-2 sm:p-3 bg-white hover:bg-mo-yellow text-black border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-all active:scale-95 shrink-0 cursor-pointer"
+              className="w-11 h-11 flex items-center justify-center bg-white hover:bg-mo-yellow text-black border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-all active:scale-95 shrink-0 cursor-pointer"
             >
               <PhoneCall className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black" aria-hidden="true" />
             </button>

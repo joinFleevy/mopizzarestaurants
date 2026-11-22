@@ -143,9 +143,9 @@ export const Reviews = () => {
 
                 <div className="pt-4 border-t-2 border-black/10 flex items-center justify-between">
                   <div>
-                    <h4 className="font-display uppercase text-lg text-[#111111] tracking-wider">
+                    <h3 className="font-display uppercase text-lg text-[#111111] tracking-wider">
                       {r.author}
-                    </h4>
+                    </h3>
                     <span className="text-[11px] font-mono text-mo-orange font-black uppercase">
                       CLIENT VÉRIFIÉ • DZ
                     </span>

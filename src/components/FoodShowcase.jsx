@@ -119,7 +119,7 @@ export const FoodShowcase = () => {
               />
               {/* Comic sticker badge overlay */}
               <div className="absolute bottom-3 start-3 z-10">
-                <span className={`inline-block font-mono font-black text-[10px] sm:text-xs uppercase px-2.5 sm:px-3 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] tracking-wider ${item.badgeColor}`}>
+                <span className={`inline-block font-mono font-black text-[11px] sm:text-xs uppercase px-2.5 sm:px-3 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] tracking-wider ${item.badgeColor}`}>
                   {item.badge}
                 </span>
               </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, MapPin, X, Copy, Check, Trash2, Plus, Minus, ArrowUpRight, ShoppingBag } from 'lucide-react';
 import { locales } from './locales.js';
@@ -6,9 +6,12 @@ import { useCart } from './CartContext.jsx';
 import branchesInfo from '../data/branches_info.json';
 import menuData from '../data/menu.json';
 import { getBranchStatus } from '../utils/businessHours.js';
+import { copyTextToClipboard } from '../utils/clipboard.js';
 
 export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
   const [copied, setCopied] = useState(false);
+  const [copiedBranchId, setCopiedBranchId] = useState(null);
+  const branchCopyTimeoutRef = useRef(null);
   const { cart, totalPrice, updateQuantity, clearCart, addToCart } = useCart();
   const t = locales[lang];
   const isRtl = lang === 'ar';
@@ -32,17 +35,23 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Lock scroll
+  // Lock scroll & reset branch copy state on close
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
+      setCopiedBranchId(null);
+      if (branchCopyTimeoutRef.current) clearTimeout(branchCopyTimeoutRef.current);
     }
     return () => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    return () => clearTimeout(branchCopyTimeoutRef.current);
+  }, []);
 
   const branches = branchesInfo.map((b) => ({
     id: b.id,
@@ -52,18 +61,29 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
     link: b.mapsUrl
   }));
 
-  const handleCopyOrder = () => {
+  const handleCopyOrder = async () => {
     if (cart.length > 0) {
       const lines = cart.map(
         (c) => `• ${c.quantity}x ${c.item.name} (${((c.item.priceNum || 0) * c.quantity).toLocaleString()} DA)`
       );
       lines.push(`\nTOTAL: ${totalPrice.toLocaleString()} DA`);
       lines.push(`\nCommande MO PIZZA via mopizza.dz`);
-      navigator.clipboard.writeText(lines.join('\n')).then(() => {
+      const ok = await copyTextToClipboard(lines.join('\n'));
+      if (ok) {
         setCopied(true);
         setTimeout(() => setCopied(false), 2500);
-      });
+      }
     }
+  };
+
+  const handleCopyBranchPhone = async (branchId, phone) => {
+    const ok = await copyTextToClipboard(phone);
+    if (!ok) return;
+    if (branchCopyTimeoutRef.current) clearTimeout(branchCopyTimeoutRef.current);
+    setCopiedBranchId(branchId);
+    branchCopyTimeoutRef.current = setTimeout(() => {
+      setCopiedBranchId(null);
+    }, 2000);
   };
 
   return (
@@ -103,12 +123,12 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                 </h2>
                 <div className="flex items-center gap-2 mt-1">
                   <span
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black uppercase border border-black ${
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-black uppercase border border-black ${
                       isBranchOpen ? 'bg-emerald-300 text-black' : 'bg-rose-200 text-black'
                     }`}
                   >
                     <span
-                      className={`w-1.5 h-1.5 rounded-full ${isBranchOpen ? 'bg-emerald-700 animate-pulse' : 'bg-rose-600'}`}
+                      className={`w-2 h-2 rounded-full border border-black ${isBranchOpen ? 'bg-emerald-700' : 'bg-rose-600'}`}
                       aria-hidden="true"
                     />
                     {isBranchOpen ? (statusLabels.open || 'Ouvert') : (statusLabels.closed || 'Fermé')}
@@ -122,7 +142,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
               <button
                 onClick={onClose}
                 aria-label={t.menu?.close || 'Close'}
-                className="p-2.5 bg-white hover:bg-mo-orange text-black border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-colors shrink-0 cursor-pointer"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-white hover:bg-mo-orange text-black border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-colors shrink-0 cursor-pointer"
               >
                 <X className="w-5 h-5" aria-hidden="true" />
               </button>
@@ -136,7 +156,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                   <button
                     type="button"
                     onClick={clearCart}
-                    className="inline-flex items-center gap-1 text-red-600 hover:text-red-700 transition-colors cursor-pointer font-black"
+                    className="inline-flex items-center justify-end gap-1 min-w-[44px] min-h-[44px] px-2 -my-2 text-red-600 hover:text-red-700 transition-colors cursor-pointer font-black"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     <span>{t.menu?.clear || 'Vider'}</span>
@@ -155,9 +175,9 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                             className="w-12 h-12 rounded-xl object-cover shrink-0 border-2 border-black bg-black"
                           />
                           <div className="min-w-0">
-                            <h4 className="font-display uppercase text-sm sm:text-base text-black truncate">
+                            <h3 className="font-display uppercase text-sm sm:text-base text-black truncate">
                               {entry.item.name}
-                            </h4>
+                            </h3>
                             <div className="font-mono text-xs font-bold text-mo-orange">
                               {entry.item.price}
                             </div>
@@ -165,12 +185,12 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                         </div>
 
                         {/* Stepper + Total */}
-                        <div className="flex items-center gap-3 shrink-0">
+                        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                           <div className="flex items-center bg-[#FFFDF5] border-2 border-black rounded-lg p-0.5 shadow-[1px_1px_0px_#000]">
                             <button
                               type="button"
                               onClick={() => updateQuantity(entry.item.id, -1)}
-                              className="w-8 h-8 flex items-center justify-center text-black hover:bg-black hover:text-white rounded cursor-pointer transition-colors"
+                              className="w-11 h-11 flex items-center justify-center text-black hover:bg-black hover:text-white rounded cursor-pointer transition-colors"
                               aria-label="Decrease"
                             >
                               <Minus className="w-3.5 h-3.5" />
@@ -181,14 +201,14 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                             <button
                               type="button"
                               onClick={() => updateQuantity(entry.item.id, 1)}
-                              className="w-8 h-8 flex items-center justify-center text-black hover:bg-black hover:text-white rounded cursor-pointer transition-colors"
+                              className="w-11 h-11 flex items-center justify-center text-black hover:bg-black hover:text-white rounded cursor-pointer transition-colors"
                               aria-label="Increase"
                             >
                               <Plus className="w-3.5 h-3.5" />
                             </button>
                           </div>
 
-                          <span className="font-mono font-black text-sm text-black w-20 text-end">
+                          <span className="font-mono font-black text-sm text-black w-16 sm:w-20 text-end">
                             {lineTotal.toLocaleString()} DA
                           </span>
                         </div>
@@ -201,7 +221,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                 <div className="mb-4">
                   <div className="text-[11px] font-mono font-black uppercase tracking-wider text-black/70 mb-2 flex items-center justify-between">
                     <span>{t.menu?.upsell?.title || 'Ajouter une boisson ou un accompagnement ?'}</span>
-                    <span className="text-[10px] font-mono font-black text-black bg-mo-yellow px-2 py-0.5 rounded border border-black shadow-[1px_1px_0px_#000]">
+                    <span className="text-[11px] font-mono font-black text-black bg-mo-yellow px-2 py-0.5 rounded border border-black shadow-[1px_1px_0px_#000]">
                       + 1-TAP
                     </span>
                   </div>
@@ -220,9 +240,9 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                           height="40"
                         />
                         <div className="min-w-0 flex-1">
-                          <h5 className="font-display uppercase text-xs text-black truncate leading-tight">
+                          <h3 className="font-display uppercase text-xs text-black truncate leading-tight">
                             {item.name}
-                          </h5>
+                          </h3>
                           <div className="font-mono text-[11px] font-bold text-mo-orange">
                             {item.price}
                           </div>
@@ -230,11 +250,11 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                         <button
                           type="button"
                           onClick={() => addToCart(item, 1)}
-                          className="w-7 h-7 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border border-black flex items-center justify-center font-black transition-all active:scale-90 shadow-[1px_1px_0px_#000] cursor-pointer shrink-0"
+                          className="w-11 h-11 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border border-black flex items-center justify-center font-black transition-all active:scale-90 shadow-[1px_1px_0px_#000] cursor-pointer shrink-0"
                           title={`Add ${item.name}`}
                           aria-label={`Add ${item.name}`}
                         >
-                          <Plus className="w-3.5 h-3.5 text-black" aria-hidden="true" />
+                          <Plus className="w-4 h-4 text-black" aria-hidden="true" />
                         </button>
                       </div>
                     ))}
@@ -255,7 +275,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                   <button
                     type="button"
                     onClick={handleCopyOrder}
-                    className="inline-flex items-center gap-2 bg-white hover:bg-mo-orange text-black font-mono text-xs uppercase px-3.5 py-2.5 rounded-xl transition-colors border-2 border-black shadow-[2px_2px_0px_#000] font-black cursor-pointer active:scale-95"
+                    className="inline-flex items-center gap-2 min-h-[44px] bg-white hover:bg-mo-orange text-black font-mono text-xs uppercase px-3.5 py-2.5 rounded-xl transition-colors border-2 border-black shadow-[2px_2px_0px_#000] font-black cursor-pointer active:scale-95"
                   >
                     {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                     <span>{copied ? (t.menu?.copiedReceipt || 'Copié !') : (t.menu?.copyReceipt || 'Copier le récapitulatif')}</span>
@@ -296,9 +316,9 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
             {!selectedItem && cart.length === 0 && (
               <div className="text-center py-6 px-4 bg-white border-2 border-black rounded-2xl mb-6 shadow-[2px_2px_0px_#000]">
                 <ShoppingBag className="w-10 h-10 text-mo-orange mx-auto mb-2" />
-                <h4 className="font-display uppercase text-lg text-black mb-1">
+                <h3 className="font-display uppercase text-lg text-black mb-1">
                   {t.menu?.emptyCart || 'Votre panier est vide'}
-                </h4>
+                </h3>
                 <p className="text-xs text-[#444444] max-w-xs mx-auto">
                   {t.menu?.emptyCartSub || 'Appelez directement votre agence ci-dessous pour commander !'}
                 </p>
@@ -324,34 +344,59 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                   key={branch.id}
                   className="bg-white border-2 border-black rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[3px_3px_0px_#000] hover:bg-[#FFFDF5] transition-all"
                 >
-                  <div>
-                    <div className="flex items-center gap-2">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                       <MapPin className="w-4 h-4 text-mo-orange shrink-0" aria-hidden="true" />
-                      <h3 className="font-display uppercase text-lg sm:text-xl text-black">
+                      <h3 className="font-display uppercase text-lg sm:text-xl text-black whitespace-nowrap">
                         {branch.city}
                       </h3>
-                      <span className="text-[10px] font-mono font-black uppercase bg-mo-yellow text-black px-2 py-0.5 rounded-full border border-black">
+                      <span className="text-[11px] font-mono font-black uppercase bg-mo-yellow text-black px-2 py-0.5 rounded-full border border-black whitespace-nowrap">
                         {branch.sub}
                       </span>
                     </div>
-                    <span className="text-xs font-mono font-black text-black block mt-1" dir="ltr">
-                      {branch.phone}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
+                      <span className="text-xs font-mono font-black text-black whitespace-nowrap" dir="ltr">
+                        {branch.phone}
+                      </span>
+                      {copiedBranchId === branch.id && (
+                        <span className="bg-emerald-300 text-black text-[11px] font-mono font-black uppercase px-2 py-0.5 rounded-md border border-black whitespace-nowrap shrink-0">
+                          {t.locations?.copiedPhone || 'Copié !'}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 shrink-0">
                     <a
                       href={`tel:${branch.phone.replace(/\s+/g, '')}`}
-                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 bg-mo-orange hover:bg-mo-yellow text-black font-sans font-black px-5 py-2.5 rounded-xl text-xs sm:text-sm uppercase tracking-wider border-2 border-black shadow-[2px_2px_0px_#000] transition-all active:scale-95"
+                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 min-h-[44px] bg-mo-orange hover:bg-mo-yellow text-black font-sans font-black px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm uppercase tracking-wider border-2 border-black shadow-[2px_2px_0px_#000] transition-all active:scale-95 whitespace-nowrap"
                     >
                       <Phone className="w-4 h-4 text-black" aria-hidden="true" />
                       {t.menu?.callNow || 'Appel Direct'}
                     </a>
+                    <button
+                      type="button"
+                      data-modal-copy-branch={branch.id}
+                      onClick={() => handleCopyBranchPhone(branch.id, branch.phone)}
+                      title={copiedBranchId === branch.id ? (t.locations?.copiedPhone || 'Copié !') : (t.locations?.copyPhone || 'Copier le numéro')}
+                      aria-label={`${copiedBranchId === branch.id ? (t.locations?.copiedPhone || 'Copié !') : (t.locations?.copyPhone || 'Copier le numéro')}: ${branch.city} (${branch.phone})`}
+                      className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-all active:scale-95 cursor-pointer ${
+                        copiedBranchId === branch.id
+                          ? 'bg-emerald-300 text-black'
+                          : 'bg-[#FFFDF5] hover:bg-mo-yellow text-black'
+                      }`}
+                    >
+                      {copiedBranchId === branch.id ? (
+                        <Check className="w-4 h-4 text-black" aria-hidden="true" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-black" aria-hidden="true" />
+                      )}
+                    </button>
                     <a
                       href={branch.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 bg-[#FFFDF5] hover:bg-mo-yellow text-black border-2 border-black rounded-xl transition-colors"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-[#FFFDF5] hover:bg-mo-yellow text-black border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-colors"
                       title={t.menu?.directions || 'Itinéraire'}
                       aria-label={`${t.menu?.directions || 'Itinéraire'} ${branch.city}`}
                     >
@@ -367,7 +412,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
               <span>100% PÂTE FRAÎCHE ARTISANALE</span>
               <button
                 onClick={onClose}
-                className="hover:text-mo-orange underline cursor-pointer font-black"
+                className="min-w-[44px] min-h-[44px] px-2 inline-flex items-center justify-end hover:text-mo-orange underline cursor-pointer font-black"
               >
                 {t.menu?.close || 'Fermer'}
               </button>

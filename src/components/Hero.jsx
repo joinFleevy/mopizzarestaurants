@@ -44,7 +44,7 @@ export const Hero = ({ onOpenOrder }) => {
           variants={textVariants}
           className="mb-5 inline-flex items-center gap-2 self-start bg-mo-yellow text-black border-2 border-black px-4 py-1.5 rounded-full shadow-[3px_3px_0px_#000] rotate-[-1deg]"
         >
-          <Flame className="w-4 h-4 text-mo-orange animate-pulse" aria-hidden="true" />
+          <Flame className="w-4 h-4 text-mo-orange shrink-0" aria-hidden="true" />
           <span className="text-xs font-mono font-black uppercase tracking-wider text-black">
             {lang === 'ar' ? 'المطعم الرسمي لمراد أودية • 100% بنة و 100% ضحك' : 'LE RESTO OFFICIEL DE MORAD OUDIA • 100% BENNA'}
           </span>
@@ -106,7 +106,7 @@ export const Hero = ({ onOpenOrder }) => {
             initial={{ scale: shouldReduceMotion ? 1 : 1.05, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            src="/vids/very_good_too.mp4"
+            src="/vids/hero_optimized.mp4"
             poster="/images/hero_poster.webp"
             autoPlay
             loop

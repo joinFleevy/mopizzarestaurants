@@ -71,6 +71,8 @@ export const locales = {
     locations: {
       title: "Where to find us",
       cta: "GET DIRECTIONS",
+      copyPhone: "Copy phone number",
+      copiedPhone: "Phone copied!",
       cities: {
         oran: "Oran",
         batna: "Batna",
@@ -173,6 +175,8 @@ export const locales = {
     locations: {
       title: "فروعنا",
       cta: "الإتجاهات",
+      copyPhone: "نسخ رقم الهاتف",
+      copiedPhone: "تم نسخ الرقم!",
       cities: {
         oran: "وهران",
         batna: "باتنة",
@@ -275,6 +279,8 @@ export const locales = {
     locations: {
       title: "Où nous trouver",
       cta: "Y ALLER",
+      copyPhone: "Copier le numéro",
+      copiedPhone: "Numéro copié !",
       cities: {
         oran: "Oran",
         batna: "Batna",

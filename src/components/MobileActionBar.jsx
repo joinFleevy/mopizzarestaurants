@@ -40,7 +40,7 @@ export const MobileActionBar = ({ onOpenOrder, t, isRtl }) => {
           </>
         ) : (
           <>
-            <PhoneCall className="w-4 h-4 shrink-0 text-black animate-pulse" aria-hidden="true" />
+            <PhoneCall className="w-4 h-4 shrink-0 text-black" aria-hidden="true" />
             <span className="leading-tight">{t.mobileBar?.order || 'Commander'}</span>
           </>
         )}

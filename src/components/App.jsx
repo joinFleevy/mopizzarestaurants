@@ -16,21 +16,24 @@ import { OrderModal } from './OrderModal.jsx';
 
 export const LangContext = createContext('fr');
 
-const getInitialLang = () => {
-  if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem('mopizza_lang');
-    if (saved && ['fr', 'ar', 'en'].includes(saved)) return saved;
-    if (navigator.language && navigator.language.startsWith('ar')) return 'ar';
-    return 'fr';
-  }
-  return 'fr';
-};
-
 function MainApp() {
-  const [lang, setLangState] = useState(getInitialLang);
+  const [lang, setLangState] = useState('fr');
   const [selectedOrderItem, setSelectedOrderItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isCartModalOpen, closeCart } = useCart();
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('mopizza_lang');
+      if (saved && ['fr', 'ar', 'en'].includes(saved)) {
+        setLangState(saved);
+      } else if (navigator.language && navigator.language.startsWith('ar')) {
+        setLangState('ar');
+      }
+    } catch (e) {
+      // Ignore storage errors
+    }
+  }, []);
 
   const setLang = (newL) => {
     setLangState(newL);
@@ -67,7 +70,7 @@ function MainApp() {
   return (
     <LangContext.Provider value={lang}>
       <div
-        className="min-h-screen bg-[#FFFDF5] font-sans text-[#111111] selection:bg-mo-orange selection:text-black overflow-x-hidden pb-16 md:pb-0 relative"
+        className="min-h-screen bg-[#FFFDF5] font-sans text-[#111111] selection:bg-mo-orange selection:text-black overflow-x-clip pb-16 md:pb-0 relative"
         dir={isRtl ? 'rtl' : 'ltr'}
       >
         <Header lang={lang} setLang={setLang} onOpenOrder={() => handleOpenOrder(null)} />

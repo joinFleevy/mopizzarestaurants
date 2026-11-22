@@ -3,27 +3,33 @@ import React, { createContext, useContext, useState, useEffect, useMemo } from '
 const CartContext = createContext(null);
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('mopizza_cart');
-        return saved ? JSON.parse(saved) : [];
-      } catch (e) {
-        return [];
-      }
-    }
-    return [];
-  });
+  const [cart, setCart] = useState([]);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
   useEffect(() => {
     try {
+      const saved = localStorage.getItem('mopizza_cart');
+      const parsed = saved ? JSON.parse(saved) : [];
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        setCart((prev) => (prev.length > 0 ? prev : parsed));
+      }
+    } catch (e) {
+      // Ignore storage errors
+    } finally {
+      setIsHydrated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+    try {
       localStorage.setItem('mopizza_cart', JSON.stringify(cart));
     } catch (e) {
       // Ignore storage errors
     }
-  }, [cart]);
+  }, [cart, isHydrated]);
 
   const addToCart = (item, quantity = 1) => {
     setCart((prev) => {

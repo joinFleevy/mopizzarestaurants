@@ -40,7 +40,7 @@ export const FloatingOrderTray = ({ t, isRtl }) => {
                 <span className="text-xs font-mono uppercase tracking-wider text-black/60 font-bold">
                   {labels.orderTray || 'Tray'}
                 </span>
-                <span className="text-[10px] font-mono font-black text-black bg-mo-yellow px-1.5 py-0.5 rounded border border-black">
+                <span className="text-[11px] font-mono font-black text-black bg-mo-yellow px-1.5 py-0.5 rounded border border-black">
                   {totalItems} {labels.items || 'items'}
                 </span>
               </div>
