@@ -7,7 +7,7 @@ import branchesInfo from '../data/branches_info.json';
 import { getBranchStatus } from '../utils/businessHours.js';
 import { copyTextToClipboard } from '../utils/clipboard.js';
 
-export const Locations = () => {
+export const Locations = ({ preferredBranchId, onSelectBranch }) => {
   const lang = useContext(LangContext);
   const t = locales[lang].locations;
   const statusLabels = locales[lang].menu?.status || {};
@@ -24,7 +24,7 @@ export const Locations = () => {
     id: b.id
   }));
 
-  const [selectedBranch, setSelectedBranch] = useState(branches[0]);
+  const selectedBranch = branches.find((b) => b.id === preferredBranchId) || branches[0];
   const [copiedId, setCopiedId] = useState(null);
   const copyTimeoutRef = useRef(null);
 
@@ -34,6 +34,7 @@ export const Locations = () => {
 
   const handleCopyPhone = async (e, branchId, phone) => {
     e.stopPropagation();
+    onSelectBranch?.(branchId);
     const ok = await copyTextToClipboard(phone);
     if (!ok) return;
     if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
@@ -84,37 +85,46 @@ export const Locations = () => {
           <div className="md:w-5/12 flex flex-row md:flex-col overflow-x-auto md:overflow-x-visible hide-scrollbar gap-3 pb-2 md:pb-0 snap-x snap-mandatory">
             {branches.map((b) => {
               const isSelected = selectedBranch.id === b.id;
+              const isPreferred = preferredBranchId === b.id;
               return (
                 <div
                   key={b.id}
+                  data-branch-card={b.id}
                   className={`p-3.5 sm:p-5 rounded-2xl flex flex-col justify-between transition-all border-2 shrink-0 snap-start w-[276px] md:w-auto cursor-pointer ${
                     isSelected
                       ? 'bg-mo-yellow border-black shadow-[3px_3px_0px_#000]'
                       : 'bg-[#FFFDF5] border-black/30 hover:border-black text-black'
                   }`}
-                  onClick={() => setSelectedBranch(b)}
+                  onClick={() => onSelectBranch?.(b.id)}
                 >
-                  <div className="w-full text-start flex flex-col gap-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
+                  <div className="w-full text-start flex flex-col gap-1.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
                         <MapPin
                           size={18}
-                          className={isSelected ? 'text-mo-orange' : 'text-black'}
+                          className={isSelected ? 'text-mo-orange shrink-0' : 'text-black shrink-0'}
                           aria-hidden="true"
                         />
                         <h3 className="font-display uppercase text-2xl tracking-wide text-black">
                           {b.city}
                         </h3>
                       </div>
-                      <span
-                        className={`text-[11px] font-mono uppercase px-2.5 py-1 rounded-full font-black border-2 border-black ${
-                          isSelected
-                            ? 'bg-mo-orange text-black'
-                            : 'bg-white text-black'
-                        }`}
-                      >
-                        {b.sub}
-                      </span>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        {isPreferred && (
+                          <span className="bg-black text-mo-yellow text-[11px] font-mono font-black uppercase px-2 py-1 rounded-full border border-black whitespace-nowrap">
+                            ★ {t.myBranch || 'Mon Resto'}
+                          </span>
+                        )}
+                        <span
+                          className={`text-[11px] font-mono uppercase px-2.5 py-1 rounded-full font-black border-2 border-black whitespace-nowrap ${
+                            isSelected
+                              ? 'bg-mo-orange text-black'
+                              : 'bg-white text-black'
+                          }`}
+                        >
+                          {b.sub}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -122,7 +132,10 @@ export const Locations = () => {
                     <div className="flex items-center gap-1.5 min-w-0">
                       <a
                         href={`tel:${b.phone.replace(/\s+/g, '')}`}
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectBranch?.(b.id);
+                        }}
                         className="inline-flex items-center gap-1.5 min-h-[44px] font-mono text-xs font-black px-2.5 sm:px-3.5 py-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] bg-mo-orange text-black hover:bg-white transition-all active:scale-95 whitespace-nowrap"
                         dir="ltr"
                       >
@@ -148,7 +161,7 @@ export const Locations = () => {
                           <Copy size={15} aria-hidden="true" />
                         )}
                         {copiedId === b.id && (
-                          <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 whitespace-nowrap pointer-events-none px-2 py-0.5 rounded-md border-2 border-black bg-emerald-300 text-black font-mono font-black text-[11px] uppercase shadow-[2px_2px_0px_#000] z-20">
+                          <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 whitespace-nowrap pointer-events-none px-2 py-1 rounded-md border-2 border-black bg-emerald-300 text-black font-mono font-black text-[11px] uppercase shadow-[2px_2px_0px_#000] z-20">
                             {t.copiedPhone}
                           </span>
                         )}

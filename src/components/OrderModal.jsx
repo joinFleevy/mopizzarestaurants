@@ -8,11 +8,19 @@ import menuData from '../data/menu.json';
 import { getBranchStatus } from '../utils/businessHours.js';
 import { copyTextToClipboard } from '../utils/clipboard.js';
 
-export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
+export const OrderModal = ({
+  isOpen,
+  onClose,
+  selectedItem,
+  onPromoteToCart,
+  preferredBranchId,
+  onSelectBranch,
+  lang = 'fr'
+}) => {
   const [copied, setCopied] = useState(false);
   const [copiedBranchId, setCopiedBranchId] = useState(null);
   const branchCopyTimeoutRef = useRef(null);
-  const { cart, totalPrice, updateQuantity, clearCart, addToCart } = useCart();
+  const { cart, totalPrice, updateQuantity, clearCart, addToCart, getItemQuantity } = useCart();
   const t = locales[lang];
   const isRtl = lang === 'ar';
   const { isOpen: isBranchOpen } = getBranchStatus();
@@ -53,13 +61,31 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
     return () => clearTimeout(branchCopyTimeoutRef.current);
   }, []);
 
-  const branches = branchesInfo.map((b) => ({
-    id: b.id,
-    city: t.locations?.cities?.[b.id] || b.city,
-    sub: t.locations?.subs?.[b.id] || b.name,
-    phone: b.phone,
-    link: b.mapsUrl
-  }));
+  const branches = branchesInfo
+    .map((b) => ({
+      id: b.id,
+      city: t.locations?.cities?.[b.id] || b.city,
+      sub: t.locations?.subs?.[b.id] || b.name,
+      phone: b.phone,
+      link: b.mapsUrl
+    }))
+    .sort((a, b) => {
+      if (a.id === preferredBranchId) return -1;
+      if (b.id === preferredBranchId) return 1;
+      return 0;
+    });
+
+  const handleUpsellAdd = (upsellItem) => {
+    if (selectedItem) {
+      if (getItemQuantity(selectedItem.id) === 0) {
+        addToCart(selectedItem, 1);
+      }
+      addToCart(upsellItem, 1);
+      onPromoteToCart?.();
+    } else {
+      addToCart(upsellItem, 1);
+    }
+  };
 
   const handleCopyOrder = async () => {
     if (cart.length > 0) {
@@ -77,6 +103,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
   };
 
   const handleCopyBranchPhone = async (branchId, phone) => {
+    onSelectBranch?.(branchId);
     const ok = await copyTextToClipboard(phone);
     if (!ok) return;
     if (branchCopyTimeoutRef.current) clearTimeout(branchCopyTimeoutRef.current);
@@ -85,6 +112,52 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
       setCopiedBranchId(null);
     }, 2000);
   };
+
+  const renderUpsellStrip = () => (
+    <div className="mb-4" data-upsell-strip="true">
+      <div className="text-[11px] font-mono font-black uppercase tracking-wider text-black/70 mb-2 flex items-center justify-between gap-2">
+        <span>{t.menu?.upsell?.title || 'Ajouter une boisson ou un accompagnement ?'}</span>
+        <span className="text-[11px] font-mono font-black text-black bg-mo-yellow px-2 py-1 rounded border border-black shadow-[1px_1px_0px_#000] whitespace-nowrap shrink-0">
+          + 1-TAP
+        </span>
+      </div>
+
+      <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-1">
+        {upsellItems.map((item) => (
+          <div
+            key={item.id}
+            className="flex-shrink-0 bg-white border-2 border-black rounded-xl p-2 flex items-center gap-2.5 shadow-[2px_2px_0px_#000] min-w-[210px] max-w-[240px]"
+          >
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-10 h-10 rounded-lg object-cover border border-black bg-black shrink-0"
+              width="40"
+              height="40"
+            />
+            <div className="min-w-0 flex-1">
+              <h3 className="font-display uppercase text-xs text-black truncate leading-tight">
+                {item.name}
+              </h3>
+              <div className="font-mono text-[11px] font-bold text-mo-orange">
+                {item.price}
+              </div>
+            </div>
+            <button
+              type="button"
+              data-upsell-add={item.id}
+              onClick={() => handleUpsellAdd(item)}
+              className="w-11 h-11 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border border-black flex items-center justify-center font-black transition-all active:scale-90 shadow-[1px_1px_0px_#000] cursor-pointer shrink-0"
+              title={`Add ${item.name}`}
+              aria-label={`Add ${item.name}`}
+            >
+              <Plus className="w-4 h-4 text-black" aria-hidden="true" />
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <AnimatePresence>
@@ -123,7 +196,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                 </h2>
                 <div className="flex items-center gap-2 mt-1">
                   <span
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-black uppercase border border-black ${
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-black uppercase border border-black ${
                       isBranchOpen ? 'bg-emerald-300 text-black' : 'bg-rose-200 text-black'
                     }`}
                   >
@@ -218,48 +291,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                 </div>
 
                 {/* 1-Tap Quick Upsell Strip */}
-                <div className="mb-4">
-                  <div className="text-[11px] font-mono font-black uppercase tracking-wider text-black/70 mb-2 flex items-center justify-between">
-                    <span>{t.menu?.upsell?.title || 'Ajouter une boisson ou un accompagnement ?'}</span>
-                    <span className="text-[11px] font-mono font-black text-black bg-mo-yellow px-2 py-0.5 rounded border border-black shadow-[1px_1px_0px_#000]">
-                      + 1-TAP
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-1">
-                    {upsellItems.map((item) => (
-                      <div
-                        key={item.id}
-                        className="flex-shrink-0 bg-white border-2 border-black rounded-xl p-2 flex items-center gap-2.5 shadow-[2px_2px_0px_#000] min-w-[210px] max-w-[240px]"
-                      >
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-10 h-10 rounded-lg object-cover border border-black bg-black shrink-0"
-                          width="40"
-                          height="40"
-                        />
-                        <div className="min-w-0 flex-1">
-                          <h3 className="font-display uppercase text-xs text-black truncate leading-tight">
-                            {item.name}
-                          </h3>
-                          <div className="font-mono text-[11px] font-bold text-mo-orange">
-                            {item.price}
-                          </div>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => addToCart(item, 1)}
-                          className="w-11 h-11 rounded-lg bg-mo-orange hover:bg-mo-yellow text-black border border-black flex items-center justify-center font-black transition-all active:scale-90 shadow-[1px_1px_0px_#000] cursor-pointer shrink-0"
-                          title={`Add ${item.name}`}
-                          aria-label={`Add ${item.name}`}
-                        >
-                          <Plus className="w-4 h-4 text-black" aria-hidden="true" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                {renderUpsellStrip()}
 
                 {/* Grand Total Row */}
                 <div className="flex items-center justify-between p-4 bg-mo-yellow border-2 border-black rounded-2xl mb-4 shadow-[3px_3px_0px_#000]">
@@ -284,32 +316,36 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
               </div>
             )}
 
-            {/* Mode B: Single Pizza Preview Card */}
+            {/* Mode B: Single Pizza Preview Card + 1-Tap Upsell Strip */}
             {selectedItem && (
-              <div className="flex items-center gap-3.5 mb-5 p-3.5 bg-white border-2 border-black rounded-2xl shadow-[3px_3px_0px_#000]">
-                <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border-2 border-black bg-black">
-                  <img
-                    src={selectedItem.image || '/images/menu/margarita.webp'}
-                    alt={selectedItem.name}
-                    className="w-full h-full object-cover"
-                    width="64"
-                    height="64"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-display uppercase text-lg text-black truncate">
-                      {selectedItem.name}
-                    </h3>
-                    <span className="font-mono text-xs font-black text-black px-2.5 py-0.5 rounded-full bg-mo-yellow border-2 border-black shrink-0">
-                      {selectedItem.price}
-                    </span>
+              <>
+                <div className="flex items-center gap-3.5 mb-4 p-3.5 bg-white border-2 border-black rounded-2xl shadow-[3px_3px_0px_#000]">
+                  <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border-2 border-black bg-black">
+                    <img
+                      src={selectedItem.image || '/images/menu/margarita.webp'}
+                      alt={selectedItem.name}
+                      className="w-full h-full object-cover"
+                      width="64"
+                      height="64"
+                    />
                   </div>
-                  <p className="text-xs text-[#444444] line-clamp-1 mt-0.5">
-                    {selectedItem.desc}
-                  </p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-display uppercase text-lg text-black truncate">
+                        {selectedItem.name}
+                      </h3>
+                      <span className="font-mono text-xs font-black text-black px-2.5 py-1 rounded-full bg-mo-yellow border-2 border-black shrink-0">
+                        {selectedItem.price}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#444444] line-clamp-1 mt-0.5">
+                      {selectedItem.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
+
+                {renderUpsellStrip()}
+              </>
             )}
 
             {/* Mode C: Empty Cart Prompt */}
@@ -339,10 +375,17 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
 
             {/* 5 Branches Phone List */}
             <div className="flex flex-col gap-3 mb-6">
-              {branches.map((branch) => (
+              {branches.map((branch) => {
+                const isPreferred = preferredBranchId === branch.id;
+                return (
                 <div
                   key={branch.id}
-                  className="bg-white border-2 border-black rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[3px_3px_0px_#000] hover:bg-[#FFFDF5] transition-all"
+                  data-modal-branch={branch.id}
+                  className={`border-2 border-black rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all ${
+                    isPreferred
+                      ? 'bg-[#FFF9E6] shadow-[4px_4px_0px_#000]'
+                      : 'bg-white shadow-[3px_3px_0px_#000] hover:bg-[#FFFDF5]'
+                  }`}
                 >
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
@@ -350,16 +393,21 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                       <h3 className="font-display uppercase text-lg sm:text-xl text-black whitespace-nowrap">
                         {branch.city}
                       </h3>
-                      <span className="text-[11px] font-mono font-black uppercase bg-mo-yellow text-black px-2 py-0.5 rounded-full border border-black whitespace-nowrap">
+                      <span className="text-[11px] font-mono font-black uppercase bg-mo-yellow text-black px-2 py-1 rounded-full border border-black whitespace-nowrap">
                         {branch.sub}
                       </span>
+                      {isPreferred && (
+                        <span className="text-[11px] font-mono font-black uppercase bg-black text-mo-yellow px-2 py-1 rounded-full whitespace-nowrap">
+                          ★ {t.locations?.myBranch || 'Mon Resto'}
+                        </span>
+                      )}
                     </div>
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
                       <span className="text-xs font-mono font-black text-black whitespace-nowrap" dir="ltr">
                         {branch.phone}
                       </span>
                       {copiedBranchId === branch.id && (
-                        <span className="bg-emerald-300 text-black text-[11px] font-mono font-black uppercase px-2 py-0.5 rounded-md border border-black whitespace-nowrap shrink-0">
+                        <span className="bg-emerald-300 text-black text-[11px] font-mono font-black uppercase px-2 py-1 rounded-md border border-black whitespace-nowrap shrink-0">
                           {t.locations?.copiedPhone || 'Copié !'}
                         </span>
                       )}
@@ -369,6 +417,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                   <div className="flex items-center gap-2 shrink-0">
                     <a
                       href={`tel:${branch.phone.replace(/\s+/g, '')}`}
+                      onClick={() => onSelectBranch?.(branch.id)}
                       className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 min-h-[44px] bg-mo-orange hover:bg-mo-yellow text-black font-sans font-black px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm uppercase tracking-wider border-2 border-black shadow-[2px_2px_0px_#000] transition-all active:scale-95 whitespace-nowrap"
                     >
                       <Phone className="w-4 h-4 text-black" aria-hidden="true" />
@@ -396,6 +445,7 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                       href={branch.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => onSelectBranch?.(branch.id)}
                       className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-[#FFFDF5] hover:bg-mo-yellow text-black border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] transition-colors"
                       title={t.menu?.directions || 'Itinéraire'}
                       aria-label={`${t.menu?.directions || 'Itinéraire'} ${branch.city}`}
@@ -404,7 +454,8 @@ export const OrderModal = ({ isOpen, onClose, selectedItem, lang = 'fr' }) => {
                     </a>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Footer notes */}

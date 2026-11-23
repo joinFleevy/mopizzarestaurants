@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { PhoneCall, MapPin, ArrowUpRight, Flame } from 'lucide-react';
+import { PhoneCall, Utensils, ArrowUpRight, Flame } from 'lucide-react';
 import { LangContext } from './App.jsx';
 import { locales } from './locales.js';
 
@@ -78,23 +78,27 @@ export const Hero = ({ onOpenOrder }) => {
           variants={textVariants}
           className="flex flex-col sm:flex-row gap-3.5 sm:gap-4 items-stretch sm:items-center"
         >
+          <a
+            href="#menu"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="inline-flex items-center justify-center gap-3 min-h-[56px] bg-mo-orange text-black font-sans font-black text-base sm:text-lg px-8 py-4 rounded-2xl border-3 border-black shadow-[4px_4px_0px_#000] uppercase tracking-wider hover:bg-mo-yellow hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all active:scale-95 cursor-pointer"
+          >
+            <Utensils className="w-5 h-5 text-black" aria-hidden="true" />
+            <span>{t.ctaMenu || 'Voir le Menu'}</span>
+          </a>
+
           <button
             type="button"
             onClick={onOpenOrder}
-            className="inline-flex items-center justify-center gap-3 bg-mo-orange text-black font-sans font-black text-base sm:text-lg px-8 py-4 rounded-2xl border-3 border-black shadow-[4px_4px_0px_#000] uppercase tracking-wider hover:bg-mo-yellow hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all active:scale-95 cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 min-h-[56px] bg-white text-black border-3 border-black font-sans font-black text-base sm:text-lg px-7 py-4 rounded-2xl shadow-[4px_4px_0px_#000] uppercase tracking-wider hover:bg-mo-yellow hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all active:scale-95 cursor-pointer"
           >
-            <PhoneCall className="w-5 h-5 text-black" aria-hidden="true" />
-            <span>{locales[lang].menu?.callToOrder || 'Commander'}</span>
-          </button>
-
-          <a
-            href="#locations"
-            className="inline-flex items-center justify-center gap-2 bg-white text-black border-3 border-black font-sans font-black text-base sm:text-lg px-7 py-4 rounded-2xl shadow-[4px_4px_0px_#000] uppercase tracking-wider hover:bg-mo-yellow hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all active:scale-95"
-          >
-            <MapPin className="w-5 h-5 text-mo-orange" aria-hidden="true" />
-            <span>{t.cta}</span>
+            <PhoneCall className="w-5 h-5 text-mo-orange" aria-hidden="true" />
+            <span>{t.ctaCall || 'Appeler un Resto'}</span>
             <ArrowUpRight className="w-4 h-4 text-black" aria-hidden="true" />
-          </a>
+          </button>
         </motion.div>
       </div>
 

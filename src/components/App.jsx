@@ -1,6 +1,7 @@
 // Designed with love by Webos Mebos team
 import React, { useState, useEffect, createContext } from 'react';
 import { locales } from './locales.js';
+import branchesInfo from '../data/branches_info.json';
 import { CartProvider, useCart } from './CartContext.jsx';
 import { Header } from './Header.jsx';
 import { Hero } from './Hero.jsx';
@@ -20,6 +21,7 @@ function MainApp() {
   const [lang, setLangState] = useState('fr');
   const [selectedOrderItem, setSelectedOrderItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [preferredBranchId, setPreferredBranchId] = useState(null);
   const { isCartModalOpen, closeCart } = useCart();
 
   useEffect(() => {
@@ -30,10 +32,23 @@ function MainApp() {
       } else if (navigator.language && navigator.language.startsWith('ar')) {
         setLangState('ar');
       }
+      const savedBranch = localStorage.getItem('mopizza_branch');
+      if (savedBranch && branchesInfo.some((b) => b.id === savedBranch)) {
+        setPreferredBranchId(savedBranch);
+      }
     } catch (e) {
       // Ignore storage errors
     }
   }, []);
+
+  const handleSelectBranch = (branchId) => {
+    setPreferredBranchId(branchId);
+    try {
+      localStorage.setItem('mopizza_branch', branchId);
+    } catch (e) {
+      // Ignore storage errors
+    }
+  };
 
   const setLang = (newL) => {
     setLangState(newL);
@@ -78,7 +93,7 @@ function MainApp() {
         <Marquee />
         <MenuSection onSelectItem={(item) => handleOpenOrder(item)} />
         <FoodShowcase />
-        <Locations />
+        <Locations preferredBranchId={preferredBranchId} onSelectBranch={handleSelectBranch} />
         <Reviews />
         <Footer />
 
@@ -93,6 +108,9 @@ function MainApp() {
           isOpen={isAnyModalOpen}
           onClose={handleCloseOrder}
           selectedItem={selectedOrderItem}
+          onPromoteToCart={() => setSelectedOrderItem(null)}
+          preferredBranchId={preferredBranchId}
+          onSelectBranch={handleSelectBranch}
           t={t}
           isRtl={isRtl}
           lang={lang}

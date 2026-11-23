@@ -62,7 +62,9 @@ export const locales = {
       title1: "MORE THAN",
       title2: "JUST PIZZA.",
       subtitle: "Morad Oudia's official restaurant. Serving a rich menu that blends authentic traditional dishes with the best modern street food.\n100% Fresh. 100% Flavor.",
-      cta: "Visit Us"
+      cta: "Visit Us",
+      ctaMenu: "Browse Menu",
+      ctaCall: "Call a Branch"
     },
     marquee: "🔥 NOW OPEN IN 5 LOCATIONS 🔥 THE HYPE IS REAL 🔥 100% FRESH 🔥 NOW OPEN IN 5 LOCATIONS 🔥 THE HYPE IS REAL 🔥 100% FRESH",
     gallery: {
@@ -71,12 +73,15 @@ export const locales = {
     locations: {
       title: "Where to find us",
       cta: "GET DIRECTIONS",
+      myBranch: "My Branch",
       copyPhone: "Copy phone number",
       copiedPhone: "Phone copied!",
       cities: {
         oran: "Oran",
         batna: "Batna",
         alger: "Algiers",
+        kouba: "Algiers",
+        sidiyahia: "Algiers",
         mostaganem: "Mostaganem"
       },
       subs: {
@@ -84,6 +89,7 @@ export const locales = {
         batna: "Center",
         kouba: "Kouba",
         sidiyahia: "Sidi Yahia",
+        mostaganem: "Salamandre",
         salamandre: "Salamandre"
       }
     },
@@ -166,7 +172,9 @@ export const locales = {
       title1: "أكثر من",
       title2: "مجرد بيتزا.",
       subtitle: "المطعم الرسمي لمراد أودية. من الأطباق التقليدية الأصيلة إلى أحدث وألذ نكهات الستريت فود.\n100% طازج. 100% بنّة.",
-      cta: "زورونا الآن"
+      cta: "زورونا الآن",
+      ctaMenu: "تصفح القائمة",
+      ctaCall: "اتصل بأقرب فرع"
     },
     marquee: "🔥 متواجدون الآن في 5 فروع 🔥 حماس حقيقي 🔥 100% فريش 🔥 متواجدون الآن في 5 فروع 🔥 حماس حقيقي 🔥 100% فريش",
     gallery: {
@@ -175,12 +183,15 @@ export const locales = {
     locations: {
       title: "فروعنا",
       cta: "الإتجاهات",
+      myBranch: "فرعي المفضل",
       copyPhone: "نسخ رقم الهاتف",
       copiedPhone: "تم نسخ الرقم!",
       cities: {
         oran: "وهران",
         batna: "باتنة",
         alger: "العاصمة",
+        kouba: "العاصمة",
+        sidiyahia: "العاصمة",
         mostaganem: "مستغانم"
       },
       subs: {
@@ -188,6 +199,7 @@ export const locales = {
         batna: "وسط المدينة",
         kouba: "القبة",
         sidiyahia: "سيدي يحيى",
+        mostaganem: "صلامندر",
         salamandre: "صلامندر"
       }
     },
@@ -270,7 +282,9 @@ export const locales = {
       title1: "BIEN PLUS QUE",
       title2: "DE LA PIZZA.",
       subtitle: "Le restaurant officiel de Morad Oudia. Un menu varié allant de la pure tradition aux saveurs modernes de la street food.\n100% Frais. 100% Goût.",
-      cta: "Rendez-nous visite"
+      cta: "Rendez-nous visite",
+      ctaMenu: "Voir le Menu",
+      ctaCall: "Appeler un Resto"
     },
     marquee: "🔥 DÉSORMAIS DANS 5 LIEUX 🔥 LA HYPE EST RÉELLE 🔥 100% FRAIS 🔥 DÉSORMAIS DANS 5 LIEUX 🔥 LA HYPE EST RÉELLE 🔥 100% FRAIS",
     gallery: {
@@ -279,12 +293,15 @@ export const locales = {
     locations: {
       title: "Où nous trouver",
       cta: "Y ALLER",
+      myBranch: "Mon Resto",
       copyPhone: "Copier le numéro",
       copiedPhone: "Numéro copié !",
       cities: {
         oran: "Oran",
         batna: "Batna",
         alger: "Alger",
+        kouba: "Alger",
+        sidiyahia: "Alger",
         mostaganem: "Mostaganem"
       },
       subs: {
@@ -292,6 +309,7 @@ export const locales = {
         batna: "Centre",
         kouba: "Kouba",
         sidiyahia: "Sidi Yahia",
+        mostaganem: "Salamandre",
         salamandre: "Salamandre"
       }
     },
