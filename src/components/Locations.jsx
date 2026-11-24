@@ -1,11 +1,11 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { MapPin, Phone, Copy, Check, ArrowUpRight } from 'lucide-react';
 import { LangContext } from './App.jsx';
 import { locales } from './locales.js';
 import branchesInfo from '../data/branches_info.json';
 import { getBranchStatus } from '../utils/businessHours.js';
 import { copyTextToClipboard } from '../utils/clipboard.js';
+import { trackEvent } from '../utils/analytics.js';
 
 export const Locations = ({ preferredBranchId, onSelectBranch }) => {
   const lang = useContext(LangContext);
@@ -35,6 +35,7 @@ export const Locations = ({ preferredBranchId, onSelectBranch }) => {
   const handleCopyPhone = async (e, branchId, phone) => {
     e.stopPropagation();
     onSelectBranch?.(branchId);
+    trackEvent('branch_copy_phone', { branch: branchId, source: 'locations' });
     const ok = await copyTextToClipboard(phone);
     if (!ok) return;
     if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
@@ -47,7 +48,7 @@ export const Locations = ({ preferredBranchId, onSelectBranch }) => {
   return (
     <section
       id="locations"
-      className="py-20 md:py-32 px-4 sm:px-6 md:px-12 bg-[#FFFDF5] border-b-3 border-black relative overflow-hidden"
+      className="scroll-mt-[76px] sm:scroll-mt-[84px] py-20 md:py-32 px-4 sm:px-6 md:px-12 bg-[#FFFDF5] border-b-3 border-black relative overflow-hidden"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto relative z-10">
@@ -56,9 +57,7 @@ export const Locations = ({ preferredBranchId, onSelectBranch }) => {
             {t.title}
           </h2>
           <p className="text-[#333333] text-sm sm:text-base font-medium max-w-md mx-auto">
-            {lang === 'ar'
-              ? 'تفضل بزيارة أقرب فرع لمطعم مو بيتزا في وهران، باتنة، العاصمة، ومستغانم!'
-              : 'Dégustez sur place, emportez ou appelez directement votre agence la plus proche.'}
+            {t.subtitle}
           </p>
           <div className="mt-3.5 inline-flex flex-wrap items-center justify-center gap-2">
             <span
@@ -135,6 +134,7 @@ export const Locations = ({ preferredBranchId, onSelectBranch }) => {
                         onClick={(e) => {
                           e.stopPropagation();
                           onSelectBranch?.(b.id);
+                          trackEvent('branch_call', { branch: b.id, source: 'locations' });
                         }}
                         className="inline-flex items-center gap-1.5 min-h-[44px] font-mono text-xs font-black px-2.5 sm:px-3.5 py-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] bg-mo-orange text-black hover:bg-white transition-all active:scale-95 whitespace-nowrap"
                         dir="ltr"
@@ -172,7 +172,11 @@ export const Locations = ({ preferredBranchId, onSelectBranch }) => {
                       href={b.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onSelectBranch?.(b.id);
+                        trackEvent('branch_directions', { branch: b.id, source: 'locations' });
+                      }}
                       className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-xl bg-white hover:bg-mo-orange text-black border-2 border-black shadow-[2px_2px_0px_#000] transition-colors shrink-0"
                       title={t.cta}
                       aria-label={`${t.cta} ${b.city}`}
@@ -204,6 +208,7 @@ export const Locations = ({ preferredBranchId, onSelectBranch }) => {
               href={selectedBranch.link}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('branch_directions', { branch: selectedBranch.id, source: 'map_cta' })}
               className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 min-h-[44px] bg-mo-orange text-black font-sans font-black uppercase text-xs sm:text-sm px-6 py-3.5 rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] hover:bg-mo-yellow transition-all flex items-center gap-2 cursor-pointer"
             >
               <MapPin size={16} aria-hidden="true" />

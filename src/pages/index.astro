@@ -1,28 +1,105 @@
 ---
 import '../components/index.css';
 import App from '../components/App.jsx';
+import branchesInfo from '../data/branches_info.json';
+
+const SITE_URL = 'https://mopizzarestaurants.vercel.app';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#organization`,
+      name: 'MO PIZZA',
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.svg`,
+      sameAs: ['https://www.instagram.com/mopizza.off']
+    },
+    ...branchesInfo.map((b) => {
+      const isAlgiers = b.id === 'kouba' || b.id === 'sidiyahia';
+      const branchName =
+        b.id === 'kouba'
+          ? 'Alger (Kouba)'
+          : b.id === 'sidiyahia'
+          ? 'Alger (Sidi Yahia)'
+          : b.id === 'batna'
+          ? 'Batna (Centre)'
+          : b.name;
+      const locality = isAlgiers ? 'Alger' : b.city;
+      const cleanDigits = b.phone.replace(/\s+/g, '');
+      const telephone = cleanDigits.startsWith('0')
+        ? `+213${cleanDigits.slice(1)}`
+        : cleanDigits;
+
+      return {
+        '@type': 'Restaurant',
+        '@id': `${SITE_URL}/#branch-${b.id}`,
+        name: `MO PIZZA — ${branchName}`,
+        url: SITE_URL,
+        image: `${SITE_URL}/images/og-image.jpg`,
+        telephone,
+        priceRange: '$$',
+        servesCuisine: ['Pizza', 'Street Food', 'Fast Casual'],
+        hasMap: b.mapsUrl,
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: b.lat,
+          longitude: b.lng
+        },
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: locality,
+          addressRegion: locality,
+          addressCountry: 'DZ'
+        },
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: [
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+              'Friday',
+              'Saturday',
+              'Sunday'
+            ],
+            opens: '11:30',
+            closes: '01:00'
+          }
+        ],
+        parentOrganization: {
+          '@id': `${SITE_URL}/#organization`
+        }
+      };
+    })
+  ]
+};
 ---
 
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://mopizzarestaurants.vercel.app/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
     <link rel="preload" href="/logo.svg" as="image" type="image/svg+xml" fetchpriority="high" />
     <link rel="preload" href="/images/hero_poster.webp" as="image" type="image/webp" fetchpriority="high" />
-    <meta name="description" content="MO PIZZA — The official pizza of Morad Oudia. Algeria's #1 Slice. 100% Fresh. 100% Hype." />
+    <meta name="description" content="MO PIZZA — Le restaurant officiel de Morad Oudia en Algérie. Retrouvez nos 5 agences à Alger, Oran, Batna et Mostaganem. 100% Pâte Fraîche Artisanale • 100% Benna." />
     <meta name="theme-color" content="#FF5A00" />
 
     <!-- Open Graph / WhatsApp / Facebook / Instagram -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mopizzarestaurants.vercel.app/" />
     <meta property="og:title" content="MO PIZZA | Le Restaurant Officiel de Morad Oudia" />
     <meta property="og:description" content="Bien plus que de la pizza. Retrouvez nos 5 agences à Alger, Oran, Batna et Mostaganem. 100% Pâte Fraîche Artisanale • 100% Benna." />
-    <meta property="og:image" content="/images/og-image.jpg" />
+    <meta property="og:image" content="https://mopizzarestaurants.vercel.app/images/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="MO PIZZA - Le Restaurant Officiel de Morad Oudia" />
@@ -35,10 +112,11 @@ import App from '../components/App.jsx';
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="MO PIZZA | Le Restaurant Officiel de Morad Oudia" />
     <meta name="twitter:description" content="Bien plus que de la pizza. Retrouvez nos 5 agences à Alger, Oran, Batna et Mostaganem." />
-    <meta name="twitter:image" content="/images/og-image.jpg" />
+    <meta name="twitter:image" content="https://mopizzarestaurants.vercel.app/images/og-image.jpg" />
 
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <meta name="generator" content={Astro.generator} />
-    <title>MO PIZZA | Algeria's #1 Slice</title>
+    <title>MO PIZZA | Le Restaurant Officiel de Morad Oudia</title>
   </head>
   <body>
     <App client:load />

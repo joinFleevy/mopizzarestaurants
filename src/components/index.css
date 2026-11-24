@@ -12,7 +12,7 @@
   --color-mo-card: #FFFFFF;
   --color-mo-card-hover: #FFFDF5;
   --color-mo-border: #111111;
-  
+
   --font-sans: "Outfit", "Cairo", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: "Bebas Neue", "Cairo", sans-serif;
 }
@@ -46,5 +46,105 @@ body {
   }
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* GPU-composited motion primitives */
+@keyframes mo-header-in {
+  from {
+    opacity: 0.92;
+    transform: translate3d(0, -12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes mo-fade-up {
+  from {
+    opacity: 0.92;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes mo-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes mo-modal-up {
+  from {
+    opacity: 0.9;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes mo-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mo-tray-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.mo-header-in {
+  animation: mo-header-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mo-fade-up {
+  animation: mo-fade-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mo-marquee-track {
+  animation: mo-marquee 34s linear infinite;
+  will-change: transform;
+}
+
+.mo-modal-up {
+  animation: mo-modal-up 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mo-backdrop-in {
+  animation: mo-backdrop-in 0.2s ease-out both;
+}
+
+.mo-tray-up {
+  animation: mo-tray-up 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mo-header-in,
+  .mo-fade-up,
+  .mo-marquee-track,
+  .mo-modal-up,
+  .mo-backdrop-in,
+  .mo-tray-up {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
   }
 }

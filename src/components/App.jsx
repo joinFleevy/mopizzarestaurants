@@ -2,6 +2,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { locales } from './locales.js';
 import branchesInfo from '../data/branches_info.json';
+import { initAnalytics } from '../utils/analytics.js';
 import { CartProvider, useCart } from './CartContext.jsx';
 import { Header } from './Header.jsx';
 import { Hero } from './Hero.jsx';
@@ -25,6 +26,7 @@ function MainApp() {
   const { isCartModalOpen, closeCart } = useCart();
 
   useEffect(() => {
+    initAnalytics();
     try {
       const saved = localStorage.getItem('mopizza_lang');
       if (saved && ['fr', 'ar', 'en'].includes(saved)) {
@@ -74,6 +76,12 @@ function MainApp() {
     setIsModalOpen(true);
   };
 
+  const handleQuickCallBranch = (branchId) => {
+    handleSelectBranch(branchId);
+    setSelectedOrderItem(null);
+    setIsModalOpen(true);
+  };
+
   const handleCloseOrder = () => {
     setIsModalOpen(false);
     setSelectedOrderItem(null);
@@ -85,14 +93,18 @@ function MainApp() {
   return (
     <LangContext.Provider value={lang}>
       <div
-        className="min-h-screen bg-[#FFFDF5] font-sans text-[#111111] selection:bg-mo-orange selection:text-black overflow-x-clip pb-16 md:pb-0 relative"
+        className="min-h-screen bg-[#FFFDF5] font-sans text-[#111111] selection:bg-mo-orange selection:text-black overflow-x-clip pb-20 md:pb-0 relative"
         dir={isRtl ? 'rtl' : 'ltr'}
       >
         <Header lang={lang} setLang={setLang} onOpenOrder={() => handleOpenOrder(null)} />
-        <Hero onOpenOrder={() => handleOpenOrder(null)} />
+        <Hero
+          onOpenOrder={() => handleOpenOrder(null)}
+          preferredBranchId={preferredBranchId}
+          onQuickCallBranch={handleQuickCallBranch}
+        />
         <Marquee />
         <MenuSection onSelectItem={(item) => handleOpenOrder(item)} />
-        <FoodShowcase />
+        <FoodShowcase onOpenOrder={() => handleOpenOrder(null)} />
         <Locations preferredBranchId={preferredBranchId} onSelectBranch={handleSelectBranch} />
         <Reviews />
         <Footer />

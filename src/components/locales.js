@@ -2,25 +2,38 @@ export const locales = {
   en: {
     nav: {
       brand: "MO PIZZA",
-      findBranch: "Find a Branch"
+      findBranch: "Find a Branch",
+      badge: "5 BRANCHES • DZ",
+      subtitle: "MORAD OUDIA'S OFFICIAL SPOT"
     },
     about: {
       title: "The Creator",
       text: "Mourad Oudia isn't just an Algerian YouTube legend—he's a visionary who brought his signature humor, energy, and uncompromised quality into the culinary world. From breaking the internet with his iconic sketches and podcasts to creating the ultimate dining experience, MO PIZZA is built on the same 100% fresh, 100% real hype that made him a star."
     },
     reviews: {
-      title: "What The Streets Say"
+      title: "What The Streets Say",
+      subtitle: "100% real reviews from our fans across Algiers, Oran, Batna, and Mostaganem.",
+      proofPill: "Verified diners • Algiers · Oran · Batna · Mostaganem",
+      verified: "VERIFIED DINER • DZ"
     },
     menu: {
       title: "Our Menu",
+      subtitle: "Fresh artisanal dough, house sauces, crispy sides, and chilled refreshments.",
+      howToOrder: ["1. Pick your items", "2. See DA total", "3. Call in 1 tap"],
       standard: "Classic Mo Pizzas",
       vip: "VIP Mo Pizzas",
+      vipTitle: "Morad's Signature Recipes",
+      vipSubtitle: "LEGENDARY FLAVOR-PACKED CREATIONS",
+      vipBadge: "VIP COLLECTION",
       ingredients: "Ingredients",
       callToOrder: "Call to Order",
+      callBranchBtn: "Call",
+      chooseCityTab: "Select your city to call:",
       selectBranch: "Select your branch to call & order:",
       callNow: "Call Direct",
       directions: "Directions",
       close: "Close",
+      clear: "Clear",
       categories: {
         all: "All Items",
         pizzas: "Pizzas",
@@ -28,7 +41,18 @@ export const locales = {
         drinks: "Drinks & Mojitos",
         desserts: "Desserts"
       },
+      counts: {
+        pizzas: "PIZZAS",
+        sides: "SIDES",
+        drinks: "DRINKS",
+        desserts: "DESSERTS"
+      },
+      badges: {
+        moradPick: "Morad's Pick",
+        bestSeller: "Best-Seller"
+      },
       addToOrder: "Add to Order",
+      addShort: "Add",
       added: "Added",
       orderTray: "Order Tray",
       total: "Total",
@@ -39,6 +63,11 @@ export const locales = {
       callBranchPrompt: "Call your nearest branch directly to dictate & confirm your order:",
       copyReceipt: "Copy Order Summary",
       copiedReceipt: "Order Copied to Clipboard!",
+      shareOrder: "Share",
+      sharedOrder: "Shared!",
+      receiptHeader: "MO PIZZA Order",
+      receiptFooter: "MO PIZZA Order — https://mopizzarestaurants.vercel.app/",
+      modalFooterNote: "100% FRESH ARTISANAL DOUGH",
       orDirectCall: "Or call branch without ordering items:",
       gridView: "Cards",
       listView: "Compact List",
@@ -59,19 +88,39 @@ export const locales = {
       locations: "Branches"
     },
     hero: {
+      badge: "MORAD OUDIA'S OFFICIAL RESTAURANT • 100% BENNA",
+      openStatusBadge: "MORAD OUDIA • 11:30 – 01:00",
+      quickCallLabel: "Direct call by branch:",
       title1: "MORE THAN",
       title2: "JUST PIZZA.",
       subtitle: "Morad Oudia's official restaurant. Serving a rich menu that blends authentic traditional dishes with the best modern street food.\n100% Fresh. 100% Flavor.",
       cta: "Visit Us",
       ctaMenu: "Browse Menu",
-      ctaCall: "Call a Branch"
+      ctaCall: "Call a Branch",
+      pauseVideo: "Pause video",
+      playVideo: "Play video"
     },
-    marquee: "🔥 NOW OPEN IN 5 LOCATIONS 🔥 THE HYPE IS REAL 🔥 100% FRESH 🔥 NOW OPEN IN 5 LOCATIONS 🔥 THE HYPE IS REAL 🔥 100% FRESH",
+    marquee: "✦ NOW OPEN IN 5 LOCATIONS ✦ THE HYPE IS REAL ✦ 100% FRESH ✦ NOW OPEN IN 5 LOCATIONS ✦ THE HYPE IS REAL ✦ 100% FRESH",
+    marqueeAccent: "✦ 100% BENNA ✦",
     gallery: {
-      title: "The Official Restaurant"
+      eyebrow: "THE CRAFT",
+      title: "The Official Restaurant",
+      subtitle: "48-hour fermented fresh dough, secret house sauces, and rich melted cheeses.",
+      ctaPrompt: "Craving a hot slice?",
+      ctaButton: "Call to Order Now",
+      badges: {
+        ambiance: "100% MO VIBE",
+        crust: "AIRY WOOD-FIRED CRUST",
+        cheese: "MELTED CHEESE",
+        feast: "48H FERMENTED DOUGH",
+        woodfired: "WOOD-FIRED BAKE",
+        chef: "MORAD'S RECIPES",
+        branches: "5 BRANCHES IN ALGERIA"
+      }
     },
     locations: {
       title: "Where to find us",
+      subtitle: "Dine in, take away, or call your nearest MO PIZZA branch directly.",
       cta: "GET DIRECTIONS",
       myBranch: "My Branch",
       copyPhone: "Copy phone number",
@@ -95,16 +144,14 @@ export const locales = {
     },
     footer: {
       brand: "MO PIZZA",
-      follow: "Follow @mopizza.off"
+      follow: "Follow @mopizza.off",
+      citiesBar: ["ORAN", "BATNA", "ALGIERS (KOUBA & SIDI YAHIA)", "MOSTAGANEM"],
+      copyright: "MO PIZZA • MORAD OUDIA'S OFFICIAL RESTAURANT • 100% بنة و 100% ضحك"
     },
     reviewsList: [
       { author: "Rania Chergui", rating: 5, text: "Honestly, one of the best pizzas I've tasted in Algiers. Top quality, reasonable prices, generous and authentic cheese. The dough is incredible, light and super tasty. Highly recommended!" },
-      { author: "Berkani Djaffar", rating: 4, text: "The pizzas were excellent, light and crispy dough. The place is very nice but the service is a bit slow on weekends when it's crowded. Still worth the wait." },
       { author: "Hania Goumidi", rating: 5, text: "Loved the welcome, the Oran-style pizza was delicious, and a perfect panozzo. The kids were very happy. The atmosphere is really great." },
-      { author: "Faycal Faycal", rating: 4, text: "A great spot to eat. The pizza is really good, the ingredients are fresh. The only downside is the indoor space which is a bit tight if you come in a large group." },
       { author: "Rym ASMR", rating: 5, text: "I highly recommend this pizza, delicious with a light dough and a generous, creamy topping. The team is super smiley and fast during the week." },
-      { author: "Salim Chouchane", rating: 4, text: "Very good experience overall. The quality of the dough is undeniable. I just wish there was a bit more choice of local drinks, but the food is perfect." },
-      { author: "Imed Bendjemila", rating: 4, text: "The dough is incredible, light and super tasty. Everything was excellent from start to finish, you can taste the real quality. It would be great to add more desserts to the menu!" },
       { author: "Zahouani Mohamed", rating: 5, text: "Clean place with a very pleasant staff. The pizza was excellent, exactly as it should be. A very nice discovery, I will definitely come back." },
       { author: "Zahra Debiche", rating: 4, text: "Best quality, best pizza in Oran for me. The taste is exceptional, however the wait can be a bit long during peak hours. Better to order in advance." }
     ]
@@ -112,25 +159,38 @@ export const locales = {
   ar: {
     nav: {
       brand: "MO PIZZA",
-      findBranch: "فروعنا"
+      findBranch: "فروعنا",
+      badge: "5 فروع • الجزائر",
+      subtitle: "المطعم الرسمي لمراد أودية"
     },
     about: {
       title: "المؤسس",
       text: "مراد أودية ليس مجرد أسطورة على يوتيوب في الجزائر، بل هو صاحب رؤية نقل طاقته وروحه المرحة وجودته التي لا تقبل المساومة إلى عالم الطبخ. من الفيديوهات التي حققت نجاحاً كبيراً إلى تقديم تجربة طعام استثنائية، تم بناء MO PIZZA بنفس الحماس والمكونات الطازجة التي جعلت منه نجماً."
     },
     reviews: {
-      title: "آراء زبائننا"
+      title: "آراء زبائننا",
+      subtitle: "أصدق الآراء من عشاق مو بيتزا في العاصمة، وهران، باتنة ومستغانم.",
+      proofPill: "تقييمات حقيقية • العاصمة · وهران · باتنة · مستغانم",
+      verified: "زبون موثق • الجزائر"
     },
     menu: {
       title: "قائمتنا",
+      subtitle: "عجين طازج يومياً، صلصات منزلية، مقبلات مقرمشة، ومشروبات باردة منعشة.",
+      howToOrder: ["1. اختر وجباتك", "2. احسب المجموع بالدينار", "3. اتصل بضغطة زر"],
       standard: "بيتزا مو كلاسيكية",
       vip: "بيتزا مو VIP",
+      vipTitle: "وصفات مراد أودية الخاصة",
+      vipSubtitle: "قمة البنة • إبداعات استثنائية",
+      vipBadge: "تشكيلة VIP",
       ingredients: "المكونات",
       callToOrder: "اتصل للطلب",
+      callBranchBtn: "اتصل بـ",
+      chooseCityTab: "اختر ولايتك للاتصال :",
       selectBranch: "اختر الفرع الأقرب للطلب والاتصال المباشر:",
       callNow: "اتصال مباشر",
       directions: "الاتجاهات",
       close: "إغلاق",
+      clear: "إفراغ",
       categories: {
         all: "كل القائمة",
         pizzas: "البيتزا",
@@ -138,7 +198,18 @@ export const locales = {
         drinks: "المشروبات والموهيتو",
         desserts: "التحليات"
       },
+      counts: {
+        pizzas: "بيتزا",
+        sides: "مقبلات",
+        drinks: "مشروبات",
+        desserts: "تحليات"
+      },
+      badges: {
+        moradPick: "اختيار مراد",
+        bestSeller: "الأكثر طلباً"
+      },
       addToOrder: "أضف للطلب",
+      addShort: "أضف",
       added: "تمت الإضافة",
       orderTray: "سلة الطلب",
       total: "المجموع",
@@ -149,6 +220,11 @@ export const locales = {
       callBranchPrompt: "اتصل مباشرة بالفرع لتلاوة طلبك وتأكيده فوراً:",
       copyReceipt: "نسخ تفاصيل الطلب",
       copiedReceipt: "تم نسخ الطلب في الحافظة!",
+      shareOrder: "مشاركة",
+      sharedOrder: "تمت المشاركة!",
+      receiptHeader: "طلب MO PIZZA",
+      receiptFooter: "طلب MO PIZZA — https://mopizzarestaurants.vercel.app/",
+      modalFooterNote: "100% عجين طازج يومياً",
       orDirectCall: "أو اتصل بالفرع مباشرة دون تحديد عناصر:",
       gridView: "بطاقات",
       listView: "قائمة سريعة",
@@ -169,19 +245,39 @@ export const locales = {
       locations: "فروعنا"
     },
     hero: {
+      badge: "المطعم الرسمي لمراد أودية • 100% بنة و 100% ضحك",
+      openStatusBadge: "مراد أودية • 11:30 – 01:00",
+      quickCallLabel: "اتصل مباشرة بفرعك :",
       title1: "أكثر من",
       title2: "مجرد بيتزا.",
       subtitle: "المطعم الرسمي لمراد أودية. من الأطباق التقليدية الأصيلة إلى أحدث وألذ نكهات الستريت فود.\n100% طازج. 100% بنّة.",
       cta: "زورونا الآن",
       ctaMenu: "تصفح القائمة",
-      ctaCall: "اتصل بأقرب فرع"
+      ctaCall: "اتصل بأقرب فرع",
+      pauseVideo: "إيقاف الفيديو مؤقتاً",
+      playVideo: "تشغيل الفيديو"
     },
-    marquee: "🔥 متواجدون الآن في 5 فروع 🔥 حماس حقيقي 🔥 100% فريش 🔥 متواجدون الآن في 5 فروع 🔥 حماس حقيقي 🔥 100% فريش",
+    marquee: "✦ متواجدون الآن في 5 فروع ✦ حماس حقيقي ✦ 100% فريش ✦ متواجدون الآن في 5 فروع ✦ حماس حقيقي ✦ 100% فريش",
+    marqueeAccent: "✦ 100% بنة ✦",
     gallery: {
-      title: "المطعم الرسمي"
+      eyebrow: "سر النكهة والجودة",
+      title: "المطعم الرسمي",
+      subtitle: "عجين طازج يتخمر 48 ساعة، صلصات سرية خاصة بمراد، وأجبان غنية تذوب في كل قضمة.",
+      ctaPrompt: "فتحت لك الشهية؟",
+      ctaButton: "اتصل للطلب الآن",
+      badges: {
+        ambiance: "أجواء مو بيتزا",
+        crust: "عجين خفيف ومقرمش",
+        cheese: "جبن غني وذائب",
+        feast: "تخمير 48 ساعة",
+        woodfired: "مخبوزة على الحطب",
+        chef: "وصفات مراد",
+        branches: "5 فروع في الجزائر"
+      }
     },
     locations: {
       title: "فروعنا",
+      subtitle: "تفضل بزيارة أقرب فرع لمطعم مو بيتزا في وهران، باتنة، العاصمة، ومستغانم!",
       cta: "الإتجاهات",
       myBranch: "فرعي المفضل",
       copyPhone: "نسخ رقم الهاتف",
@@ -205,42 +301,53 @@ export const locales = {
     },
     footer: {
       brand: "MO PIZZA",
-      follow: "تابعنا @mopizza.off"
+      follow: "تابعنا @mopizza.off",
+      citiesBar: ["وهران", "باتنة", "العاصمة (القبة وسيدي يحيى)", "مستغانم"],
+      copyright: "MO PIZZA • المطعم الرسمي لمراد أودية • 100% بنة و 100% ضحك"
     },
     reviewsList: [
-      { author: "Rania Chergui", rating: 5, text: "Franchement, une des meilleures pizzas que j’ai goûtées à Alger. Qualité au top, prix raisonnable, fromage original et généreux. La pâte est incroyable, légère et super bonne. Je recommande fortement !" },
-      { author: "Berkani Djaffar", rating: 4, text: "Les pizzas étaient excellentes, pâte légère et croustillante. L'endroit est très sympa mais le service est un peu lent le week-end quand il y a du monde. Ça vaut quand même le coup d'attendre." },
-      { author: "Hania Goumidi", rating: 5, text: "J'ai adoré l'accueil, pizza oranaise délicieuse, un panozzo parfait rien à dire. Les enfants étaient très contents. L'ambiance est vraiment au top." },
-      { author: "Faycal Faycal", rating: 4, text: "C'est un bon coin pour déguster. La pizza est vraiment très bonne, les ingrédients sont frais. Le seul bémol, c'est l'espace à l'intérieur qui est un peu restreint si vous venez en grand groupe." },
-      { author: "Rym ASMR", rating: 5, text: "Je recommande vivement cette pizza, délicieuse avec une pâte légère et une garniture généreuse et crémeuse. L'équipe est super souriante et rapide en semaine." },
-      { author: "Salim Chouchane", rating: 4, text: "Très bonne expérience dans l'ensemble. La qualité de la pâte est indéniable. J'aimerais juste qu'il y ait un peu plus de choix de boissons locales, mais la nourriture est parfaite." },
-      { author: "Imed Bendjemila", rating: 4, text: "La pâte est incroyable, légère et super bonne. Tout était excellent du début à la fin, on sent la vraie qualité. Ce serait génial d'ajouter plus de desserts au menu !" },
-      { author: "Zahouani Mohamed", rating: 5, text: "Endroit propre avec un personnel très agréable. La pizza était excellente, comme il se doit. Une très belle découverte, je reviendrai sûrement." },
-      { author: "Zahra Debiche", rating: 4, text: "Meilleure qualité, meilleure pizza à Oran pour moi. Le goût est exceptionnel, par contre l'attente peut être un peu longue aux heures de pointe. Mieux vaut commander à l'avance." }
+      { author: "Rania Chergui", rating: 5, text: "بصراحة، من أطيب البيتزات التي تذوقتها في العاصمة. جودة ممتازة، أسعار معقولة، وجبن أصلي وسخي. العجينة رائعة، خفيفة ولذيذة جداً. أنصح بها بشدة!" },
+      { author: "Hania Goumidi", rating: 5, text: "أعجبني الاستقبال كثيراً، بيتزا وهرانية لذيذة، وبانوزو مثالي لا غبار عليه. الأطفال كانوا سعداء جداً. الأجواء رائعة حقاً." },
+      { author: "Rym ASMR", rating: 5, text: "أنصح بشدة بهذه البيتزا، شهية بعجينة خفيفة وحشوة سخية وكريمية. الفريق بشوش جداً وسريع في الخدمة خلال أيام الأسبوع." },
+      { author: "Zahouani Mohamed", rating: 5, text: "مكان نظيف وطاقم عمل لطيف للغاية. البيتزا كانت ممتازة كما ينبغي أن تكون. اكتشاف جميل جداً، وسأعود بالتأكيد." },
+      { author: "Zahra Debiche", rating: 4, text: "أفضل جودة وأفضل بيتزا في وهران بالنسبة لي. المذاق استثنائي، لكن الانتظار قد يطول قليلاً في ساعات الذروة. من الأفضل الطلب مسبقاً." }
     ]
   },
   fr: {
     nav: {
       brand: "MO PIZZA",
-      findBranch: "Trouver un resto"
+      findBranch: "Trouver un resto",
+      badge: "5 RESTOS • DZ",
+      subtitle: "LE RESTO DE MORAD OUDIA"
     },
     about: {
       title: "Le Créateur",
       text: "Mourad Oudia n'est pas seulement une légende algérienne de YouTube—c'est un visionnaire qui a apporté son humour, son énergie et sa qualité sans compromis dans le monde culinaire. Des sketchs qui ont cassé l'internet jusqu'à la création d'une expérience culinaire incontournable, MO PIZZA est construite sur la même hype 100% fraîche et 100% réelle."
     },
     reviews: {
-      title: "Ce Que Dit La Rue"
+      title: "Ce Que Dit La Rue",
+      subtitle: "Des avis 100% réels de nos clients à Alger, Oran, Batna et Mostaganem.",
+      proofPill: "Avis vérifiés • Alger · Oran · Batna · Mostaganem",
+      verified: "CLIENT VÉRIFIÉ • DZ"
     },
     menu: {
       title: "Notre Menu",
+      subtitle: "Pâte fraîche artisanale, sauces maison, accompagnements croustillants et boissons fraîches.",
+      howToOrder: ["1. Choisissez vos plats", "2. Total calculé en DA", "3. Appelez en 1 clic"],
       standard: "Pizzas Mo Classiques",
       vip: "Pizzas Mo VIP",
+      vipTitle: "Les Recettes Signature de Morad",
+      vipSubtitle: "CRÉATIONS LÉGENDAIRES CHARGÉES EN SAVEURS",
+      vipBadge: "VIP COLLECTION",
       ingredients: "Ingrédients",
       callToOrder: "Commander",
+      callBranchBtn: "Appeler",
+      chooseCityTab: "Sélectionnez votre ville :",
       selectBranch: "Choisissez votre agence pour commander par téléphone :",
       callNow: "Appel Direct",
       directions: "Itinéraire",
       close: "Fermer",
+      clear: "Vider",
       categories: {
         all: "Tout le Menu",
         pizzas: "Pizzas",
@@ -248,7 +355,18 @@ export const locales = {
         drinks: "Boissons & Mojitos",
         desserts: "Desserts"
       },
+      counts: {
+        pizzas: "PIZZAS",
+        sides: "ACCOMPAGNEMENTS",
+        drinks: "BOISSONS",
+        desserts: "DESSERTS"
+      },
+      badges: {
+        moradPick: "Choix de Morad",
+        bestSeller: "Best-Seller"
+      },
       addToOrder: "Ajouter au panier",
+      addShort: "Ajouter",
       added: "Ajouté",
       orderTray: "Panier",
       total: "Total",
@@ -259,6 +377,11 @@ export const locales = {
       callBranchPrompt: "Appelez directement votre agence pour dicter et confirmer votre commande :",
       copyReceipt: "Copier la commande",
       copiedReceipt: "Commande copiée !",
+      shareOrder: "Partager",
+      sharedOrder: "Partagé !",
+      receiptHeader: "Commande MO PIZZA",
+      receiptFooter: "Commande MO PIZZA — https://mopizzarestaurants.vercel.app/",
+      modalFooterNote: "100% PÂTE FRAÎCHE ARTISANALE",
       orDirectCall: "Ou appeler sans sélection préalable :",
       gridView: "Cartes",
       listView: "Liste Rapide",
@@ -279,19 +402,39 @@ export const locales = {
       locations: "Agences"
     },
     hero: {
+      badge: "LE RESTO OFFICIEL DE MORAD OUDIA • 100% BENNA",
+      openStatusBadge: "MORAD OUDIA • 11H30 – 01H00",
+      quickCallLabel: "Appel direct par agence :",
       title1: "BIEN PLUS QUE",
       title2: "DE LA PIZZA.",
       subtitle: "Le restaurant officiel de Morad Oudia. Un menu varié allant de la pure tradition aux saveurs modernes de la street food.\n100% Frais. 100% Goût.",
       cta: "Rendez-nous visite",
       ctaMenu: "Voir le Menu",
-      ctaCall: "Appeler un Resto"
+      ctaCall: "Appeler un Resto",
+      pauseVideo: "Mettre la vidéo en pause",
+      playVideo: "Lire la vidéo"
     },
-    marquee: "🔥 DÉSORMAIS DANS 5 LIEUX 🔥 LA HYPE EST RÉELLE 🔥 100% FRAIS 🔥 DÉSORMAIS DANS 5 LIEUX 🔥 LA HYPE EST RÉELLE 🔥 100% FRAIS",
+    marquee: "✦ DÉSORMAIS DANS 5 LIEUX ✦ LA HYPE EST RÉELLE ✦ 100% FRAIS ✦ DÉSORMAIS DANS 5 LIEUX ✦ LA HYPE EST RÉELLE ✦ 100% FRAIS",
+    marqueeAccent: "✦ 100% BENNA ✦",
     gallery: {
-      title: "Le Restaurant Officiel"
+      eyebrow: "LE SAVOIR-FAIRE",
+      title: "Le Restaurant Officiel",
+      subtitle: "Pâte fraîche fermentée 48h, sauces secrètes et fromages fondants de Méditerranée.",
+      ctaPrompt: "Ça vous ouvre l'appétit ?",
+      ctaButton: "Commander par téléphone",
+      badges: {
+        ambiance: "100% AMBIANCE MO",
+        crust: "CROÛTE AÉRIENNE",
+        cheese: "FROMAGE FONDANT",
+        feast: "PÂTE FERMENTÉE 48H",
+        woodfired: "FEU DE BOIS",
+        chef: "RECETTES MORAD",
+        branches: "5 RESTOS EN ALGÉRIE"
+      }
     },
     locations: {
       title: "Où nous trouver",
+      subtitle: "Dégustez sur place, emportez ou appelez directement votre agence la plus proche.",
       cta: "Y ALLER",
       myBranch: "Mon Resto",
       copyPhone: "Copier le numéro",
@@ -315,16 +458,14 @@ export const locales = {
     },
     footer: {
       brand: "MO PIZZA",
-      follow: "Suivez @mopizza.off"
+      follow: "Suivez @mopizza.off",
+      citiesBar: ["ORAN", "BATNA", "ALGER (KOUBA & SIDI YAHIA)", "MOSTAGANEM"],
+      copyright: "MO PIZZA • LE RESTAURANT OFFICIEL DE MORAD OUDIA • 100% بنة و 100% ضحك"
     },
     reviewsList: [
       { author: "Rania Chergui", rating: 5, text: "Franchement, une des meilleures pizzas que j’ai goûtées à Alger. Qualité au top, prix raisonnable, fromage original et généreux. La pâte est incroyable, légère et super bonne. Je recommande fortement !" },
-      { author: "Berkani Djaffar", rating: 4, text: "Les pizzas étaient excellentes, pâte légère et croustillante. L'endroit est très sympa mais le service est un peu lent le week-end quand il y a du monde. Ça vaut quand même le coup d'attendre." },
       { author: "Hania Goumidi", rating: 5, text: "J'ai adoré l'accueil, pizza oranaise délicieuse, un panozzo parfait rien à dire. Les enfants étaient très contents. L'ambiance est vraiment au top." },
-      { author: "Faycal Faycal", rating: 4, text: "C'est un bon coin pour déguster. La pizza est vraiment très bonne, les ingrédients sont frais. Le seul bémol, c'est l'espace à l'intérieur qui est un peu restreint si vous venez en grand groupe." },
       { author: "Rym ASMR", rating: 5, text: "Je recommande vivement cette pizza, délicieuse avec une pâte légère et une garniture généreuse et crémeuse. L'équipe est super souriante et rapide en semaine." },
-      { author: "Salim Chouchane", rating: 4, text: "Très bonne expérience dans l'ensemble. La qualité de la pâte est indéniable. J'aimerais juste qu'il y ait un peu plus de choix de boissons locales, mais la nourriture est parfaite." },
-      { author: "Imed Bendjemila", rating: 4, text: "La pâte est incroyable, légère et super bonne. Tout était excellent du début à la fin, on sent la vraie qualité. Ce serait génial d'ajouter plus de desserts au menu !" },
       { author: "Zahouani Mohamed", rating: 5, text: "Endroit propre avec un personnel très agréable. La pizza était excellente, comme il se doit. Une très belle découverte, je reviendrai sûrement." },
       { author: "Zahra Debiche", rating: 4, text: "Meilleure qualité, meilleure pizza à Oran pour moi. Le goût est exceptionnel, par contre l'attente peut être un peu longue aux heures de pointe. Mieux vaut commander à l'avance." }
     ]

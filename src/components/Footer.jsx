@@ -24,6 +24,7 @@ export const Footer = () => {
   const lang = useContext(LangContext);
   const t = locales[lang].footer;
   const isRtl = lang === 'ar';
+  const citiesBar = t.citiesBar || ['ORAN', 'BATNA', 'ALGER (KOUBA & SIDI YAHIA)', 'MOSTAGANEM'];
 
   return (
     <footer
@@ -46,14 +47,13 @@ export const Footer = () => {
       </p>
 
       {/* 5 Cities Bar */}
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-8 text-xs sm:text-sm font-mono font-black tracking-wider text-mo-yellow uppercase z-10">
-        <span>ORAN</span>
-        <span>•</span>
-        <span>BATNA</span>
-        <span>•</span>
-        <span>ALGER (KOUBA & SIDI YAHIA)</span>
-        <span>•</span>
-        <span>MOSTAGANEM</span>
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-8 text-xs sm:text-sm font-mono font-black tracking-wider text-mo-yellow uppercase z-10 text-center">
+        {citiesBar.map((city, idx) => (
+          <React.Fragment key={city}>
+            {idx > 0 && <span aria-hidden="true">•</span>}
+            <span>{city}</span>
+          </React.Fragment>
+        ))}
       </div>
 
       <a
@@ -68,7 +68,7 @@ export const Footer = () => {
       </a>
 
       <div className="mt-14 text-xs font-mono text-white/70 uppercase tracking-wider z-10 text-center font-bold">
-        © {new Date().getFullYear()} MO PIZZA • LE RESTAURANT OFFICIEL DE MORAD OUDIA • 100% بنة و 100% ضحك
+        © {new Date().getFullYear()} {t.copyright}
       </div>
     </footer>
   );

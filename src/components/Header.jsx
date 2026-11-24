@@ -1,23 +1,18 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { PhoneCall, ShoppingBag } from 'lucide-react';
 import { locales } from './locales.js';
 import { useCart } from './CartContext.jsx';
 import { getBranchStatus } from '../utils/businessHours.js';
 
 export const Header = ({ lang, setLang, onOpenOrder }) => {
-  const shouldReduceMotion = useReducedMotion();
   const t = locales[lang];
   const isRtl = lang === 'ar';
   const { totalItems, totalPrice } = useCart();
   const { isOpen } = getBranchStatus();
 
   return (
-    <motion.header
-      initial={{ y: shouldReduceMotion ? 0 : -60, opacity: shouldReduceMotion ? 1 : 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="sticky top-0 z-50 bg-[#FFFDF5]/95 backdrop-blur-md border-b-3 border-black px-3 sm:px-8 py-2 sm:py-2.5 flex justify-between items-center transition-colors"
+    <header
+      className="mo-header-in sticky top-0 z-50 bg-[#FFFDF5]/95 backdrop-blur-md border-b-3 border-black px-3 sm:px-8 py-2 sm:py-2.5 flex justify-between items-center transition-colors"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       {/* Brand logo with Morad Oudia mascot */}
@@ -25,7 +20,7 @@ export const Header = ({ lang, setLang, onOpenOrder }) => {
         href="#"
         className="flex items-center gap-2.5 sm:gap-3 group focus-visible:outline-hidden"
       >
-        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-mo-orange border-2 border-black overflow-hidden shadow-[2px_2px_0px_#000] group-hover:scale-105 group-hover:rotate-3 transition-transform flex items-center justify-center shrink-0">
+        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-mo-orange border-2 border-black overflow-hidden group-hover:scale-105 group-hover:rotate-3 transition-transform flex items-center justify-center shrink-0">
           <img
             src="/logo.svg"
             alt="MO PIZZA Mascot"
@@ -40,20 +35,21 @@ export const Header = ({ lang, setLang, onOpenOrder }) => {
             <span className="text-2xl sm:text-3xl font-display uppercase tracking-wider text-[#111111] group-hover:text-mo-orange transition-colors leading-none">
               {t.nav.brand}
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono font-black tracking-wider uppercase bg-mo-yellow text-black px-2 py-0.5 rounded-md border-2 border-black shadow-[1px_1px_0px_#000]">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono font-black tracking-wider uppercase bg-mo-yellow text-black px-2.5 py-1 rounded-md border-2 border-black">
               <span className={`w-2 h-2 rounded-full border border-black ${isOpen ? 'bg-emerald-500' : 'bg-rose-500'}`} aria-hidden="true" />
-              <span>5 RESTOS • DZ</span>
+              <span>{t.nav.badge}</span>
             </span>
           </div>
           <span className="text-[11px] font-mono font-bold tracking-wider text-mo-orange uppercase hidden md:block">
-            LE RESTO DE MORAD OUDIA
+            {t.nav.subtitle}
           </span>
         </div>
       </a>
 
       <div className="flex items-center gap-3 sm:gap-4">
-        {/* Quick order CTA in header */}
+        {/* Quick order CTA in header (primary focal point with offset shadow) */}
         <button
+          type="button"
           onClick={onOpenOrder}
           className="hidden sm:inline-flex items-center gap-2 min-h-[44px] bg-mo-orange text-black font-sans font-black text-xs uppercase px-4 py-2.5 rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] hover:bg-mo-yellow hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#000] transition-all cursor-pointer active:scale-95"
         >
@@ -76,16 +72,17 @@ export const Header = ({ lang, setLang, onOpenOrder }) => {
         <div
           role="group"
           aria-label="Language selector"
-          className="flex bg-white text-black rounded-xl p-1 border-2 border-black shadow-[2px_2px_0px_#000] text-xs font-black"
+          className="flex bg-white text-black rounded-xl p-1 border-2 border-black text-xs font-black"
         >
           {['en', 'ar', 'fr'].map((l) => (
             <button
               key={l}
+              type="button"
               onClick={() => setLang(l)}
               aria-pressed={lang === l}
               className={`min-w-[44px] min-h-[44px] flex items-center justify-center px-2 rounded-lg transition-all text-xs uppercase tracking-wider font-black cursor-pointer ${
                 lang === l
-                  ? 'bg-mo-yellow text-black border-2 border-black shadow-[1px_1px_0px_#000]'
+                  ? 'bg-mo-yellow text-black border-2 border-black'
                   : 'text-black/60 hover:text-black border border-transparent'
               } focus-visible:outline-hidden`}
             >
@@ -94,6 +91,6 @@ export const Header = ({ lang, setLang, onOpenOrder }) => {
           ))}
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 };

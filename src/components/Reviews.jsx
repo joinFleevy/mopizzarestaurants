@@ -1,11 +1,9 @@
 import React, { useContext, useRef, useState, useEffect } from 'react';
-import { motion, useReducedMotion, useInView as framerMotionUseInView } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
 import { LangContext } from './App.jsx';
 import { locales } from './locales.js';
 
 export const Reviews = () => {
-  const shouldReduceMotion = useReducedMotion();
   const lang = useContext(LangContext);
   const isRtl = lang === 'ar';
   const t = locales[lang];
@@ -15,11 +13,39 @@ export const Reviews = () => {
 
   const scrollRef = useRef(null);
   const sectionRef = useRef(null);
-  const isInView = framerMotionUseInView(sectionRef, { margin: '200px' });
+  const [isInView, setIsInView] = useState(false);
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setShouldReduceMotion(media.matches);
+    const onChange = (e) => setShouldReduceMotion(e.matches);
+    if (media.addEventListener) {
+      media.addEventListener('change', onChange);
+      return () => media.removeEventListener('change', onChange);
+    }
+    media.addListener?.(onChange);
+    return () => media.removeListener?.(onChange);
+  }, []);
+
+  useEffect(() => {
+    const target = sectionRef.current;
+    if (!target || typeof IntersectionObserver === 'undefined') {
+      setIsInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { rootMargin: '200px' }
+    );
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let animationFrameId;
@@ -44,7 +70,7 @@ export const Reviews = () => {
       }
     };
 
-    if (isInView) {
+    if (isInView && !shouldReduceMotion) {
       animationFrameId = requestAnimationFrame(scroll);
     }
 
@@ -88,16 +114,28 @@ export const Reviews = () => {
     <section
       id="reviews"
       ref={sectionRef}
-      className="py-20 md:py-32 bg-[#FFFDF5] border-b-3 border-black overflow-hidden flex flex-col relative"
+      className="scroll-mt-[76px] sm:scroll-mt-[84px] py-20 md:py-32 bg-[#FFFDF5] border-b-3 border-black overflow-hidden flex flex-col relative"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       <div className="text-center mb-12 md:mb-16 px-4">
         <h2 className="text-6xl sm:text-7xl md:text-9xl font-display uppercase tracking-tight text-[#111111] mb-3">
-          {t.reviews?.title || (lang === 'ar' ? 'آراء زبائننا' : 'Ce Que Dit La Rue')}
+          {t.reviews?.title || 'Ce Que Dit La Rue'}
         </h2>
         <p className="text-[#333333] text-sm sm:text-base font-medium max-w-md mx-auto">
-          {lang === 'ar' ? 'أصدق الآراء من عشاق مو بيتزا في كل الولايات.' : 'Des avis 100% réels de nos clients à Alger, Oran, Batna et Mostaganem.'}
+          {t.reviews?.subtitle}
         </p>
+
+        {/* Clean 5-Star Social Proof Pill */}
+        {t.reviews?.proofPill && (
+          <div className="mt-4 inline-flex flex-wrap items-center justify-center gap-2 bg-[#FFF8E7] border-2 border-black rounded-full px-4 py-1.5 text-xs font-mono font-black uppercase text-black">
+            <span className="inline-flex text-mo-orange gap-0.5" aria-hidden="true">
+              {[...Array(5)].map((_, idx) => (
+                <Star key={idx} size={13} fill="currentColor" />
+              ))}
+            </span>
+            <span>{t.reviews.proofPill}</span>
+          </div>
+        )}
       </div>
 
       <div className="relative w-full z-10 overflow-hidden" dir="ltr">
@@ -120,7 +158,8 @@ export const Reviews = () => {
             {marqueeReviews.map((r, i) => (
               <div
                 key={i}
-                className="w-72 sm:w-88 md:w-96 p-7 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 h-[21rem] sm:h-[22rem] relative overflow-hidden bg-white border-3 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all"
+                dir={isRtl ? 'rtl' : 'ltr'}
+                className="w-72 sm:w-88 md:w-96 p-7 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 h-[21rem] sm:h-[22rem] relative overflow-hidden bg-white border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -141,18 +180,13 @@ export const Reviews = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t-2 border-black/10 flex items-center justify-between">
-                  <div>
-                    <h3 className="font-display uppercase text-lg text-[#111111] tracking-wider">
-                      {r.author}
-                    </h3>
-                    <span className="text-[11px] font-mono text-mo-orange font-black uppercase">
-                      CLIENT VÉRIFIÉ • DZ
-                    </span>
-                  </div>
-                  <div className="w-8 h-8 rounded-lg bg-mo-yellow border-2 border-black shadow-[1px_1px_0px_#000] flex items-center justify-center font-display text-sm text-black">
-                    MO
-                  </div>
+                <div className="pt-4 border-t-2 border-black/10">
+                  <h3 className="font-display uppercase text-lg text-[#111111] tracking-wider">
+                    {r.author}
+                  </h3>
+                  <span className="text-[11px] font-mono text-mo-orange font-black uppercase">
+                    {t.reviews?.verified || 'CLIENT VÉRIFIÉ • DZ'}
+                  </span>
                 </div>
               </div>
             ))}
